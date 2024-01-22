@@ -1,0 +1,492 @@
+RDBMS PROJECT 
+Qalakriti
+Github : Qalakriti-Ecommerce-DBMS	
+
+Targets	1
+Project Timeline & Evaluation	3
+Project: 30% [5*6]	3
+Continuous Evaluation Schedule:	3
+Late Submission Policy:	3
+Additional Notes:	3
+Evaluation Details:	3
+Tech Stack	5
+Deadline I: Project Scope	6
+Deadline II: Design of Conceptual Model of Your Project and Converting It to Relational Mode	8
+Rough	11
+Gpt ideas	12
+Distict features	12
+Other Projects	14
+Lakshay Bhaiya	14
+Aditi Didi	14
+Hiren Bhaiya	14
+Mehul Bhaiya	17
+Sid’s Previous proj.(For MySQL Connector Usage Examples :0 )	17
+Covid Vaccine Management System project example – business requirement (Mid-sem W22)	18
+Sangeet Talents Management System – business requirements (Mid-semW21)	20
+
+Targets
+Ideate and RDBMS Design
+Assignment 1
+ER Diag
+Tech Stack Decide
+Knowledge gain
+UI/UX Decide
+Backend 
+Frontend 
+Link Backend-Frontend
+Debug
+Final Project
+Documentation & Mission Successful
+Project Timeline & Evaluation
+Project: 30% [5*6]
+Continuous Evaluation Schedule:
+Project Scope for Business Requirements (Design of an online retail store, like Blinkit)
+Submission: Jan 15
+Evaluation: Jan 22
+Design of Conceptual Model of Your Project and Converting It to Relational Model
+Submission: Jan 25
+Evaluation: Feb 02
+Database Schema and Indexes Creation (with Integrity Constraints) and Data Insertion (Populate Simulated Data Satisfying the Constraints)
+Submission: Feb 09
+Evaluation: Feb 16
+Write and Execute at Least TEN SQL Queries Pertaining to Your Application Involving Various Relational Algebraic Operations Supporting the Application Features Involving Database Access and Manipulation.
+Submission: Feb 19
+Evaluation: Feb 23
+Write Applications (Embedded SQL in Your Favorite Programming Language) for 'Ordering the Items' and 'Inventory or Customer Analysis' and Define at Least TWO Triggers Which Checks the Database Conditions and Takes Appropriate Actions as Desired by Your Application.
+Submission: March 28
+Evaluation: April 05
+Write and Execute DB Transactions (Including Conflicting Ones) and Check the Effect on Your DB.
+Submission: April 12
+Evaluation: April 19
+Late Submission Policy:
+ONE mark will be deducted per (part of) day late submission.
+Additional Notes:
+For late evaluation by the tutor, please flag it to the TF immediately.
+Evaluation Details:
+The instructor will evaluate 5-20% of projects randomly at each stage and may change the marks given by the TA.
+
+
+Tech Stack
+Way0 [ Traditional Safest Easiest Eas,Nahi karna ;( ]
+Python [ CLI ]
+MySql
+
+Way 1[ Safest Easiest Webdev integration ,This is Fine ]
+Web Development with Python Tutorial – Flask & Dynamic Database-Driven Web Apps
+Python
+Flask
+MySQL
+Flask-MySQLdb
+Html
+Css
+Js
+
+Way 2 [ Bit more advanced but Fun,and maybe distinct from Class and too many custom features ] 
+How to Connect React JS With MySQL Database using Node.JS/Express.js
+ReactJS
+MySQL
+Node.js/Express.js
+
+
+
+Deadline I: Project Scope
+2022332_ 2022348_ 2022496
+Database Management Systems
+Deadline I: Project Scope
+
+Introduction
+Qalakriti: Bringing handcrafted excellence to your doorstep
+Meaning of Qalakriti: Qala means art, and Kriti means work.
+Overview: Qalakriti will be an e-commerce initiative spotlighting handcrafted treasures from various regions of India. We aspire to create a digital haven that preserves traditional craftsmanship while providing a platform for these talented individuals to share their unique stories and creations with the world. Qalakriti celebrates the cultural richness of India, offering a curated collection of handicrafts like textiles, pottery, and more.
+
+Objectives: 
+Building an efficient and reliable e-commerce website 
+Empowering craftsmen, especially those from underprivileged backgrounds
+Providing a wholistic customer experience
+Creating a user-friendly interface
+Creating a functioning and efficient database
+
+Features and Functionality:
+The primary features will be focused on the following target groups : 
+
+Administrator
+System Configuration and Maintenance: The administrator will oversee the overall system setup and ensure seamless functioning
+Access Controls and User Management: Admin will handle adding new registrations and manage what each user can access.
+Categorizing products: Admin will be responsible for organising products into different categories for enhanced navigation for customers.
+Discounts and offers: Admin can add/remove special limited period offers or discounts ( with the help of coupons or price reductions during a sale) on the purchase of specific items.
+Safe Payments and Order Processing: Ensuring secure payment transactions and managing order processing, including shipping and tracking.
+
+Craftsmen and businesses 
+Registration and deletion of account: Sellers like craftsmen and businesses can register or remove their brand from the website. They can then use this information to access their account by signing in.
+Product Management: Sellers can add, update, or delete their listed products as and when convenient.
+Revenue Collection: Craftsmen receive payment when customers purchase their products, with transactions facilitated by the administrator.
+Shipping: Craftsmen need to pack and ship products with the help of Admin.
+
+Customers
+Registration and deletion of account: Buyers need to register themselves with valid information to browse products and buy them. This account can be accessed by signing in. They may also choose to delete their accounts. 
+Product Browsing: Users can browse through the diverse range of products available on the platform and search for them using categories and a search bar.
+Payments and Purchasing: Users can use their bank accounts to make payments for their purchases.
+Item Reviews: Users have the ability to review purchased items. 
+Tracking order history: After placing an order, users may choose to track the delivery process or have a look at their previous order history.
+
+Planned Technologies:
+Frontend & Backend: HTML, CSS, Javascript, React, Python
+Database Management: MySQL
+
+Sources:
+ChatGpt: 
+Prompt used for generating introduction:  
+please write a small introduction explaining the concept for an e-commerce website focused on selling handicrafts made by people from different parts of India called Qalakriti in about 50-100 words. 
+Grammarly 
+
+Contributions:
+1. Nishchay Yadav: 2022332 - Ideation
+2. Pankhuri Singh: 2022348 - Ideation
+3. Siddhant Bali: 2022496 - Ideation
+
+
+
+
+
+
+
+Deadline II: Design of Conceptual Model of Your Project and Converting It to Relational Mode
+Certainly! Let's consider a more detailed and complex real-life RDBMS design for Qalakriti, an e-commerce platform focusing on handcrafted treasures from various regions of India.
+
+### Conceptual Model:
+
+1. **Entities:**
+   - **User:**
+     - Attributes: UserID (Primary Key), Username, Email, Password, UserType (Admin/Craftsman/Buyer), RegistrationDate
+   - **Address:**
+     - Attributes: AddressID (Primary Key), UserID (Foreign Key), Street, City, State, ZipCode
+   - **Product:**
+     - Attributes: ProductID (Primary Key), ProductName, Description, Price, StockQuantity, CategoryID (Foreign Key), CraftsmanID (Foreign Key), CreationDate
+   - **Category:**
+     - Attributes: CategoryID (Primary Key), CategoryName
+   - **Craftsman:**
+     - Attributes: CraftsmanID (Primary Key), CraftsmanName, ContactInfo, BusinessType
+   - **Order:**
+     - Attributes: OrderID (Primary Key), UserID (Foreign Key), OrderDate, TotalAmount, Status
+   - **OrderItem:**
+     - Attributes: OrderItemID (Primary Key), OrderID (Foreign Key), ProductID (Foreign Key), Quantity, Subtotal
+   - **Review:**
+     - Attributes: ReviewID (Primary Key), UserID (Foreign Key), ProductID (Foreign Key), Rating, Comment, ReviewDate
+
+2. **Relationships:**
+   - **User-Address Relationship:**
+     - One user can have multiple addresses. (One-to-Many)
+   - **Craftsman-Product Relationship:**
+     - One craftsman can produce multiple products. (One-to-Many)
+   - **User-Order Relationship:**
+     - One user can place multiple orders. (One-to-Many)
+   - **Product-Category Relationship:**
+     - One product belongs to one category, but one category can have multiple products. (Many-to-One)
+   - **Order-OrderItem Relationship:**
+     - One order can have multiple order items, and one order item belongs to one order. (One-to-Many)
+   - **Review-Product Relationship:**
+     - One product can have multiple reviews, but one review is for one product. (One-to-Many)
+
+### Relational Model:
+
+1. **User Table:**
+   - UserID (Primary Key)
+   - Username
+   - Email
+   - Password
+   - UserType
+   - RegistrationDate
+
+2. **Address Table:**
+   - AddressID (Primary Key)
+   - UserID (Foreign Key)
+   - Street
+   - City
+   - State
+   - ZipCode
+
+3. **Product Table:**
+   - ProductID (Primary Key)
+   - ProductName
+   - Description
+   - Price
+   - StockQuantity
+   - CategoryID (Foreign Key)
+   - CraftsmanID (Foreign Key)
+   - CreationDate
+
+4. **Category Table:**
+   - CategoryID (Primary Key)
+   - CategoryName
+
+5. **Craftsman Table:**
+   - CraftsmanID (Primary Key)
+   - CraftsmanName
+   - ContactInfo
+   - BusinessType
+
+6. **Order Table:**
+   - OrderID (Primary Key)
+   - UserID (Foreign Key)
+   - OrderDate
+   - TotalAmount
+   - Status
+
+7. **OrderItem Table:**
+   - OrderItemID (Primary Key)
+   - OrderID (Foreign Key)
+   - ProductID (Foreign Key)
+   - Quantity
+   - Subtotal
+
+8. **Review Table:**
+   - ReviewID (Primary Key)
+   - UserID (Foreign Key)
+   - ProductID (Foreign Key)
+   - Rating
+   - Comment
+   - ReviewDate
+
+
+This extended model includes more attributes such as address details for users, stock quantity for products, and creation dates for both products and reviews. It also maintains relationships between users and addresses, craftsmen and products, and users and reviews. The inclusion of timestamps (e.g., CreationDate, ReviewDate) adds temporal aspects to the model. This complex model is designed to capture various aspects of a real-life e-commerce platform like Qalakriti.
+
+Rough
+-Fraud detection
+-reoccuring orders
+Gpt ideas
+Distict features
+Certainly! To make the RDBMS project for an online retail store more unique, you can introduce specific features and optimizations in the database design. Here are some project-based ideas:
+
+1. **Real-Time Inventory Management:**
+   - Implement a robust inventory management system that provides real-time updates on product availability, helping prevent overselling and ensuring accurate stock levels.
+
+2. **Dynamic Pricing:**
+   - Integrate a dynamic pricing model that adjusts product prices based on factors such as demand, supply, and customer behavior. This can be achieved by maintaining historical pricing data and applying algorithms for dynamic pricing.
+
+3. **Multi-Vendor Marketplace:**
+   - Extend the database schema to support a multi-vendor marketplace, allowing various vendors to manage their product listings, inventory, and order fulfillment independently.
+
+4. **Localized Warehousing:**
+   - Optimize the database to support localized warehousing. This involves tracking inventory in different warehouses, allowing for efficient order fulfillment based on the customer's location.
+
+5. **Predictive Analytics for Trends:**
+   - Implement a data analytics component that analyzes customer behavior, purchase patterns, and market trends to provide insights into future product demands. This can help in planning inventory and marketing strategies.
+
+6. **Fraud Detection and Prevention:**
+   - Enhance security features by integrating fraud detection algorithms and monitoring suspicious activities to prevent fraudulent transactions.
+
+7. **Supply Chain Integration:**
+   - Connect the database with external systems to facilitate supply chain integration. This involves tracking the movement of products from manufacturers to warehouses to customers.
+
+8. **Augmented Reality Product Visualization:**
+   - If applicable, extend the database to support augmented reality features, allowing customers to visualize products in their real-world environment before making a purchase.
+
+9. **Intelligent Search and Filters:**
+   - Improve the search functionality by incorporating intelligent algorithms for product recommendations, auto-corrections, and advanced filtering options to enhance the user experience.
+
+10. **Cross-Channel Consistency:**
+    - Ensure consistency across various sales channels, including online platforms, mobile apps, and brick-and-mortar stores, by implementing a centralized database management system.
+
+11. **Customer Loyalty Program:**
+    - Design a loyalty program within the database, tracking customer purchases and rewarding them with points, discounts, or exclusive offers to encourage repeat business.
+
+12. **Mobile-First Approach:**
+    - Optimize the database and application design for mobile devices to provide a seamless and user-friendly shopping experience on smartphones and tablets.
+
+Remember to adapt these suggestions based on the specific requirements and constraints of your online retail store project.
+
+Other Projects
+Lakshay Bhaiya
+https://github.com/lakshaybhushan/CabCo-DBMS-Project	
+Aditi Didi
+https://github.com/aditiisaxena/FastFruits	
+Hiren Bhaiya
+https://github.com/Hiren-AK/Retail-Store-DBMS	
+
+
+It looks like you've provided a detailed description of the scope of work, an ER (Entity-Relationship) diagram, and a relational model for an online retail store named FastFruits. The information you've shared includes various entities, their attributes, and the relationships between them. Here's a brief summary of the key entities and their attributes based on the information provided:
+
+Entities:
+
+1. Customer
+   - cID (Customer ID)
+   - first_name
+   - middle_name
+   - last_name
+   - age
+   - gender
+   - phone_number
+   - street
+   - city
+   - state
+   - pincode
+   - language (nope)
+   - subscriptions
+
+2. Subscribe
+   - subID (Subscription ID)
+   - smID (Smoothie ID)
+   - slID (Salad ID)
+   - rID (Raw Fruits ID)
+   - started
+   - state
+
+3. Supplier
+   - sID (Supplier ID)
+   - first_name
+   - middle_name
+   - last_name
+   - phone_number
+   - street
+   - city
+   - state
+   - pincode
+   - dues
+   - listing_fee
+   - state (Inactive, Active, Part-time)
+
+4. Warehouse
+   - street
+   - city
+   - state
+   - pincode
+   - capacity
+   - mID (Manager ID)
+   - wID (Warehouse ID)
+
+5. DarkStore
+   - dID (Dark Store ID)
+   - pin_code
+   - smID (Smoothie ID)
+   - rID (Raw Fruits ID)
+   - capacity
+
+6. Fruits & Veggies
+   - fID (Fruit ID)
+   - name
+   - price
+   - quantity
+   - added_date
+   - expiration_date
+
+7. Salad
+   - sID (Salad ID)
+   - ingredients
+   - name
+   - price
+   - quantity
+   - added_date
+   - expiry_date
+
+8. Raw Fruits
+   - rID (Raw Fruits ID)
+   - fID (Fruit ID)
+   - name
+   - price
+   - quantity
+   - added_date
+   - expiry_date
+
+9. Smoothies
+   - smID (Smoothie ID)
+   - ingredients
+   - name
+   - price
+   - quantity
+   - added_date
+   - expiry_date
+
+10. Order
+    - oID (Order ID)
+    - cID (Customer ID)
+    - orderdate
+    - shippeddate
+    - amount
+    - mode_of_payment
+    - status
+
+11. Cart
+    - cID (Customer ID)
+    - rID (Raw Fruits ID)
+    - q1 (Quantity of Raw Fruits)
+    - smID (Smoothie ID)
+    - q2 (Quantity of Smoothies)
+    - slID (Salad ID)
+    - q3 (Quantity of Salads)
+
+Please note that there might be a typo in the attributes of the Customer entity where `{number}` is mentioned. It might be a placeholder, so you may want to replace it with the actual attribute name. Also, there is a repetition of `smID` in the DarkStore entity, which may need clarification or correction based on your specific requirements.
+
+
+Mehul Bhaiya 
+https://github.com/sociallyencrypted/StationaryShop
+Sid’s Previous proj.(For MySQL Connector Usage Examples :0 )
+https://github.com/kintsugi-programmer/PySQLMate	
+
+https://github.com/kintsugi-programmer/Cafe-RDBMS-Project	
+
+
+
+Covid Vaccine Management System project example – business requirement (Mid-sem W22)
+
+The GoI plans to build a DB for managing the information about procurement, distribution of vaccines and booking of
+appointments in hospitals. The dept procures vaccines from various vendors and then distributes them to local health
+centers for vaccinations to citizens. A citizen books an appointment in a hospital for vaccination.
+
+A citizen may choose the vaccination type (Covishield/Covaxin) and whether it is their first, second or booster shot [based on
+their vaccination status] while booking an appointment in a hospital. The citizen also chooses the date, time slot and a
+hospital (Hid, Hname, Hlocation, License number) they want to get vaccinated at. While booking an appointment, a citizen is
+required to give all personal information including Aadhaar number, name, date of birth, city, and a phone number. It may
+happen that some citizens may not appear on their scheduled appointment date/time. In this case, they need to rebook and
+get fresh appointments. Your database design should register the information whether a citizen appeared at the scheduled
+appointment date/time, and the current vaccination status of a citizen. The system calculates the age based on DOB and
+categorizes citizens as teenagers, adults and senior citizens for analysis. Only double vaccinated people in the third category
+can opt for a booster shot while the teenagers are not eligible for vaccination. Citizens may book vaccination appointments
+for multiple people.
+
+Since there are a sufficient number of vaccines in hospitals, CMO would like to get the status of vaccine inventory and how
+many folks are covered in their health center each day. If the inventory falls below a certain threshold, the CMO office will
+send a fresh order for the next supply. To make sure a citizen gets an appointment, the health center checks whether
+appointments are available before booking the appointment and updates the DB once the citizen gets an appointment.
+
+Vendors must register on the portal to sell vaccines to the GoI by entering details about the vendor, their organisation,
+details of type and number of vaccines available for sale, and vaccine price quotation. They must also upload a document to
+prove that they are authorized to sell vaccines. The GoI advertises for vendors via digital and print media.
+
+Vaccine requests by hospitals and applications from vendors are approved by GoI officials. The costs of vaccines sold by GoI
+to health centers and by health centers to the citizens are fixed. However, the GoI may have a mutual negotiation with
+vendors for different bulk rates. All information about the sale of vaccines to hospitals and procurement of vaccines from
+vendors is stored in the system.
+
+Sangeet Talents Management System – business requirements (Mid-semW21)
+highly popular ‘McM Sangeet company’ plans to organize a competition for searching the right talents to train them
+for creating music albums. The company advertises their recruitment requirements on different channels (both print and
+digital media) for inviting talents by submitting their personal information, prior experience, and a 2-5 minutes media
+file, which is of either an audio file (for songs) or a video (for songs and/or playing music instruments), to a given URL in
+the advertisement. The company writes in the advertisement that the shortlisted candidate will be informed by Phone
+and/or Email.
+
+A candidate can submit more than one entry and has an option to provide more than one phone number in the
+submission, which are unique to him/her.
+
+After the closing date of entry submission, a panel evaluates all entries and recommends a set of candidates to invite
+them for the next round. The company maintains the information about the panellist (personal information, industry
+experience, association with the McM company). A candidate can see the outcome of their application online.
+
+These shortlisted candidates are then invited to perform a ‘Live’ show in Mumbai and finally top ‘n’ candidates are
+selected in each album category (i.e. audio and video). These 2n candidates are called as the member of McM-2020.
+
+Different music groups (pop, classic, leisure, evergreen, …) are formed to create the music albums (audio/video). Every
+member belongs to one or more music group which is moderated by a director who himself/herself is a member of the
+group. Each member has a different role to play in each album.
+
+Once the album is created and approved by McM Director, its trailer is released online for limited time to the outsiders
+to give their comments (like and dislike), and all this recorded in the database (album name, date of release, number of
+visits, number of likes/dislikes, …).
+
+The McM decides the price of the album after analysing the data collected from its trailer release, and then the album is
+released to distributors who eventually will sell it online. Note, each distributor may be charged a different price per unit
+depending on the negotiation between the McM and distributor.
+
+When a distributor sells an album, the download request comes to the McM site. Thus, the McM company maintains the
+record for each download (Incoming URL – identifying the distributor, Album#, Date, Download Status – success/failure)
+so that they can track the number of downloads for raising the invoice.
