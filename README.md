@@ -67,9 +67,9 @@ The project aims to build an efficient and reliable e-commerce website, empoweri
 
 ## Contributors
 
-- [Nishchay Yadav (2022332)](#link-to-nishchay-github)
-- [Pankhuri Singh (2022348)](#link-to-pankhuri-github)
-- [Siddhant Bali (2022496)](#link-to-siddhant-github)
+- [Siddhant Bali](https://github.com/kintsugi-programmer)
+- [Pankhuri Singh](https://github.com/Pankhuri0824)
+- [Nishchay Yadav](https://github.com/Nishchayyadav)
 
 ## Getting Started
 
