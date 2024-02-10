@@ -1,3 +1,4 @@
+-- NEED NEW 
 INSERT INTO `User` (usrID, usrName, usrEmail, usrPassword, usrType, usrRegDate)
 VALUES
 (1, 'Rajesh Kumar', 'rajesh.kumar@example.com', 'password123', 'Customer', '2024-01-01'),

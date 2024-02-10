@@ -1,3 +1,5 @@
+-- NEED NEW 
+
 -- Query 1: Select all users and their addresses
 SELECT usr.*, addr.*
 FROM `User` usr

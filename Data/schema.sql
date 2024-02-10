@@ -1,3 +1,5 @@
+-- NEED NEW 
+
 DROP DATABASE IF EXISTS Qalakriti;
 CREATE DATABASE Qalakriti;
 USE Qalakriti;
