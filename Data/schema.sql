@@ -1,3 +1,9 @@
+-- run?
+-- mysql -u root -p < Data/schema.sql
+-- mysql -u root -p Qalakriti < Data/schema.sql
+
+-- relationship check
+
 DROP DATABASE IF EXISTS Qalakriti;
 
 CREATE DATABASE Qalakriti;

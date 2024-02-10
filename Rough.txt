@@ -490,3 +490,34 @@ depending on the negotiation between the McM and distributor.
 When a distributor sells an album, the download request comes to the McM site. Thus, the McM company maintains the
 record for each download (Incoming URL – identifying the distributor, Album#, Date, Download Status – success/failure)
 so that they can track the number of downloads for raising the invoice.
+defVar --name dbConnection --type DbConnection
+defVar --name affectedRows --type Numeric
+defVar --name databaseFile --type String
+defVar --name pathMyDocuments --type String
+
+// Gets the My Documents folder path.
+getSpecialFolder --folder "MyDocuments" pathMyDocuments=value
+
+// Assigns the 'sample.db' folder path to the 'databaseFile' variable.
+setVar --name "${databaseFile}" --value "${pathMyDocuments}\\sample.db"
+
+// Connects to the database management system (DBMS).
+sqliteConnect --connectionString "Data Source=${databaseFile};Version=3;UseUTF16Encoding=True;" dbConnection=connection
+
+// Runs the CREATE TABLE query.
+sqlExecute --connection ${dbConnection} --statement "CREATE TABLE sample_table(\r\n   sample_column TEXT,\r\n   identifier INTEGER,\r\n PRIMARY KEY(\"identifier\" AUTOINCREMENT)\r\n);" --timeout "00:00:05.2000000"
+
+// Runs the INSERT query.
+sqlExecute --connection ${dbConnection} --statement "INSERT INTO sample_table (sample_column) VALUES ('First text value');\r\nINSERT INTO sample_table ( sample_column) VALUES ('Second text value');" --timeout "00:00:05.2000000" affectedRows=value
+
+// Logs the number of rows affected by the INSERT query.
+logMessage --message "Inserting value: ${affectedRows}" --type "Info"
+
+// Runs the UPDATE query.
+sqlExecute --connection ${dbConnection} --statement "UPDATE sample_table\r\nSET sample_column = 'Changing the first text value'\r\nWHERE sample_column = 'First text value';" --timeout "5.18:53:20" affectedRows=value
+
+// Logs the number of rows affected by the UPDATE query.
+logMessage --message "Updating value: ${affectedRows}" --type "Info"
+
+// Ends the connection with the database.
+sqlDisconnect --connection ${dbConnection}
