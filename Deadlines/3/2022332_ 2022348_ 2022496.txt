@@ -2,8 +2,8 @@ Database Management Systems
 Deadline III: Database schema and Indexes creation
 -- Dev. Team 
 -- 1. Siddhant Bali: 2022496 - Schema and Data
--- 2. Nishchay Yadav: 2022332 - Ideation and Data
--- 3. Pankhuri Singh: 2022348 - Ideation
+-- 2. Nishchay Yadav: 2022332 - Ideation 
+-- 3. Pankhuri Singh: 2022348 - Ideation and Data
 
 -- Schema
 
