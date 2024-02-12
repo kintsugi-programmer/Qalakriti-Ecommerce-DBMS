@@ -1,4 +1,6 @@
 -- run?
+-- sql run? 
+-- mysql run trial ?
 -- mysql -u root -p < Data/schema.sql
 -- mysql -u root -p Qalakriti < Data/schema.sql
 

@@ -1,4 +1,5 @@
 -- Project Deadline-3 DBMS 
+-- drop eleminate 
 
 -- Dev. Team 
 -- 1. Siddhant Bali: 2022496 - Schema and Data
@@ -6,6 +7,7 @@
 -- 3. Pankhuri Singh: 2022348 - Ideation
 
 -- Schema
+-- 
 
 DROP DATABASE IF EXISTS Qalakriti;
 CREATE DATABASE Qalakriti;

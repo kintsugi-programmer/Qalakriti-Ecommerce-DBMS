@@ -1,0 +1,1131 @@
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ service mysql start
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ service mysql status
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset:>
+     Active: active (running) since Mon 2024-02-12 16:29:33 IST; 9s ago
+    Process: 30727 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=>
+   Main PID: 30735 (mysqld)
+     Status: "Server is operational"
+      Tasks: 38 (limit: 18445)
+     Memory: 369.0M
+        CPU: 540ms
+     CGroup: /system.slice/mysql.service
+             └─30735 /usr/sbin/mysqld
+
+Feb 12 16:29:33 balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE systemd[1]: Startin>
+Feb 12 16:29:33 balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE systemd[1]: Started>
+
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo systemctl stop mysql 
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get remove --purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Note, selecting 'mysql-server-core-5.5' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-5.6' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-5.7' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-8.0' for glob 'mysql-server-core-*'
+Package 'mysql-server-core-5.7' is not installed, so not removed
+Package 'mysql-server-core-5.5' is not installed, so not removed
+Package 'mysql-server-core-5.6' is not installed, so not removed
+Note, selecting 'mysql-client-core-5.5' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-5.6' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-5.7' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-8.0' for glob 'mysql-client-core-*'
+Package 'mysql-client-core-5.7' is not installed, so not removed
+Package 'mysql-client-core-5.5' is not installed, so not removed
+Package 'mysql-client-core-5.6' is not installed, so not removed
+Package 'mysql-client' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2
+  mecab-ipadic mecab-ipadic-utf8 mecab-utils ncurses-term
+  nvidia-firmware-535-535.129.03 openssh-sftp-server ssh-import-id
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  mysql-client-8.0* mysql-client-core-8.0* mysql-common* mysql-server*
+  mysql-server-8.0* mysql-server-core-8.0*
+0 upgraded, 0 newly installed, 6 to remove and 3 not upgraded.
+After this operation, 185 MB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 687299 files and directories currently installed.)
+Removing mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Removing mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-common (5.8+1.0.8) ...
+Removing mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Processing triggers for man-db (2.10.2-1) ...
+(Reading database ... 687085 files and directories currently installed.)
+Purging configuration files for mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Purging configuration files for mysql-common (5.8+1.0.8) ...
+dpkg: warning: while removing mysql-common, directory '/etc/mysql' not empty so not removed
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo rm -rf /etc/mysql /var/lib/mysql
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo userdel -r mysql
+sudo groupdel mysql
+userdel: mysql mail spool (/var/mail/mysql) not found
+userdel: mysql home directory (/nonexistent) not found
+groupdel: group 'mysql' does not exist
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo userdel -r mysql
+userdel: user 'mysql' does not exist
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo groupdel mysql
+groupdel: group 'mysql' does not exist
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get autoremove
+sudo apt-get autoclean
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2
+  mecab-ipadic mecab-ipadic-utf8 mecab-utils ncurses-term
+  nvidia-firmware-535-535.129.03 openssh-sftp-server ssh-import-id
+0 upgraded, 0 newly installed, 11 to remove and 3 not upgraded.
+After this operation, 122 MB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 687067 files and directories currently installed.)
+Removing libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Removing libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Removing libhtml-template-perl (2.97-1.1) ...
+Removing mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+update-alternatives: using /var/lib/mecab/dic/ipadic to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Removing mecab-ipadic (2.7.0-20070801+main-3) ...
+Removing mecab-utils (0.996-14build9) ...
+Removing libmecab2:amd64 (0.996-14build9) ...
+Removing ncurses-term (6.3-2ubuntu0.1) ...
+Removing nvidia-firmware-535-535.129.03 (535.129.03-0ubuntu0.22.04.1) ...
+Removing openssh-sftp-server (1:8.9p1-3ubuntu0.6) ...
+Removing ssh-import-id (5.11-0ubuntu1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.6) ...
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get autoclean
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get autoremove
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root
+bash: /usr/bin/mysql: No such file or directory
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ tldr tldr
+Cache is out of date. You should run "tldr --update"
+
+  tldr
+
+  Display simple help pages for command-line tools from the tldr-pages project.
+  Note: the --language and --list options are not required by the client specification, but most clients implement them.
+  More information: https://github.com/tldr-pages/tldr/blob/main/CLIENT-SPECIFICATION.md#command-line-interface.
+
+  - Print the tldr page for a specific command (hint: this is how you got here!):
+    tldr command
+
+  - Print the tldr page for a specific subcommand:
+    tldr command subcommand
+
+  - Print the tldr page for a command in the given [L]anguage (if available, otherwise fall back to English):
+    tldr --language language_code command
+
+  - Print the tldr page for a command from a specific [p]latform:
+    tldr --platform android|common|freebsd|linux|osx|netbsd|openbsd|sunos|windows command
+
+  - [u]pdate the local cache of tldr pages:
+    tldr --update
+
+  - List all pages for the current platform and common:
+    tldr --list
+
+
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ tldr mysql
+Cache is out of date. You should run "tldr --update"
+
+  mysql
+
+  The MySQL command-line tool.
+  More information: https://www.mysql.com/.
+
+  - Connect to a database:
+    mysql database_name
+
+  - Connect to a database, user will be prompted for a password:
+    mysql -u user --password database_name
+
+  - Connect to a database on another host:
+    mysql -h database_host database_name
+
+  - Connect to a database through a Unix socket:
+    mysql --socket path/to/socket.sock
+
+  - Execute SQL statements in a script file (batch file):
+    mysql -e "source filename.sql" database_name
+
+  - Restore a database from a backup created with mysqldump (user will be prompted for a password):
+    mysql --user user --password database_name < path/to/backup.sql
+
+  - Restore all databases from a backup (user will be prompted for a password):
+    mysql --user user --password < path/to/backup.sql
+
+
+See also: mysqldump
+
+
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ ^C
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ tldr mysql
+Cache is out of date. You should run "tldr --update"
+
+  mysql
+
+  The MySQL command-line tool.
+  More information: https://www.mysql.com/.
+
+  - Connect to a database:
+    mysql database_name
+
+  - Connect to a database, user will be prompted for a password:
+    mysql -u user --password database_name
+
+  - Connect to a database on another host:
+    mysql -h database_host database_name
+
+  - Connect to a database through a Unix socket:
+    mysql --socket path/to/socket.sock
+
+  - Execute SQL statements in a script file (batch file):
+    mysql -e "source filename.sql" database_name
+
+  - Restore a database from a backup created with mysqldump (user will be prompted for a password):
+    mysql --user user --password database_name < path/to/backup.sql
+
+  - Restore all databases from a backup (user will be prompted for a password):
+    mysql --user user --password < path/to/backup.sql
+
+
+See also: mysqldump
+^C
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt update
+[sudo] password for balinux:        
+Hit:1 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:2 http://packages.microsoft.com/repos/code stable InRelease                                                                                                                              
+Hit:3 https://brave-browser-apt-release.s3.brave.com stable InRelease                                                                                                                        
+Hit:4 http://archive.ubuntu.com/ubuntu jammy InRelease                                                                                                                                       
+Get:5 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]                                                                                                  
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]                                                                                                               
+Hit:7 https://download.sublimetext.com apt/stable/ InRelease                                                                                                                                 
+Hit:8 http://archive.ubuntu.com/ubuntu jammy-backports InRelease                                                                                                                             
+Hit:9 https://dl.google.com/linux/chrome/deb stable InRelease                                                                      
+Hit:10 https://packages.microsoft.com/repos/edge stable InRelease                                                                  
+Ign:11 http://packages.linuxmint.com victoria InRelease                                                      
+Hit:12 http://packages.linuxmint.com victoria Release                                                                                                                                        
+Fetched 229 kB in 6s (35.6 kB/s)                                                                                                                                                             
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+N: Skipping acquire of configured file 'main/binary-i386/Packages' as repository 'https://brave-browser-apt-release.s3.brave.com stable InRelease' doesn't support architecture 'i386'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt install mysql-server -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libipc-sharedcache-perl mailx tinyca
+The following NEW packages will be installed:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 13 newly installed, 0 to remove and 3 not upgraded.
+Need to get 28.7 MB of archives.
+After this operation, 241 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 mysql-common all 5.8+1.0.8 [7,212 B]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client-core-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [2,692 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [22.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libevent-core-2.1-7 amd64 2.1.12-stable-1build3 [93.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libevent-pthreads-2.1-7 amd64 2.1.12-stable-1build3 [7,642 B]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmecab2 amd64 0.996-14build9 [199 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server-core-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [17.5 MB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [1,437 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libhtml-template-perl all 2.97-1.1 [59.1 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-utils amd64 0.996-14build9 [4,850 B]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic all 2.7.0-20070801+main-3 [6,718 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic-utf8 all 2.7.0-20070801+main-3 [4,384 B]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server all 8.0.36-0ubuntu0.22.04.1 [9,460 B]                                                                          
+Fetched 28.7 MB in 7s (4,396 kB/s)                                                                                                                                                           
+Preconfiguring packages ...
+Selecting previously unselected package mysql-common.
+(Reading database ... 684123 files and directories currently installed.)
+Preparing to unpack .../0-mysql-common_5.8+1.0.8_all.deb ...
+Unpacking mysql-common (5.8+1.0.8) ...
+Selecting previously unselected package mysql-client-core-8.0.
+Preparing to unpack .../1-mysql-client-core-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package mysql-client-8.0.
+Preparing to unpack .../2-mysql-client-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libevent-core-2.1-7:amd64.
+Preparing to unpack .../3-libevent-core-2.1-7_2.1.12-stable-1build3_amd64.deb ...
+Unpacking libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Selecting previously unselected package libevent-pthreads-2.1-7:amd64.
+Preparing to unpack .../4-libevent-pthreads-2.1-7_2.1.12-stable-1build3_amd64.deb ...
+Unpacking libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Selecting previously unselected package libmecab2:amd64.
+Preparing to unpack .../5-libmecab2_0.996-14build9_amd64.deb ...
+Unpacking libmecab2:amd64 (0.996-14build9) ...
+Selecting previously unselected package mysql-server-core-8.0.
+Preparing to unpack .../6-mysql-server-core-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up mysql-common (5.8+1.0.8) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Selecting previously unselected package mysql-server-8.0.
+(Reading database ... 684336 files and directories currently installed.)
+Preparing to unpack .../0-mysql-server-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libhtml-template-perl.
+Preparing to unpack .../1-libhtml-template-perl_2.97-1.1_all.deb ...
+Unpacking libhtml-template-perl (2.97-1.1) ...
+Selecting previously unselected package mecab-utils.
+Preparing to unpack .../2-mecab-utils_0.996-14build9_amd64.deb ...
+Unpacking mecab-utils (0.996-14build9) ...
+Selecting previously unselected package mecab-ipadic.
+Preparing to unpack .../3-mecab-ipadic_2.7.0-20070801+main-3_all.deb ...
+Unpacking mecab-ipadic (2.7.0-20070801+main-3) ...
+Selecting previously unselected package mecab-ipadic-utf8.
+Preparing to unpack .../4-mecab-ipadic-utf8_2.7.0-20070801+main-3_all.deb ...
+Unpacking mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+Selecting previously unselected package mysql-server.
+Preparing to unpack .../5-mysql-server_8.0.36-0ubuntu0.22.04.1_all.deb ...
+Unpacking mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libmecab2:amd64 (0.996-14build9) ...
+Setting up mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libhtml-template-perl (2.97-1.1) ...
+Setting up mecab-utils (0.996-14build9) ...
+Setting up libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Setting up mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Setting up mecab-ipadic (2.7.0-20070801+main-3) ...
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: using /var/lib/mecab/dic/ipadic to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Setting up mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: using /var/lib/mecab/dic/ipadic-utf8 to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Setting up mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+update-alternatives: using /etc/mysql/mysql.cnf to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Renaming removed key_buffer and myisam-recover options (if present)
+Cannot stat file /proc/3148/fd/4: Permission denied
+Cannot stat file /proc/3148/fd/5: Permission denied
+Cannot stat file /proc/3148/fd/6: Permission denied
+Cannot stat file /proc/3148/fd/7: Permission denied
+Cannot stat file /proc/3148/fd/8: Permission denied
+Cannot stat file /proc/3148/fd/9: Permission denied
+Cannot stat file /proc/3148/fd/10: Permission denied
+Cannot stat file /proc/3148/fd/11: Permission denied
+Cannot stat file /proc/3148/fd/12: Permission denied
+Cannot stat file /proc/3148/fd/13: Permission denied
+Cannot stat file /proc/3148/fd/14: Permission denied
+Cannot stat file /proc/3148/fd/15: Permission denied
+Cannot stat file /proc/3148/fd/16: Permission denied
+Cannot stat file /proc/3148/fd/17: Permission denied
+Cannot stat file /proc/3148/fd/18: Permission denied
+Cannot stat file /proc/3148/fd/19: Permission denied
+Cannot stat file /proc/3148/fd/20: Permission denied
+Cannot stat file /proc/3148/fd/21: Permission denied
+Cannot stat file /proc/3148/fd/22: Permission denied
+Cannot stat file /proc/3148/fd/23: Permission denied
+Cannot stat file /proc/3148/fd/24: Permission denied
+Cannot stat file /proc/3148/fd/25: Permission denied
+Cannot stat file /proc/3148/fd/26: Permission denied
+Cannot stat file /proc/3148/fd/27: Permission denied
+Cannot stat file /proc/3148/fd/28: Permission denied
+Cannot stat file /proc/3148/fd/29: Permission denied
+Cannot stat file /proc/3148/fd/30: Permission denied
+Cannot stat file /proc/3148/fd/31: Permission denied
+Cannot stat file /proc/3148/fd/32: Permission denied
+Cannot stat file /proc/3148/fd/33: Permission denied
+Cannot stat file /proc/3148/fd/34: Permission denied
+Cannot stat file /proc/3148/fd/35: Permission denied
+Cannot stat file /proc/3148/fd/36: Permission denied
+Cannot stat file /proc/3148/fd/37: Permission denied
+Cannot stat file /proc/3148/fd/38: Permission denied
+Cannot stat file /proc/3148/fd/39: Permission denied
+Cannot stat file /proc/3148/fd/40: Permission denied
+Cannot stat file /proc/3148/fd/41: Permission denied
+Cannot stat file /proc/3148/fd/42: Permission denied
+Cannot stat file /proc/3148/fd/43: Permission denied
+Cannot stat file /proc/3148/fd/1023: Permission denied
+mysqld will log errors to /var/log/mysql/error.log
+mysqld is running as pid 42269
+Created symlink /etc/systemd/system/multi-user.target.wants/mysql.service → /lib/systemd/system/mysql.service.
+Setting up mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.6) ...
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt install mysql-server 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+mysql-server is already the newest version (8.0.36-0ubuntu0.22.04.1).
+0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded.
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get remove --purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Note, selecting 'mysql-server-core-5.5' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-5.6' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-5.7' for glob 'mysql-server-core-*'
+Note, selecting 'mysql-server-core-8.0' for glob 'mysql-server-core-*'
+Package 'mysql-server-core-5.7' is not installed, so not removed
+Package 'mysql-server-core-5.5' is not installed, so not removed
+Package 'mysql-server-core-5.6' is not installed, so not removed
+Note, selecting 'mysql-client-core-5.5' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-5.6' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-5.7' for glob 'mysql-client-core-*'
+Note, selecting 'mysql-client-core-8.0' for glob 'mysql-client-core-*'
+Package 'mysql-client-core-5.7' is not installed, so not removed
+Package 'mysql-client-core-5.5' is not installed, so not removed
+Package 'mysql-client-core-5.6' is not installed, so not removed
+Package 'mysql-client' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  mysql-client-8.0* mysql-client-core-8.0* mysql-common* mysql-server* mysql-server-8.0* mysql-server-core-8.0*
+0 upgraded, 0 newly installed, 6 to remove and 3 not upgraded.
+After this operation, 185 MB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 684440 files and directories currently installed.)
+Removing mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Removing mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Removing mysql-common (5.8+1.0.8) ...
+Removing mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Processing triggers for man-db (2.10.2-1) ...
+(Reading database ... 684226 files and directories currently installed.)
+Purging configuration files for mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Purging configuration files for mysql-common (5.8+1.0.8) ...
+dpkg: warning: while removing mysql-common, directory '/etc/mysql' not empty so not removed
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo rm -rf /etc/mysql /var/lib/mysql
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo userdel -r mysql
+userdel: mysql mail spool (/var/mail/mysql) not found
+userdel: mysql home directory (/nonexistent) not found
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo groupdel mysql
+groupdel: group 'mysql' does not exist
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get autoclean
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt-get autoremove
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils
+0 upgraded, 0 newly installed, 7 to remove and 3 not upgraded.
+After this operation, 55.8 MB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 684208 files and directories currently installed.)
+Removing libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Removing libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Removing libhtml-template-perl (2.97-1.1) ...
+Removing mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+update-alternatives: using /var/lib/mecab/dic/ipadic to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Removing mecab-ipadic (2.7.0-20070801+main-3) ...
+Removing mecab-utils (0.996-14build9) ...
+Removing libmecab2:amd64 (0.996-14build9) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.6) ...
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo apt install mysql-server
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common
+  mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libipc-sharedcache-perl mailx tinyca
+The following NEW packages will be installed:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libhtml-template-perl libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0 mysql-common mysql-server
+  mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 13 newly installed, 0 to remove and 3 not upgraded.
+Need to get 28.7 MB of archives.
+After this operation, 241 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 mysql-common all 5.8+1.0.8 [7,212 B]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client-core-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [2,692 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [22.7 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libevent-core-2.1-7 amd64 2.1.12-stable-1build3 [93.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libevent-pthreads-2.1-7 amd64 2.1.12-stable-1build3 [7,642 B]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmecab2 amd64 0.996-14build9 [199 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server-core-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [17.5 MB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server-8.0 amd64 8.0.36-0ubuntu0.22.04.1 [1,437 kB]                                                                    
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libhtml-template-perl all 2.97-1.1 [59.1 kB]                                                                                         
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-utils amd64 0.996-14build9 [4,850 B]                                                                                          
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic all 2.7.0-20070801+main-3 [6,718 kB]                                                                                   
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 mecab-ipadic-utf8 all 2.7.0-20070801+main-3 [4,384 B]                                                                               
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-server all 8.0.36-0ubuntu0.22.04.1 [9,460 B]                                                                          
+Fetched 28.7 MB in 8s (3,562 kB/s)                                                                                                                                                           
+Preconfiguring packages ...
+Selecting previously unselected package mysql-common.
+(Reading database ... 684123 files and directories currently installed.)
+Preparing to unpack .../0-mysql-common_5.8+1.0.8_all.deb ...
+Unpacking mysql-common (5.8+1.0.8) ...
+Selecting previously unselected package mysql-client-core-8.0.
+Preparing to unpack .../1-mysql-client-core-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package mysql-client-8.0.
+Preparing to unpack .../2-mysql-client-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libevent-core-2.1-7:amd64.
+Preparing to unpack .../3-libevent-core-2.1-7_2.1.12-stable-1build3_amd64.deb ...
+Unpacking libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Selecting previously unselected package libevent-pthreads-2.1-7:amd64.
+Preparing to unpack .../4-libevent-pthreads-2.1-7_2.1.12-stable-1build3_amd64.deb ...
+Unpacking libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Selecting previously unselected package libmecab2:amd64.
+Preparing to unpack .../5-libmecab2_0.996-14build9_amd64.deb ...
+Unpacking libmecab2:amd64 (0.996-14build9) ...
+Selecting previously unselected package mysql-server-core-8.0.
+Preparing to unpack .../6-mysql-server-core-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up mysql-common (5.8+1.0.8) ...
+update-alternatives: using /etc/mysql/my.cnf.fallback to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Selecting previously unselected package mysql-server-8.0.
+(Reading database ... 684336 files and directories currently installed.)
+Preparing to unpack .../0-mysql-server-8.0_8.0.36-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libhtml-template-perl.
+Preparing to unpack .../1-libhtml-template-perl_2.97-1.1_all.deb ...
+Unpacking libhtml-template-perl (2.97-1.1) ...
+Selecting previously unselected package mecab-utils.
+Preparing to unpack .../2-mecab-utils_0.996-14build9_amd64.deb ...
+Unpacking mecab-utils (0.996-14build9) ...
+Selecting previously unselected package mecab-ipadic.
+Preparing to unpack .../3-mecab-ipadic_2.7.0-20070801+main-3_all.deb ...
+Unpacking mecab-ipadic (2.7.0-20070801+main-3) ...
+Selecting previously unselected package mecab-ipadic-utf8.
+Preparing to unpack .../4-mecab-ipadic-utf8_2.7.0-20070801+main-3_all.deb ...
+Unpacking mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+Selecting previously unselected package mysql-server.
+Preparing to unpack .../5-mysql-server_8.0.36-0ubuntu0.22.04.1_all.deb ...
+Unpacking mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libmecab2:amd64 (0.996-14build9) ...
+Setting up mysql-client-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libhtml-template-perl (2.97-1.1) ...
+Setting up mecab-utils (0.996-14build9) ...
+Setting up libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Setting up mysql-client-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) ...
+Setting up mecab-ipadic (2.7.0-20070801+main-3) ...
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: using /var/lib/mecab/dic/ipadic to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Setting up mysql-server-core-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+Setting up mecab-ipadic-utf8 (2.7.0-20070801+main-3) ...
+Compiling IPA dictionary for Mecab.  This takes long time...
+reading /usr/share/mecab/dic/ipadic/unk.def ... 40
+emitting double-array: 100% |###########################################| 
+/usr/share/mecab/dic/ipadic/model.def is not found. skipped.
+reading /usr/share/mecab/dic/ipadic/Symbol.csv ... 208
+reading /usr/share/mecab/dic/ipadic/Postp-col.csv ... 91
+reading /usr/share/mecab/dic/ipadic/Auxil.csv ... 199
+reading /usr/share/mecab/dic/ipadic/Verb.csv ... 130750
+reading /usr/share/mecab/dic/ipadic/Suffix.csv ... 1393
+reading /usr/share/mecab/dic/ipadic/Noun.demonst.csv ... 120
+reading /usr/share/mecab/dic/ipadic/Interjection.csv ... 252
+reading /usr/share/mecab/dic/ipadic/Adj.csv ... 27210
+reading /usr/share/mecab/dic/ipadic/Noun.nai.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Filler.csv ... 19
+reading /usr/share/mecab/dic/ipadic/Others.csv ... 2
+reading /usr/share/mecab/dic/ipadic/Conjunction.csv ... 171
+reading /usr/share/mecab/dic/ipadic/Noun.place.csv ... 72999
+reading /usr/share/mecab/dic/ipadic/Noun.verbal.csv ... 12146
+reading /usr/share/mecab/dic/ipadic/Noun.proper.csv ... 27328
+reading /usr/share/mecab/dic/ipadic/Noun.adverbal.csv ... 795
+reading /usr/share/mecab/dic/ipadic/Prefix.csv ... 221
+reading /usr/share/mecab/dic/ipadic/Noun.number.csv ... 42
+reading /usr/share/mecab/dic/ipadic/Postp.csv ... 146
+reading /usr/share/mecab/dic/ipadic/Noun.others.csv ... 151
+reading /usr/share/mecab/dic/ipadic/Noun.csv ... 60477
+reading /usr/share/mecab/dic/ipadic/Adnominal.csv ... 135
+reading /usr/share/mecab/dic/ipadic/Adverb.csv ... 3032
+reading /usr/share/mecab/dic/ipadic/Noun.org.csv ... 16668
+reading /usr/share/mecab/dic/ipadic/Noun.name.csv ... 34202
+reading /usr/share/mecab/dic/ipadic/Noun.adjv.csv ... 3328
+emitting double-array: 100% |###########################################| 
+reading /usr/share/mecab/dic/ipadic/matrix.def ... 1316x1316
+emitting matrix      : 100% |###########################################| 
+
+done!
+update-alternatives: using /var/lib/mecab/dic/ipadic-utf8 to provide /var/lib/mecab/dic/debian (mecab-dictionary) in auto mode
+Setting up mysql-server-8.0 (8.0.36-0ubuntu0.22.04.1) ...
+update-alternatives: using /etc/mysql/mysql.cnf to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Renaming removed key_buffer and myisam-recover options (if present)
+Cannot stat file /proc/3148/fd/4: Permission denied
+Cannot stat file /proc/3148/fd/5: Permission denied
+Cannot stat file /proc/3148/fd/6: Permission denied
+Cannot stat file /proc/3148/fd/7: Permission denied
+Cannot stat file /proc/3148/fd/8: Permission denied
+Cannot stat file /proc/3148/fd/9: Permission denied
+Cannot stat file /proc/3148/fd/10: Permission denied
+Cannot stat file /proc/3148/fd/11: Permission denied
+Cannot stat file /proc/3148/fd/12: Permission denied
+Cannot stat file /proc/3148/fd/13: Permission denied
+Cannot stat file /proc/3148/fd/14: Permission denied
+Cannot stat file /proc/3148/fd/15: Permission denied
+Cannot stat file /proc/3148/fd/16: Permission denied
+Cannot stat file /proc/3148/fd/17: Permission denied
+Cannot stat file /proc/3148/fd/18: Permission denied
+Cannot stat file /proc/3148/fd/19: Permission denied
+Cannot stat file /proc/3148/fd/20: Permission denied
+Cannot stat file /proc/3148/fd/21: Permission denied
+Cannot stat file /proc/3148/fd/22: Permission denied
+Cannot stat file /proc/3148/fd/23: Permission denied
+Cannot stat file /proc/3148/fd/24: Permission denied
+Cannot stat file /proc/3148/fd/25: Permission denied
+Cannot stat file /proc/3148/fd/26: Permission denied
+Cannot stat file /proc/3148/fd/27: Permission denied
+Cannot stat file /proc/3148/fd/28: Permission denied
+Cannot stat file /proc/3148/fd/29: Permission denied
+Cannot stat file /proc/3148/fd/30: Permission denied
+Cannot stat file /proc/3148/fd/31: Permission denied
+Cannot stat file /proc/3148/fd/32: Permission denied
+Cannot stat file /proc/3148/fd/33: Permission denied
+Cannot stat file /proc/3148/fd/34: Permission denied
+Cannot stat file /proc/3148/fd/35: Permission denied
+Cannot stat file /proc/3148/fd/36: Permission denied
+Cannot stat file /proc/3148/fd/37: Permission denied
+Cannot stat file /proc/3148/fd/38: Permission denied
+Cannot stat file /proc/3148/fd/39: Permission denied
+Cannot stat file /proc/3148/fd/40: Permission denied
+Cannot stat file /proc/3148/fd/41: Permission denied
+Cannot stat file /proc/3148/fd/42: Permission denied
+Cannot stat file /proc/3148/fd/43: Permission denied
+Cannot stat file /proc/3148/fd/1023: Permission denied
+mysqld will log errors to /var/log/mysql/error.log
+mysqld is running as pid 44413
+Created symlink /etc/systemd/system/multi-user.target.wants/mysql.service → /lib/systemd/system/mysql.service.
+Setting up mysql-server (8.0.36-0ubuntu0.22.04.1) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.6) ...
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ ^C
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ ^C
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo systemctl status mysql
+● mysql.service - MySQL Community Server
+     Loaded: loaded (/lib/systemd/system/mysql.service; enabled; vendor preset: enabled)
+     Active: active (running) since Mon 2024-02-12 17:00:11 IST; 2min 37s ago
+    Process: 44639 ExecStartPre=/usr/share/mysql/mysql-systemd-start pre (code=exited, status=0/SUCCESS)
+   Main PID: 44647 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 18445)
+     Memory: 365.6M
+        CPU: 1.736s
+     CGroup: /system.slice/mysql.service
+             └─44647 /usr/sbin/mysqld
+
+Feb 12 17:00:10 balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE systemd[1]: Starting MySQL Community Server...
+Feb 12 17:00:11 balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE systemd[1]: Started MySQL Community Server.
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql
+ERROR 1045 (28000): Access denied for user 'balinux'@'localhost' (using password: NO)
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> ^C
+mysql> LS
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LS' at line 1
+mysql> mysql -e "/home/balinux/VSCProjects/Qalakriti/Data/Q.sql" Qalakriti;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql -e "/home/balinux/VSCProjects/Qalakriti/Data/Q.sql" Qalakriti' at line 1
+mysql> exit
+Bye
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ !!
+mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1049 (42000): Unknown database 'Qalakriti'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE Qalakriti;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> exit
+Bye
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1064 (42000) at line 46: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY (`prodID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ' at line 12
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1064 (42000) at line 45: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY (`prodID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ' at line 12
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1064 (42000) at line 60: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(`catID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8m' at line 4
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1064 (42000) at line 69: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(`craftID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf' at line 7
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+ERROR 1452 (23000) at line 156: Cannot add or update a child row: a foreign key constraint fails (`Qalakriti`.`Product`, CONSTRAINT `Product_ibfk_2` FOREIGN KEY (`craftID`) REFERENCES `Craftsman` (`craftID`))
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 21
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Qalakriti          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select database Qalakriti;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Qalakriti' at line 1
+mysql> exit
+Bye
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| Qalakriti          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE Qalakriti;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_Qalakriti |
++---------------------+
+| Address             |
+| Category            |
+| Craftsman           |
+| Order               |
+| OrderItem           |
+| Product             |
+| Review              |
+| User                |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> DESCRIBE User;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| usrID        | int          | NO   | PRI | NULL    | auto_increment |
+| usrName      | varchar(255) | NO   |     | NULL    |                |
+| usrEmail     | varchar(255) | NO   | UNI | NULL    |                |
+| usrPassword  | varchar(255) | NO   |     | NULL    |                |
+| usrType      | varchar(50)  | NO   |     | NULL    |                |
+| usrRegDate   | date         | NO   |     | NULL    |                |
+| usrMobNumber | bigint       | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> DESCRIBE Address;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| addrID      | int          | NO   | PRI | NULL    | auto_increment |
+| usrID       | int          | NO   | MUL | NULL    |                |
+| addrStreet  | varchar(255) | NO   |     | NULL    |                |
+| addrCity    | varchar(255) | NO   |     | NULL    |                |
+| addrState   | varchar(255) | NO   |     | NULL    |                |
+| addrZipCode | varchar(20)  | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> DESCRIBE Product;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| prodID         | int           | NO   | PRI | NULL    | auto_increment |
+| prodName       | varchar(255)  | NO   |     | NULL    |                |
+| prodDesc       | text          | YES  |     | NULL    |                |
+| prodPrice      | decimal(10,2) | NO   |     | NULL    |                |
+| prodStock      | int           | NO   |     | NULL    |                |
+| catID          | int           | YES  | MUL | NULL    |                |
+| craftID        | int           | YES  | MUL | NULL    |                |
+| prodCreateDate | date          | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> DESCRIBE Category;  
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| catID   | int          | NO   | PRI | NULL    | auto_increment |
+| catName | varchar(255) | NO   |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> DESCRIBE Craftsman;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| craftID        | int          | NO   | PRI | NULL    | auto_increment |
+| craftName      | varchar(255) | NO   |     | NULL    |                |
+| craftMobNumber | bigint       | YES  |     | NULL    |                |
+| craftEmail     | varchar(255) | YES  |     | NULL    |                |
+| craftBusType   | varchar(255) | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE `Order`;
++-------------+---------------+------+-----+---------+----------------+
+| Field       | Type          | Null | Key | Default | Extra          |
++-------------+---------------+------+-----+---------+----------------+
+| ordID       | int           | NO   | PRI | NULL    | auto_increment |
+| usrID       | int           | NO   | MUL | NULL    |                |
+| ordDate     | date          | NO   |     | NULL    |                |
+| ordTotalAmt | decimal(10,2) | NO   |     | NULL    |                |
+| ordStatus   | varchar(50)   | NO   |     | NULL    |                |
++-------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE OrderItem;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| itemID       | int           | NO   | PRI | NULL    | auto_increment |
+| ordID        | int           | NO   | MUL | NULL    |                |
+| prodID       | int           | NO   | MUL | NULL    |                |
+| itemQty      | int           | NO   |     | NULL    |                |
+| itemSubtotal | decimal(10,2) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE Review;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| revID      | int          | NO   | PRI | NULL    | auto_increment |
+| usrID      | int          | NO   | MUL | NULL    |                |
+| prodID     | int          | NO   | MUL | NULL    |                |
+| revRating  | int          | NO   |     | NULL    |                |
+| revComment | varchar(255) | NO   |     | NULL    |                |
+| revDate    | date         | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM User;
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+| usrID | usrName        | usrEmail                  | usrPassword | usrType  | usrRegDate | usrMobNumber |
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+|     1 | Siddhant Bali  | siddhant22496@iiitd.ac.in | balinux     | admin    | 2024-01-01 |   8076218888 |
+|     2 | Nishchay Yadav | nischay22332@iiitd.ac.in  | nischay     | customer | 2024-01-01 |   1234123412 |
+|     3 | Pankhuri Singh | pankhuri22348@iiitd.ac.in | singh       | customer | 2020-01-01 |   1010101010 |
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Address;
++--------+-------+------------+------------+-----------+-------------+
+| addrID | usrID | addrStreet | addrCity   | addrState | addrZipCode |
++--------+-------+------------+------------+-----------+-------------+
+|      1 |     1 | H1         | Govindpuri | Delhi     | 110092      |
+|      2 |     2 | H2         | Govindpuri | Delhi     | 110092      |
+|      3 |     3 | H3         | Govindpuri | Delhi     | 110092      |
++--------+-------+------------+------------+-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Product; 
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+
+| prodID | prodName   | prodDesc      | prodPrice | prodStock | catID | craftID | prodCreateDate |
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+
+|      1 | Wood Chair | Antique Chair |    100.00 |       100 |     1 |       1 | 2022-01-01     |
+|      2 | Clay Vase  | Clay Vase     |     50.00 |        50 |     3 |       2 | 2023-01-02     |
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Category;
++-------+--------------+
+| catID | catName      |
++-------+--------------+
+|     1 | Woodwork     |
+|     2 | Flower Decor |
+|     3 | Pottery      |
++-------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Craftsman;   
++---------+-----------+----------------+---------------------------+--------------+
+| craftID | craftName | craftMobNumber | craftEmail                | craftBusType |
++---------+-----------+----------------+---------------------------+--------------+
+|       1 | Dheeraj   |     1234567890 | craftydheeraj@example.com | Flower Decor |
+|       2 | Mahesh    |     9876543210 | craftymahesh@email.com    | Pottery      |
++---------+-----------+----------------+---------------------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM `Order`;
++-------+-------+------------+-------------+-----------+
+| ordID | usrID | ordDate    | ordTotalAmt | ordStatus |
++-------+-------+------------+-------------+-----------+
+|     1 |     1 | 2024-02-01 |       99.98 | completed |
+|     2 |     2 | 2024-02-02 |       29.99 | pending   |
++-------+-------+------------+-------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM OrderItem;
++--------+-------+--------+---------+--------------+
+| itemID | ordID | prodID | itemQty | itemSubtotal |
++--------+-------+--------+---------+--------------+
+|      1 |     1 |      1 |       2 |        99.98 |
+|      2 |     2 |      2 |       1 |        29.99 |
++--------+-------+--------+---------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Review;
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+| revID | usrID | prodID | revRating | revComment                                                    | revDate    |
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+|     1 |     1 |      1 |         5 | Great chair, very comfortable and feeling royal !             | 2024-02-03 |
+|     2 |     2 |      2 |         4 | Lovely vase,with great philosophy perfect for my living room. | 2024-02-04 |
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE Product;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Product | CREATE TABLE `Product` (
+  `prodID` int NOT NULL AUTO_INCREMENT,
+  `prodName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prodDesc` text COLLATE utf8mb4_unicode_ci,
+  `prodPrice` decimal(10,2) NOT NULL,
+  `prodStock` int NOT NULL,
+  `catID` int DEFAULT NULL,
+  `craftID` int DEFAULT NULL,
+  `prodCreateDate` date NOT NULL,
+  PRIMARY KEY (`prodID`),
+  KEY `catID` (`catID`),
+  KEY `craftID` (`craftID`),
+  CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`catID`) REFERENCES `Category` (`catID`),
+  CONSTRAINT `Product_ibfk_2` FOREIGN KEY (`craftID`) REFERENCES `Craftsman` (`craftID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE OrderItem;
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| OrderItem | CREATE TABLE `OrderItem` (
+  `itemID` int NOT NULL AUTO_INCREMENT,
+  `ordID` int NOT NULL,
+  `prodID` int NOT NULL,
+  `itemQty` int NOT NULL,
+  `itemSubtotal` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`itemID`),
+  KEY `ordID` (`ordID`),
+  KEY `prodID` (`prodID`),
+  CONSTRAINT `OrderItem_ibfk_1` FOREIGN KEY (`ordID`) REFERENCES `Order` (`ordID`),
+  CONSTRAINT `OrderItem_ibfk_2` FOREIGN KEY (`prodID`) REFERENCES `Product` (`prodID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Product p JOIN Category c ON p.catID = c.catID; 
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+-------+----------+
+| prodID | prodName   | prodDesc      | prodPrice | prodStock | catID | craftID | prodCreateDate | catID | catName  |
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+-------+----------+
+|      1 | Wood Chair | Antique Chair |    100.00 |       100 |     1 |       1 | 2022-01-01     |     1 | Woodwork |
+|      2 | Clay Vase  | Clay Vase     |     50.00 |        50 |     3 |       2 | 2023-01-02     |     3 | Pottery  |
++--------+------------+---------------+-----------+-----------+-------+---------+----------------+-------+----------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM Order o JOIN User u ON o.usrID = u.usrID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Order o JOIN User u ON o.usrID = u.usrID' at line 1
+mysql> SELECT * FROM `Order` o JOIN User u ON o.usrID = u.usrID;
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+| ordID | usrID | ordDate    | ordTotalAmt | ordStatus | usrID | usrName        | usrEmail                  | usrPassword | usrType  | usrRegDate | usrMobNumber |
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+|     1 |     1 | 2024-02-01 |       99.98 | completed |     1 | Siddhant Bali  | siddhant22496@iiitd.ac.in | balinux     | admin    | 2024-01-01 |   8076218888 |
+|     2 |     2 | 2024-02-02 |       29.99 | pending   |     2 | Nishchay Yadav | nischay22332@iiitd.ac.in  | nischay     | customer | 2024-01-01 |   1234123412 |
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ 
