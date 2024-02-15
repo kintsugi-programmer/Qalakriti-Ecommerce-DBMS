@@ -1,28 +1,29 @@
-Database Management Systems
-Deadline III: Database schema and Indexes creation
+-- Database Management Systems
+-- Deadline III: Database schema and Indexes creation
 -- Dev. Team 
 -- 1. Siddhant Bali: 2022496 - Schema and Data
--- 2. Nishchay Yadav: 2022332 - Ideation 
+-- 2. Nishchay Yadav: 2022332 - Ideation
 -- 3. Pankhuri Singh: 2022348 - Ideation and Data
 
 -- Schema
-
 DROP DATABASE IF EXISTS Qalakriti;
-
 CREATE DATABASE Qalakriti;
-
 USE Qalakriti;
 
+DROP TABLE IF EXISTS `User`;
+
 CREATE TABLE `User` (
-    `usrID` INT NOT NULL AUTO_INCREMENT,
-    `usrName` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `usrEmail` VARCHAR(255) COLLATE utf8mb4_unicode_ci UNIQUE NOT NULL,
-    `usrPassword` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `usrType` VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `usrRegDate` DATE NOT NULL,
-    `usrMobNumber` BIGINT NOT NULL,
-    PRIMARY KEY (`usrID`)
+  `usrID` int NOT NULL AUTO_INCREMENT,
+  `usrName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrEmail` varchar(255) COLLATE utf8mb4_unicode_ci UNIQUE NOT NULL,
+  `usrPassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrType` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrRegDate` date NOT NULL,
+  `usrMobNumber` bigint NOT NULL,
+  PRIMARY KEY (`usrID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `Address`;
 
 CREATE TABLE `Address` (
     `addrID` INT NOT NULL AUTO_INCREMENT,
@@ -35,37 +36,43 @@ CREATE TABLE `Address` (
     FOREIGN KEY (usrID) REFERENCES `User`(usrID)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS `Product`;
 
 CREATE TABLE `Product` (
-    `prodID` INT NOT NULL AUTO_INCREMENT,
-    `prodName` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `prodDesc` TEXT,
-    `prodPrice` DECIMAL(10, 2) NOT NULL,
-    `prodStock` INT NOT NULL,
-    `catID` INT,
-    `craftID` INT,
-    `prodCreateDate` DATE NOT NULL,
-    FOREIGN KEY (catID) REFERENCES `Category`(catID),
-    FOREIGN KEY (craftID) REFERENCES `Craftsman`(craftID)
-    PRIMARY KEY (`prodID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `prodID` int NOT NULL AUTO_INCREMENT,
+  `prodName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prodDesc` text,
+  `prodPrice` decimal(10, 2) NOT NULL, 
+  `prodStock` int NOT NULL,
+  `catID` int,
+  `craftID` int,
+   `prodCreateDate` date NOT NULL,
+  
+  PRIMARY KEY (`prodID`)
 
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Category`;
 
 CREATE TABLE `Category` (
-    `catID` INT NOT NULL AUTO_INCREMENT,
-    `catName` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL
-    PRIMARY KEY (`catID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `catID` int NOT NULL AUTO_INCREMENT,
+  `catName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  
+  PRIMARY KEY (`catID`)
 
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Craftsman`;
 
 CREATE TABLE `Craftsman` (
-    `craftID` INT NOT NULL AUTO_INCREMENT,
-    `craftName` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `craftMobNumber` BIGINT,
-    `craftEmail` VARCHAR(255) COLLATE utf8mb4_unicode_ci,
-    `craftBusType` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL
-    PRIMARY KEY (`craftID`)
+  `craftID` int NOT NULL AUTO_INCREMENT,
+  `craftName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `craftMobNumber` bigint,
+  `craftEmail` varchar(255) COLLATE utf8mb4_unicode_ci,
+  `craftBusType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  
+  PRIMARY KEY (`craftID`)
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Order`;
 
 CREATE TABLE `Order` (
     `ordID` INT NOT NULL AUTO_INCREMENT,
@@ -77,6 +84,7 @@ CREATE TABLE `Order` (
     FOREIGN KEY (usrID) REFERENCES `User`(usrID)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS `OrderItem`;
 
 CREATE TABLE `OrderItem` (
     `itemID` INT NOT NULL AUTO_INCREMENT,
@@ -89,6 +97,7 @@ CREATE TABLE `OrderItem` (
     FOREIGN KEY (prodID) REFERENCES `Product`(prodID)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS `Review`;
 
 CREATE TABLE `Review` (
     `revID` INT NOT NULL AUTO_INCREMENT,
@@ -102,6 +111,16 @@ CREATE TABLE `Review` (
     FOREIGN KEY (prodID) REFERENCES `Product`(prodID)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Rest of CREATE TABLE statements 
+
+-- Add foreign keys after creating all tables
+ALTER TABLE `Address` 
+  ADD FOREIGN KEY (`usrID`) REFERENCES `User`(`usrID`);
+
+ALTER TABLE `Product`
+  ADD FOREIGN KEY (`catID`) REFERENCES `Category`(`catID`),
+  ADD FOREIGN KEY (`craftID`) REFERENCES `Craftsman`(`craftID`);
+ 
 -- Data
 
 -- User Table

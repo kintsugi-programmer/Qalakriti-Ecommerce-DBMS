@@ -1,0 +1,299 @@
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql -u root Qalakriti < /home/balinux/VSCProjects/Qalakriti/Data/Q.sql
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 28
+Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| GymGear            |
+| Qalakriti          |
+| SparkShift         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE Qalakriti;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_Qalakriti |
++---------------------+
+| Address             |
+| Category            |
+| Craftsman           |
+| Order               |
+| OrderItem           |
+| Product             |
+| Review              |
+| User                |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> DESCRIBE User;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| usrID        | int          | NO   | PRI | NULL    | auto_increment |
+| usrName      | varchar(255) | NO   |     | NULL    |                |
+| usrEmail     | varchar(255) | NO   | UNI | NULL    |                |
+| usrPassword  | varchar(255) | NO   |     | NULL    |                |
+| usrType      | varchar(50)  | NO   |     | NULL    |                |
+| usrRegDate   | date         | NO   |     | NULL    |                |
+| usrMobNumber | bigint       | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.01 sec)
+
+mysql> DESCRIBE Address;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| addrID      | int          | NO   | PRI | NULL    | auto_increment |
+| usrID       | int          | NO   | MUL | NULL    |                |
+| addrStreet  | varchar(255) | NO   |     | NULL    |                |
+| addrCity    | varchar(255) | NO   |     | NULL    |                |
+| addrState   | varchar(255) | NO   |     | NULL    |                |
+| addrZipCode | varchar(20)  | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> DESCRIBE Product;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| prodID         | int           | NO   | PRI | NULL    | auto_increment |
+| prodName       | varchar(255)  | NO   |     | NULL    |                |
+| prodDesc       | text          | YES  |     | NULL    |                |
+| prodPrice      | decimal(10,2) | NO   |     | NULL    |                |
+| prodStock      | int           | NO   |     | NULL    |                |
+| catID          | int           | YES  | MUL | NULL    |                |
+| craftID        | int           | YES  | MUL | NULL    |                |
+| prodCreateDate | date          | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> DESCRIBE Category;  
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| catID   | int          | NO   | PRI | NULL    | auto_increment |
+| catName | varchar(255) | NO   |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> DESCRIBE Craftsman;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| craftID        | int          | NO   | PRI | NULL    | auto_increment |
+| craftName      | varchar(255) | NO   |     | NULL    |                |
+| craftMobNumber | bigint       | YES  |     | NULL    |                |
+| craftEmail     | varchar(255) | YES  |     | NULL    |                |
+| craftBusType   | varchar(255) | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE `Order`;
++-------------+---------------+------+-----+---------+----------------+
+| Field       | Type          | Null | Key | Default | Extra          |
++-------------+---------------+------+-----+---------+----------------+
+| ordID       | int           | NO   | PRI | NULL    | auto_increment |
+| usrID       | int           | NO   | MUL | NULL    |                |
+| ordDate     | date          | NO   |     | NULL    |                |
+| ordTotalAmt | decimal(10,2) | NO   |     | NULL    |                |
+| ordStatus   | varchar(50)   | NO   |     | NULL    |                |
++-------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE OrderItem;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| itemID       | int           | NO   | PRI | NULL    | auto_increment |
+| ordID        | int           | NO   | MUL | NULL    |                |
+| prodID       | int           | NO   | MUL | NULL    |                |
+| itemQty      | int           | NO   |     | NULL    |                |
+| itemSubtotal | decimal(10,2) | NO   |     | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> DESCRIBE Review;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| revID      | int          | NO   | PRI | NULL    | auto_increment |
+| usrID      | int          | NO   | MUL | NULL    |                |
+| prodID     | int          | NO   | MUL | NULL    |                |
+| revRating  | int          | NO   |     | NULL    |                |
+| revComment | varchar(255) | NO   |     | NULL    |                |
+| revDate    | date         | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM User;
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+| usrID | usrName        | usrEmail                  | usrPassword | usrType  | usrRegDate | usrMobNumber |
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+|     1 | Siddhant Bali  | siddhant22496@iiitd.ac.in | balinux     | admin    | 2020-01-01 |   8076218888 |
+|     2 | Nishchay Yadav | nischay22332@iiitd.ac.in  | nischay     | customer | 2024-01-01 |   1234123412 |
+|     3 | Pankhuri Singh | pankhuri22348@iiitd.ac.in | singh       | customer | 2024-01-01 |   1010101010 |
+|     4 | Mudit Bansal   | mudit22300@iiitd.ac.in    | bansal      | customer | 2024-01-01 |   9999999999 |
+|     5 | Somay Jalan    | somay22301@iiitd.ac.in    | jalan       | customer | 2024-01-01 |   8888888888 |
+|     6 | Chahat Ahuja   | chahat22302@iiitd.ac.in   | ahuja       | customer | 2024-01-01 |   7777777777 |
+|     7 | Kushagra Gupta | kushagra22302@iiitd.ac.in | gupta       | customer | 2024-01-01 |   6666666666 |
++-------+----------------+---------------------------+-------------+----------+------------+--------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Address;
++--------+-------+------------+------------+-----------+-------------+
+| addrID | usrID | addrStreet | addrCity   | addrState | addrZipCode |
++--------+-------+------------+------------+-----------+-------------+
+|      1 |     1 | BH1        | Govindpuri | Delhi     | 110092      |
+|      2 |     2 | BH2        | Govindpuri | Delhi     | 110092      |
+|      3 |     3 | GH1        | Govindpuri | Delhi     | 110092      |
+|      4 |     4 | BH1        | Govindpuri | Delhi     | 110092      |
+|      5 |     5 | BH2        | Govindpuri | Delhi     | 110092      |
+|      6 |     6 | GH1        | Govindpuri | Delhi     | 110092      |
+|      7 |     7 | BH2        | Govindpuri | Delhi     | 110092      |
++--------+-------+------------+------------+-----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Product; 
++--------+--------------------------+------------------------------------------------+-----------+-----------+-------+---------+----------------+
+| prodID | prodName                 | prodDesc                                       | prodPrice | prodStock | catID | craftID | prodCreateDate |
++--------+--------------------------+------------------------------------------------+-----------+-----------+-------+---------+----------------+
+|      1 | Wood Chair               | Antique Oak Wood Chair From Chennai.           |    100.00 |       100 |     1 |       1 | 2022-01-01     |
+|      2 | Kintsugi Clay Vase       | Handcrafted vase made of clay from Rajasthan.  |     49.99 |        50 |     2 |       2 | 2023-01-02     |
+|      3 | Lavender scented Candles | Set of 2 lavender scented candles from Kashmir |    250.00 |        20 |     3 |       3 | 2022-01-03     |
+|      4 | Khadi tote bag           | Tote bag woven with love by KhadiGramIndia     |    149.00 |        50 |     4 |       4 | 2022-01-04     |
++--------+--------------------------+------------------------------------------------+-----------+-----------+-------+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Category;
++-------+--------------+
+| catID | catName      |
++-------+--------------+
+|     1 | Woodwork     |
+|     2 | Flower Decor |
+|     3 | Textile      |
+|     4 | Resin Art    |
+|     5 | Candles      |
+|     6 | Pottery      |
++-------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Craftsman;   
++---------+----------------+----------------+----------------------------+--------------+
+| craftID | craftName      | craftMobNumber | craftEmail                 | craftBusType |
++---------+----------------+----------------+----------------------------+--------------+
+|       1 | Dheeraj        |     1234567890 | crafty@example.com         | Flower Decor |
+|       2 | Fabindia       |     1111111111 | fabindia@example.com       | Textile      |
+|       3 | KhadiGran      |     2222222222 | khadigramindia@example.com | Textile      |
+|       4 | Jaypore        |     3333333333 | jaypore@example.com        | Candles      |
+|       5 | JodhpurSpecial |     4444444444 | jodhpurspl@example.com     | Pottery      |
++---------+----------------+----------------+----------------------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM `Order`;
++-------+-------+------------+-------------+-----------+
+| ordID | usrID | ordDate    | ordTotalAmt | ordStatus |
++-------+-------+------------+-------------+-----------+
+|     1 |     2 | 2024-02-01 |      200.00 | completed |
+|     2 |     5 | 2024-02-02 |      150.00 | completed |
+|     3 |     3 | 2024-02-03 |      200.00 | completed |
+|     4 |     4 | 2024-02-04 |       50.00 | pending   |
++-------+-------+------------+-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM OrderItem;
++--------+-------+--------+---------+--------------+
+| itemID | ordID | prodID | itemQty | itemSubtotal |
++--------+-------+--------+---------+--------------+
+|      1 |     1 |      1 |       2 |       200.00 |
+|      2 |     2 |      2 |       1 |       150.00 |
+|      3 |     3 |      3 |       1 |       200.00 |
+|      4 |     4 |      4 |       1 |        50.00 |
++--------+-------+--------+---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Review;
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+| revID | usrID | prodID | revRating | revComment                                                    | revDate    |
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+|     1 |     1 |      1 |         5 | Great chair, very comfortable and feeling royal !             | 2024-02-03 |
+|     2 |     2 |      2 |         4 | Lovely vase,with great philosophy perfect for my living room. | 2024-02-04 |
+|     3 |     3 |      3 |         4 | Amazing Fragrance but not that long-lasting                   | 2024-02-04 |
++-------+-------+--------+-----------+---------------------------------------------------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE Product;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Product | CREATE TABLE `Product` (
+  `prodID` int NOT NULL AUTO_INCREMENT,
+  `prodName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prodDesc` text COLLATE utf8mb4_unicode_ci,
+  `prodPrice` decimal(10,2) NOT NULL,
+  `prodStock` int NOT NULL,
+  `catID` int DEFAULT NULL,
+  `craftID` int DEFAULT NULL,
+  `prodCreateDate` date NOT NULL,
+  PRIMARY KEY (`prodID`),
+  KEY `catID` (`catID`),
+  KEY `craftID` (`craftID`),
+  CONSTRAINT `Product_ibfk_1` FOREIGN KEY (`catID`) REFERENCES `Category` (`catID`),
+  CONSTRAINT `Product_ibfk_2` FOREIGN KEY (`craftID`) REFERENCES `Craftsman` (`craftID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE OrderItem;
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| OrderItem | CREATE TABLE `OrderItem` (
+  `itemID` int NOT NULL AUTO_INCREMENT,
+  `ordID` int NOT NULL,
+  `prodID` int NOT NULL,
+  `itemQty` int NOT NULL,
+  `itemSubtotal` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`itemID`),
+  KEY `ordID` (`ordID`),
+  KEY `prodID` (`prodID`),
+  CONSTRAINT `OrderItem_ibfk_1` FOREIGN KEY (`ordID`) REFERENCES `Order` (`ordID`),
+  CONSTRAINT `OrderItem_ibfk_2` FOREIGN KEY (`prodID`) REFERENCES `Product` (`prodID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci |
++-----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT * FROM `Order` o JOIN User u ON o.usrID = u.usrID;
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+| ordID | usrID | ordDate    | ordTotalAmt | ordStatus | usrID | usrName        | usrEmail                  | usrPassword | usrType  | usrRegDate | usrMobNumber |
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+|     1 |     2 | 2024-02-01 |      200.00 | completed |     2 | Nishchay Yadav | nischay22332@iiitd.ac.in  | nischay     | customer | 2024-01-01 |   1234123412 |
+|     2 |     5 | 2024-02-02 |      150.00 | completed |     5 | Somay Jalan    | somay22301@iiitd.ac.in    | jalan       | customer | 2024-01-01 |   8888888888 |
+|     3 |     3 | 2024-02-03 |      200.00 | completed |     3 | Pankhuri Singh | pankhuri22348@iiitd.ac.in | singh       | customer | 2024-01-01 |   1010101010 |
+|     4 |     4 | 2024-02-04 |       50.00 | pending   |     4 | Mudit Bansal   | mudit22300@iiitd.ac.in    | bansal      | customer | 2024-01-01 |   9999999999 |
++-------+-------+------------+-------------+-----------+-------+----------------+---------------------------+-------------+----------+------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+balinux@balinux-ASUS-TUF-Gaming-F15-FX507ZE-FX577ZE:~$ 
