@@ -196,8 +196,7 @@ INSERT INTO `OrderItem` (`ordID`, `prodID`, `itemQty`, `itemSubtotal`) VALUES
 (1, 1, 2, 200.00),
 (2, 2, 1, 150.00),
 (3, 3, 1, 200.00),
-(4, 4, 1, 50.00),
-(5, 5, 1, 499);
+(4, 4, 1, 50.00);
 
 -- Review Table
 INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) VALUES
