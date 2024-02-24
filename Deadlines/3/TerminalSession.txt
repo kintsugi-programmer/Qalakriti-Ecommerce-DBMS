@@ -4,6 +4,7 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 28
 Server version: 8.0.36-0ubuntu0.22.04.1 (Ubuntu)
 
+
 Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
 Oracle is a registered trademark of Oracle Corporation and/or its
