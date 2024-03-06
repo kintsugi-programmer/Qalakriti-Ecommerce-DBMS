@@ -199,16 +199,29 @@ INSERT INTO `Product` (`prodName`, `prodDesc`, `prodPrice`, `prodStock`, `catID`
 -- Order Table
 INSERT INTO `Order` (`usrID`, `ordDate`, `ordTotalAmt`, `ordStatus`) VALUES
 (2, '2024-02-01', 200.00, 'completed'),
-(5, '2024-02-02', 150.00, 'completed'),
-(3, '2024-02-03', 200.00, 'completed'),
-(4, '2024-02-04', 50.00, 'pending');
+(5, '2024-02-02', 49.99, 'completed'),
+(3, '2024-02-03', 264.99, 'completed'),
+(4, '2024-02-04', 149.00, 'pending'),
+(6, '2024-02-05', 14.99, 'completed'), -- New order for Ceramic Mug
+(7, '2024-02-06', 79.99, 'completed'),  -- New order for Glass Vase
+(8, '2024-02-07', 149.99, 'completed'), -- New order for Silver Necklace
+(9, '2024-02-08', 299.99, 'completed'), -- New order for Sculpture
+(10, '2024-02-09', 164.98, 'completed'); -- New order for Alice Johnson
 
 -- OrderItem Table
 INSERT INTO `OrderItem` (`ordID`, `prodID`, `itemQty`, `itemSubtotal`) VALUES
-(1, 1, 2, 200.00),
-(2, 2, 1, 150.00),
-(3, 3, 1, 200.00),
-(4, 4, 1, 50.00);
+(1, 1, 2, 100.00),
+(2, 2, 1, 49.99),
+(3, 3, 1, 250.00),
+(3, 9, 1, 14.99),
+(4, 4, 1, 149.00),
+(5, 9, 1, 14.99),  -- Ceramic Mug
+(6, 6, 1, 79.99),   -- Glass Vase
+(7, 7, 1, 149.99),  -- Silver Necklace
+(8, 8, 1, 299.99), -- Sculpture
+(9, 9, 1, 14.99),   -- Ceramic Mug
+(9, 7, 1, 149.99);   -- Silver Necklace
+
 
 -- Review Table
 INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) VALUES
@@ -222,10 +235,46 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 
 -- queries
 
--- people who gave 4 star rating
-SELECT User.usrName, Product.prodName, Review.revDate, Review.revRating, Review.revComment
-FROM Review
-INNER JOIN User ON Review.usrID = User.usrID
-INNER JOIN Product ON Review.prodID = Product.prodID
+-- people who gave 4 star rating WORKSS
+SELECT prodName, usrName, revDate, revRating, revComment
+FROM Review 
+NATURAL JOIN User
+NATURAL JOIN Product
 WHERE Review.revRating = 4;
+
+-- number of orders vs avg rating WORKSS
+SELECT  Product.prodID, prodName, 
+       COUNT(OrderItem.prodID) AS OrderCount, 
+       AVG(Review.revRating) AS AvgRating
+FROM Product 
+LEFT JOIN OrderItem ON  Product.prodID = OrderItem.prodID
+LEFT JOIN Review  ON  Product.prodID = Review.prodID
+GROUP BY Product.prodID, prodName;
+
+-- total shopping WORKKSS
+SELECT User.usrID, usrName, SUM(ordTotalAmt) AS TotalSpending
+FROM User 
+LEFT JOIN `Order` ON User.usrID = `Order`.usrID
+GROUP BY User.usrID, usrName
+ORDER BY TotalSpending DESC;
+
+-- craftsman earning WORKSS
+SELECT Craftsman.craftID, craftName, SUM(itemSubtotal) AS TotalEarnings
+FROM Craftsman 
+NATURAL JOIN Product 
+NATURAL JOIN OrderItem 
+GROUP BY Craftsman.craftID, craftName
+ORDER BY TotalEarnings DESC;
+
+
+-- all order info for pankhuri singh
+SELECT u.usrName AS UserName, o.ordID AS OrderID, o.ordStatus AS OrderStatus,
+       p.prodName AS ProductName, oi.itemSubtotal AS Price,
+       r.revRating AS Rating, r.revComment AS Comment, r.revDate
+FROM `User` u
+JOIN `Order` o ON u.usrID = o.usrID
+JOIN `OrderItem` oi ON o.ordID = oi.ordID
+JOIN `Product` p ON oi.prodID = p.prodID
+LEFT JOIN `Review` r ON oi.prodID = r.prodID AND u.usrID = r.usrID
+WHERE u.usrName = 'Pankhuri Singh';
 
