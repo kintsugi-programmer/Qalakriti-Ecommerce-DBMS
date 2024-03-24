@@ -315,7 +315,7 @@ Qalakriti_Project/
 This structure should help organize your project effectively and keep related files together. Adjust and expand it as needed based on your specific requirements and preferences.
 
 # db
-'''
+```
 -- Database Management Systems
 -- Deadline III: Database schema and Indexes creation
 -- Dev. Team 
@@ -523,7 +523,7 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 (3, 3, 4, 'Amazing Fragrance but not that long-lasting', '2024-02-04'),
 (4, 5, 5, 'Absolutely stunning necklace! Exceeded my expectations.', '2024-02-06');
 
-'''
+```
 ## Tech Stack
 To develop the Qalakriti project using MySQL, Flask, HTML, CSS, and JavaScript, you'll need to learn several key concepts in each technology. Here's a list of concepts to cover for each:
 
