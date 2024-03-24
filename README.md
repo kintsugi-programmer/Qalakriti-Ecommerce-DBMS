@@ -4,15 +4,18 @@ Qalakriti is an e-commerce initiative that brings handcrafted treasures from var
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Project Scope](#project-scope)
-- [Features](#features)
-- [Objectives](#objectives)
-- [Technologies](#technologies)
-- [Contributors](#contributors)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [License](#license)
+- [Qalakriti - Handcrafted E-commerce Platform](#qalakriti---handcrafted-e-commerce-platform)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Project Scope](#project-scope)
+  - [Features](#features)
+  - [Objectives](#objectives)
+  - [Technologies](#technologies)
+  - [Contributors](#contributors)
+  - [Getting Started](#getting-started)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Tree](#tree)
 
 ## Introduction
 
@@ -95,3 +98,95 @@ To get started with Qalakriti, follow these steps:
 This project is licensed under the [MIT License](LICENSE).
 
 [Link to Detailed License](#link-to-detailed-license)
+
+## Tree
+kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
+.
+├── Data
+│   ├── data.sql
+│   ├── Q1.sql
+│   ├── Q.sql
+│   ├── rough.md
+│   ├── schema.sql
+│   ├── terminal1.txt
+│   └── terminal.txt
+├── Deadlines
+│   ├── 1
+│   │   └── 2022332_ 2022348_ 2022496.pdf
+│   ├── 2
+│   │   └── 2022332_ 2022348_ 2022496 (1).pdf
+│   ├── 3
+│   │   ├── 2022332_ 2022348_ 2022496.txt
+│   │   ├── Terminal Session SS
+│   │   │   ├── Screenshot from 2024-02-12 23-29-42.png
+│   │   │   ├── Screenshot from 2024-02-12 23-30-45.png
+│   │   │   ├── Screenshot from 2024-02-12 23-30-53.png
+│   │   │   ├── Screenshot from 2024-02-12 23-31-01.png
+│   │   │   ├── Screenshot from 2024-02-12 23-31-11.png
+│   │   │   ├── Screenshot from 2024-02-12 23-31-22.png
+│   │   │   ├── Screenshot from 2024-02-12 23-31-31.png
+│   │   │   └── Screenshot from 2024-02-12 23-31-51.png
+│   │   ├── Terminal Session SS.zip
+│   │   └── TerminalSession.txt
+│   ├── 4
+│   │   ├── 2022332_ 2022348_ 2022496_Deadline4.zip
+│   │   ├── deadline4.txt
+│   │   └── to-do.md
+│   ├── 5
+│   │   ├── Qalakriti_Project
+│   │   │   ├── app.py
+│   │   │   ├── database.sql
+│   │   │   ├── requirements.txt
+│   │   │   ├── static
+│   │   │   │   ├── css
+│   │   │   │   │   └── styles.css
+│   │   │   │   ├── img
+│   │   │   │   │   └── product1.jpg
+│   │   │   │   └── js
+│   │   │   │       └── script.js
+│   │   │   └── templates
+│   │   │       ├── admin
+│   │   │       │   ├── admin_dashboard.html
+│   │   │       │   ├── admin_login.html
+│   │   │       │   ├── order_management.html
+│   │   │       │   └── product_management.html
+│   │   │       ├── includes
+│   │   │       │   ├── about.html
+│   │   │       │   ├── footer.html
+│   │   │       │   └── header.html
+│   │   │       └── user
+│   │   │           ├── cart.html
+│   │   │           ├── checkout.html
+│   │   │           ├── confirmation.html
+│   │   │           ├── home.html
+│   │   │           ├── login.html
+│   │   │           ├── orders.html
+│   │   │           ├── product.html
+│   │   │           └── register.html
+│   │   └── README.md
+│   └── Backup_Project
+│       ├── database.sql
+│       ├── README.md
+│       ├── Script.py
+│       └── template.py
+├── Other
+│   ├── ecommerce_project
+│   │   ├── app.py
+│   │   ├── database.sql
+│   │   ├── README.md
+│   │   ├── static
+│   │   │   ├── css
+│   │   │   │   └── styles.css
+│   │   │   └── js
+│   │   │       └── script.js
+│   │   ├── structure.txt
+│   │   └── templates
+│   │       ├── cart.html
+│   │       ├── index.html
+│   │       └── product.html
+│   ├── Qalakriti.zip
+│   ├── Rough.txt
+│   └── stuff.txt
+└── README.md
+
+24 directories, 62 files
