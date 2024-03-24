@@ -244,7 +244,7 @@ Certainly! Here's the refined list with additional sub-points to highlight speci
 This detailed list covers various aspects and functionalities of the Qalakriti e-commerce platform.
 
 # File Stucture
-'''
+```
 Qalakriti_Project/
 │
 ├── static/
@@ -289,7 +289,7 @@ Qalakriti_Project/
 ├── requirements.txt                # Python dependencies
 │
 └── database.sql                    # SQL script for database schema and data
-'''
+```
 
 
 ### Detailed Description:
