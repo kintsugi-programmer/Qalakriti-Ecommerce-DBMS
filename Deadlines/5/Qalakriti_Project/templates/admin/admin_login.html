@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Include the common header -->
+    {% include 'includes/header.html' %}
+
+    <div class="container">
+        <h1>Admin Login</h1>
+        <!-- Login form -->
+        <form action="{{ url_for('admin_login_submit') }}" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Display any login error message if applicable -->
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Include the common footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>

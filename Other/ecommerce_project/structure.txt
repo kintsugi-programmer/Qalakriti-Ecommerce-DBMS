@@ -1,0 +1,15 @@
+ecommerce_project/
+│
+├── static/
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── script.js
+│
+├── templates/
+│   ├── index.html
+│   ├── product.html
+│   └── cart.html
+│
+├── app.py
+└── database.sql

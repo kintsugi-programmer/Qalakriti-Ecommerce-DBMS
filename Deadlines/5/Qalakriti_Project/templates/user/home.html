@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Include the common header -->
+    {% include 'includes/header.html' %}
+
+    <div class="container">
+        <h1>Welcome to Qalakriti!</h1>
+        <p>Bringing handcrafted excellence to your doorstep.</p>
+        <!-- Add any additional content or sections for the home page -->
+    </div>
+
+    <!-- Include the common footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>

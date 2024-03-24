@@ -1,0 +1,24 @@
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="{{ url_for('user.home') }}">Qalakriti</a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="{{ url_for('user.home') }}">Home</a></li>
+                <li><a href="{{ url_for('user.about') }}">About</a></li>
+                <li><a href="{{ url_for('user.products') }}">Products</a></li>
+                <!-- Add more links as needed -->
+            </ul>
+            <div class="nav-auth">
+                {% if current_user %}
+                    <a href="{{ url_for('user.profile') }}">Profile</a>
+                    <a href="{{ url_for('user.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('user.login') }}">Login</a>
+                    <a href="{{ url_for('user.register') }}">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</header>
