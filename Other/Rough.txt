@@ -784,6 +784,49 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 
 
 
+# Bash script to make directories
+#!/bin/bash
+
+# Create project directory
+mkdir Qalakriti_Project
+cd Qalakriti_Project
+
+# Create static directory and its subdirectories
+mkdir -p static/css static/js static/img
+
+# Create templates directory and its subdirectories
+mkdir -p templates/admin templates/user templates/includes
+
+# Create individual HTML files
+touch templates/admin/admin_dashboard.html
+touch templates/admin/admin_login.html
+touch templates/admin/order_management.html
+touch templates/admin/product_management.html
+
+touch templates/user/cart.html
+touch templates/user/checkout.html
+touch templates/user/confirmation.html
+touch templates/user/home.html
+touch templates/user/login.html
+touch templates/user/orders.html
+touch templates/user/product.html
+touch templates/user/register.html
+
+# Create common template files
+touch templates/includes/header.html
+touch templates/includes/footer.html
+
+# Create app.py file
+touch app.py
+
+# Create requirements.txt file
+touch requirements.txt
+
+# Create database.sql file
+touch database.sql
+
+# Display completion message
+echo "Directory structure and files created successfully."
 
 
 
