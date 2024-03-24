@@ -8,12 +8,14 @@
 - [File Stucture](#file-stucture)
     - [Detailed Description:](#detailed-description)
 - [db](#db)
+  - [Tech Stack](#tech-stack)
     - [MySQL:](#mysql)
     - [Flask:](#flask)
     - [HTML:](#html)
     - [CSS:](#css)
     - [JavaScript:](#javascript)
     - [General:](#general)
+- [Flask](#flask-1)
     - [Installation:](#installation)
     - [Creating a Flask Application:](#creating-a-flask-application)
     - [Running the Application:](#running-the-application)
@@ -24,6 +26,7 @@
     - [Static Files:](#static-files)
     - [Flask Extensions:](#flask-extensions)
     - [Deployment:](#deployment)
+- [PyMySQL](#pymysql)
     - [Installation:](#installation-1)
     - [Connecting to a MySQL Database:](#connecting-to-a-mysql-database)
     - [Executing SQL Queries:](#executing-sql-queries)
@@ -35,6 +38,7 @@
     - [3. Transactions:](#3-transactions)
     - [4. Error Handling:](#4-error-handling)
     - [5. Connection Pooling:](#5-connection-pooling)
+- [integrating PyMySQL, Flask, HTML, and JavaScript](#integrating-pymysql-flask-html-and-javascript)
     - [1. Setting Up Flask and PyMySQL:](#1-setting-up-flask-and-pymysql)
     - [2. Create a Flask Application:](#2-create-a-flask-application)
     - [3. Create HTML Templates:](#3-create-html-templates)
@@ -520,7 +524,7 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 (4, 5, 5, 'Absolutely stunning necklace! Exceeded my expectations.', '2024-02-06');
 
 '''
-
+## Tech Stack
 To develop the Qalakriti project using MySQL, Flask, HTML, CSS, and JavaScript, you'll need to learn several key concepts in each technology. Here's a list of concepts to cover for each:
 
 ### MySQL:
@@ -583,6 +587,8 @@ To develop the Qalakriti project using MySQL, Flask, HTML, CSS, and JavaScript, 
 
 Start by mastering the basics of each technology and gradually build your skills as you work on the project. Practice regularly and refer to documentation and tutorials to deepen your understanding. Good luck with your project!
 
+# Flask
+
 Flask is a lightweight and flexible web application framework written in Python. It is designed to make getting started with web development in Python easy, and it's commonly used for building web applications, APIs, and more. Here's a rundown of the basics of Flask:
 
 ### Installation:
@@ -640,6 +646,8 @@ Flask has a rich ecosystem of extensions that provide additional functionality, 
 Flask applications can be deployed to various platforms, including traditional web servers like Apache or Nginx, as well as Platform as a Service (PaaS) providers like Heroku, AWS Elastic Beanstalk, or PythonAnywhere.
 
 This is just a brief overview of Flask. There's a lot more to explore, including Flask's configuration options, error handling, authentication, database integration, and more. The Flask documentation is an excellent resource for diving deeper into these topics: [Flask Documentation](https://flask.palletsprojects.com/en/2.1.x/).
+
+# PyMySQL
 
 Sure, I'd be happy to introduce you to PyMySQL, which is a Python library used to interact with MySQL databases. Here's a basic tutorial to get you started:
 
@@ -728,6 +736,7 @@ connection.close()
 ```
 
 This is a basic introduction to PyMySQL. You can explore more advanced features such as transactions, error handling, and more as you become familiar with the library. Remember to handle exceptions properly, especially when dealing with database connections and queries.
+
 
 Certainly! Building upon the basics, let's delve into some intermediate concepts and best practices when using PyMySQL.
 
@@ -823,6 +832,7 @@ These are some intermediate concepts and best practices that can enhance your us
 
 Sure, integrating PyMySQL with Flask for building web applications involves creating routes in Flask to handle HTTP requests, querying the database using PyMySQL, and rendering HTML templates to display the data. Additionally, you can use JavaScript to enhance the interactivity of your web pages.
 
+# integrating PyMySQL, Flask, HTML, and JavaScript
 Here's a step-by-step guide to integrating PyMySQL, Flask, HTML, and JavaScript:
 
 ### 1. Setting Up Flask and PyMySQL:
