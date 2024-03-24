@@ -1,4 +1,4 @@
-mport pymysql
+import pymysql
 
 # Function to establish connection to MySQL database
 def connect_to_database():
