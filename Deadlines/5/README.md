@@ -72,6 +72,7 @@
     - [10. Deployment:](#10-deployment)
 
 # Qalakriti
+```
 Qalakriti: Bringing handcrafted excellence to your doorstep
 Meaning of Qalakriti: Qala means art, and Kriti means work.
 Overview: Qalakriti will be an e-commerce initiative spotlighting handcrafted treasures from
@@ -119,6 +120,7 @@ payments for their purchases.
 ○ Item Reviews: Users have the ability to review purchased items.
 ○ Tracking order history: After placing an order, users may choose to track the
 delivery process or have a look at their previous order history
+```
 
 ## Webpages
 Certainly! Here's the refined list with additional sub-points to highlight specific features or functionalities within each page:
@@ -240,6 +242,128 @@ Certainly! Here's the refined list with additional sub-points to highlight speci
 23. **Testimonials/Reviews Page (optional)**
     - Customer testimonials
     - Product reviews and ratings showcase
+
+```
+
+1. **Home Page**
+   - Introduction to Qalakriti
+   - Featured products or promotions
+   - Navigation menu
+   - Search bar
+   - Quick links to important sections
+
+2. **About Us**
+   - Mission and vision of Qalakriti
+   - History and background
+   - Team members or artisans spotlight
+   - Contact information
+
+3. **Product Listing Page**
+   - Grid or list view of available products
+   - Filter options (by category, price, etc.)
+   - Sorting options
+   - Pagination for browsing multiple pages
+
+4. **Category-wise Listing**
+   - Segregation of products into different categories
+   - Navigation through various product categories
+
+5. **Search Functionality**
+   - Ability to search for products using keywords
+   - Search suggestions or autocomplete
+   - Advanced search filters
+
+6. **Product Details Page**
+   - Detailed description of the selected product
+   - High-resolution images
+   - Pricing information
+   - Add to cart button
+   - Product reviews and ratings
+
+7. **Shopping Cart**
+   - Display of selected items with images and details
+   - Quantity adjustment
+   - Option to remove items
+   - Subtotal calculation
+
+8. **Checkout Page**
+   - Input fields for billing and shipping information
+   - Selection of payment method
+   - Order summary
+   - Proceed to payment button
+
+9. **Order Confirmation Page**
+   - Confirmation message of successful order placement
+   - Order number and summary
+   - Estimated delivery time
+   - Additional information or recommendations
+
+10. **Order Tracking Page**
+    - Tracking order delivery status
+    - Shipment tracking number
+    - Estimated delivery date
+
+11. **My Account**
+    - Order history with details
+    - Saved addresses for easier checkout
+    - Wish list management
+    - Account settings and preferences
+
+12. **Registration Page (for Customers)**
+    - Input fields for user registration
+    - Captcha or security measures
+    - Terms and conditions acceptance
+
+13. **Login Page (for Customers)**
+    - Username and password fields
+    - Forgot password option
+    - Secure login mechanism
+
+14. **Seller Registration Page**
+    - Registration form for sellers or artisans
+    - Verification process details
+
+15. **Seller Login Page**
+    - Login interface for registered sellers
+    - Secure authentication methods
+
+16. **Seller Dashboard**
+    - Interface to add/edit products
+    - View and manage orders received
+    - Shipping management tools
+
+17. **Contact Us**
+    - Contact form for inquiries or feedback
+    - Contact information (phone, email, address)
+
+18. **FAQ**
+    - Frequently asked questions and answers
+    - Searchable FAQ section
+
+19. **Terms and Conditions**
+    - Detailed terms of service
+    - Legal agreements for website usage
+
+20. **Privacy Policy**
+    - Information on data handling and privacy
+    - GDPR compliance details
+
+21. **Admin Panel**
+    - User management tools
+    - Product category management interface
+    - Order management system
+    - Discount/Coupon management tools
+    - Configuration options for payment and shipping
+
+22. **Blog or News Section (optional)**
+    - Articles or updates related to crafts and artisans
+    - Insights into Indian culture and craftsmanship
+
+23. **Testimonials/Reviews Page (optional)**
+    - Customer testimonials
+    - Product reviews and ratings showcase
+
+```
 
 This detailed list covers various aspects and functionalities of the Qalakriti e-commerce platform.
 
