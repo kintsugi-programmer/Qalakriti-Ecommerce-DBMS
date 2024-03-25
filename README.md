@@ -100,6 +100,7 @@ This project is licensed under the [MIT License](LICENSE).
 [Link to Detailed License](#link-to-detailed-license)
 
 ## Tree
+```
 kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 .
 ├── Data
@@ -190,3 +191,4 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 └── README.md
 
 24 directories, 62 files
+```
