@@ -15,7 +15,6 @@ def connect_to_database():
         print(f"Error connecting to database: {e}")
         return None
 
-
 # Customer Menu Functions
 def browse_products():
     conn = connect_to_database()
@@ -59,6 +58,7 @@ def search_products():
         for product in products:
             print(f"ID: {product[0]}, Name: {product[1]}, Price: {product[3]}")
         conn.close()
+
 def view_cart():
     user_id = input("Enter your user ID: ")
     conn = connect_to_database()
@@ -381,6 +381,7 @@ def delete_order():
         conn.close()
     else:
         print("Error connecting to the database.")
+
 def manage_customers():
     print("Customer Management:")
     print("1. View Customers")
@@ -602,9 +603,6 @@ def delete_category():
             print(f"No category found with ID {category_id}.")
     else:
         print("Error connecting to the database.")
-
-
-
 
 
 def view_sales_analytics():
