@@ -146,6 +146,7 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 │   │   │   │   └── js
 │   │   │   │       └── script.js
 │   │   │   └── templates
+│   │   │       ├── index.html
 │   │   │       ├── admin
 │   │   │       │   ├── admin_dashboard.html
 │   │   │       │   ├── admin_login.html
