@@ -181,16 +181,431 @@ def logout():
 
 # Admin Menu Functions
 def manage_products():
-    pass
+    print("Product Management Menu:")
+    print("1. Add New Product")
+    print("2. Update Product")
+    print("3. Delete Product")
+    print("4. View All Products")
+    
+    choice = input("Enter your choice: ")
+    
+    if choice == '1':
+        add_new_product()
+    elif choice == '2':
+        update_product()
+    elif choice == '3':
+        delete_product()
+    elif choice == '4':
+        view_all_products()
+    else:
+        print("Invalid choice. Please try again.")
+
+def add_new_product():
+    # Gather information for the new product
+    prod_name = input("Enter product name: ")
+    prod_desc = input("Enter product description: ")
+    prod_price = float(input("Enter product price: "))
+    prod_stock = int(input("Enter product stock: "))
+    cat_id = int(input("Enter category ID: "))
+    craft_id = int(input("Enter craftsman ID: "))
+    prod_create_date = input("Enter product creation date (YYYY-MM-DD): ")
+
+    # Perform insertion into the Product table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = """
+            INSERT INTO Product (prodName, prodDesc, prodPrice, prodStock, catID, craftID, prodCreateDate)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (prod_name, prod_desc, prod_price, prod_stock, cat_id, craft_id, prod_create_date))
+        conn.commit()
+        print("New product added successfully.")
+        conn.close()
+
+def update_product():
+    # Prompt for the product ID to update
+    product_id = input("Enter the product ID to update: ")
+
+    # Fetch existing product details from the database
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM Product WHERE prodID = %s"
+        cursor.execute(query, (product_id,))
+        product = cursor.fetchone()
+        conn.close()
+
+        if product:
+            print("Existing Product Details:")
+            print("1. Name:", product[1])
+            print("2. Description:", product[2])
+            print("3. Price:", product[3])
+            print("4. Stock:", product[4])
+            print("5. Category ID:", product[5])
+            print("6. Craftsman ID:", product[6])
+            print("7. Creation Date:", product[7])
+
+            # Prompt for updated information
+            new_name = input("Enter new product name (or press Enter to keep the same): ")
+            new_desc = input("Enter new product description (or press Enter to keep the same): ")
+            new_price = input("Enter new product price (or press Enter to keep the same): ")
+            new_stock = input("Enter new product stock (or press Enter to keep the same): ")
+            new_cat_id = input("Enter new category ID (or press Enter to keep the same): ")
+            new_craft_id = input("Enter new craftsman ID (or press Enter to keep the same): ")
+            new_create_date = input("Enter new creation date (YYYY-MM-DD) (or press Enter to keep the same): ")
+
+            # Perform the update if any field is modified
+            if any([new_name, new_desc, new_price, new_stock, new_cat_id, new_craft_id, new_create_date]):
+                conn = connect_to_database()
+                if conn:
+                    cursor = conn.cursor()
+                    update_query = """
+                        UPDATE Product
+                        SET prodName = %s, prodDesc = %s, prodPrice = %s, prodStock = %s,
+                            catID = %s, craftID = %s, prodCreateDate = %s
+                        WHERE prodID = %s
+                    """
+                    update_values = (new_name, new_desc, new_price, new_stock, new_cat_id, new_craft_id,
+                                     new_create_date, product_id)
+                    cursor.execute(update_query, update_values)
+                    conn.commit()
+                    print("Product updated successfully.")
+                    conn.close()
+            else:
+                print("No changes made.")
+        else:
+            print(f"Product with ID {product_id} not found.")
+    else:
+        print("Error connecting to the database.")
+
+def delete_product():
+    # Prompt for the product ID to delete
+    product_id = input("Enter the product ID to delete: ")
+
+    # Perform deletion from the Product table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        delete_query = "DELETE FROM Product WHERE prodID = %s"
+        cursor.execute(delete_query, (product_id,))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print("Product deleted successfully.")
+        else:
+            print(f"No product found with ID {product_id}.")
+        conn.close()
+    else:
+        print("Error connecting to the database.")
+
+
+def view_all_products():
+    # Fetch and display all products from the Product table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM Product"
+        cursor.execute(query)
+        products = cursor.fetchall()
+        print("All Products:")
+        for product in products:
+            print(product)
+        conn.close()
+
 
 def manage_orders():
-    pass
+    print("Order Management Menu:")
+    print("1. View All Orders")
+    print("2. Update Order Status")
+    print("3. Delete Order")
+    
+    choice = input("Enter your choice: ")
+    
+    if choice == '1':
+        view_all_orders()
+    elif choice == '2':
+        update_order_status()
+    elif choice == '3':
+        delete_order()
+    else:
+        print("Invalid choice. Please try again.")
 
+def view_all_orders():
+    # Fetch and display all orders from the Order table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM `Order`"
+        cursor.execute(query)
+        orders = cursor.fetchall()
+        print("All Orders:")
+        for order in orders:
+            print(order)
+        conn.close()
+
+def update_order_status():
+    # Prompt for the order ID and new status
+    order_id = input("Enter the order ID to update: ")
+    new_status = input("Enter the new status: ")
+
+    # Perform update in the Order table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        update_query = "UPDATE `Order` SET ordStatus = %s WHERE ordID = %s"
+        cursor.execute(update_query, (new_status, order_id))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print("Order status updated successfully.")
+        else:
+            print(f"No order found with ID {order_id}.")
+        conn.close()
+    else:
+        print("Error connecting to the database.")
+
+def delete_order():
+    # Prompt for the order ID to delete
+    order_id = input("Enter the order ID to delete: ")
+
+    # Perform deletion from the Order table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        delete_query = "DELETE FROM `Order` WHERE ordID = %s"
+        cursor.execute(delete_query, (order_id,))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print("Order deleted successfully.")
+        else:
+            print(f"No order found with ID {order_id}.")
+        conn.close()
+    else:
+        print("Error connecting to the database.")
 def manage_customers():
-    pass
+    print("Customer Management:")
+    print("1. View Customers")
+    print("2. Update Customer Information")
+    print("3. Delete Customer")
+    print("4. Back to Admin Menu")
+
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        view_customers()
+    elif choice == '2':
+        update_customer()
+    elif choice == '3':
+        delete_customer()
+    elif choice == '4':
+        admin_menu()  # Assuming admin_menu() is defined elsewhere
+    else:
+        print("Invalid choice. Please try again.")
+        manage_customers()
+
+def view_customers():
+    # Retrieve and display customer information from the database
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM User WHERE usrType = 'customer'"
+        cursor.execute(query)
+        customers = cursor.fetchall()
+        if customers:
+            print("Customer Information:")
+            for customer in customers:
+                print(f"ID: {customer[0]}, Name: {customer[1]}, Email: {customer[2]}, Mobile Number: {customer[6]}")
+        else:
+            print("No customers found.")
+        conn.close()
+
+def update_customer():
+    # Prompt for the customer ID to update
+    customer_id = input("Enter the customer ID to update: ")
+
+    # Fetch existing customer details from the database
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM User WHERE usrType = 'customer' AND usrID = %s"
+        cursor.execute(query, (customer_id,))
+        customer = cursor.fetchone()
+        conn.close()
+
+        if customer:
+            print("Existing Customer Details:")
+            print("1. Name:", customer[1])
+            print("2. Email:", customer[2])
+            print("3. Mobile Number:", customer[6])
+
+            # Prompt for updated information
+            new_name = input("Enter new name (or press Enter to keep the same): ")
+            new_email = input("Enter new email (or press Enter to keep the same): ")
+            new_mobile_number = input("Enter new mobile number (or press Enter to keep the same): ")
+
+            # Perform the update if any field is modified
+            if any([new_name, new_email, new_mobile_number]):
+                conn = connect_to_database()
+                if conn:
+                    cursor = conn.cursor()
+                    update_query = """
+                        UPDATE User
+                        SET usrName = %s, usrEmail = %s, usrMobNumber = %s
+                        WHERE usrID = %s
+                    """
+                    update_values = (new_name, new_email, new_mobile_number, customer_id)
+                    cursor.execute(update_query, update_values)
+                    conn.commit()
+                    print("Customer information updated successfully.")
+                    conn.close()
+            else:
+                print("No changes made.")
+        else:
+            print(f"Customer with ID {customer_id} not found.")
+    else:
+        print("Error connecting to the database.")
+
+def delete_customer():
+    # Prompt for the customer ID to delete
+    customer_id = input("Enter the customer ID to delete: ")
+
+    # Perform deletion from the User table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        delete_query = "DELETE FROM User WHERE usrID = %s AND usrType = 'customer'"
+        cursor.execute(delete_query, (customer_id,))
+        conn.commit()
+        if cursor.rowcount > 0:
+            print("Customer deleted successfully.")
+        else:
+            print(f"No customer found with ID {customer_id}.")
+        conn.close()
+    else:
+        print("Error connecting to the database.")
 
 def manage_categories():
-    pass
+    print("Category Management:")
+    print("1. View Categories")
+    print("2. Add New Category")
+    print("3. Update Category")
+    print("4. Delete Category")
+    print("5. Back to Admin Menu")
+
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        view_categories()
+    elif choice == '2':
+        add_category()
+    elif choice == '3':
+        update_category()
+    elif choice == '4':
+        delete_category()
+    elif choice == '5':
+        admin_menu()  # Assuming admin_menu() is defined elsewhere
+    else:
+        print("Invalid choice. Please try again.")
+        manage_categories()
+
+def view_categories():
+    # Retrieve and display category information from the database
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT * FROM Category"
+        cursor.execute(query)
+        categories = cursor.fetchall()
+        if categories:
+            print("Categories:")
+            for category in categories:
+                print(f"ID: {category[0]}, Name: {category[1]}")
+        else:
+            print("No categories found.")
+        conn.close()
+
+def add_category():
+    # Prompt for new category name
+    new_name = input("Enter the name of the new category: ")
+
+    # Insert new category into the Category table
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        insert_query = "INSERT INTO Category (catName) VALUES (%s)"
+        cursor.execute(insert_query, (new_name,))
+        conn.commit()
+        print("Category added successfully.")
+        conn.close()
+    else:
+        print("Error connecting to the database.")
+
+def update_category():
+    # Prompt for the category ID to update
+    category_id = input("Enter the category ID to update: ")
+
+    # Fetch existing category name from the database
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        query = "SELECT catName FROM Category WHERE catID = %s"
+        cursor.execute(query, (category_id,))
+        category_name = cursor.fetchone()
+        conn.close()
+
+        if category_name:
+            print(f"Existing Category Name: {category_name[0]}")
+
+            # Prompt for updated category name
+            new_name = input("Enter new category name: ")
+
+            # Perform the update
+            conn = connect_to_database()
+            if conn:
+                cursor = conn.cursor()
+                update_query = "UPDATE Category SET catName = %s WHERE catID = %s"
+                cursor.execute(update_query, (new_name, category_id))
+                conn.commit()
+                print("Category updated successfully.")
+                conn.close()
+        else:
+            print(f"No category found with ID {category_id}.")
+    else:
+        print("Error connecting to the database.")
+
+def delete_category():
+    # Prompt for the category ID to delete
+    category_id = input("Enter the category ID to delete: ")
+
+    # Check if the category exists before deletion
+    conn = connect_to_database()
+    if conn:
+        cursor = conn.cursor()
+        check_query = "SELECT catID FROM Category WHERE catID = %s"
+        cursor.execute(check_query, (category_id,))
+        existing_category = cursor.fetchone()
+        conn.close()
+
+        if existing_category:
+            # Perform deletion from the Category table
+            conn = connect_to_database()
+            if conn:
+                cursor = conn.cursor()
+                delete_query = "DELETE FROM Category WHERE catID = %s"
+                cursor.execute(delete_query, (category_id,))
+                conn.commit()
+                if cursor.rowcount > 0:
+                    print("Category deleted successfully.")
+                else:
+                    print(f"No category found with ID {category_id}.")
+                conn.close()
+        else:
+            print(f"No category found with ID {category_id}.")
+    else:
+        print("Error connecting to the database.")
+
+
+
+
 
 def view_sales_analytics():
     pass
@@ -221,10 +636,43 @@ def marketing_campaigns():
     pass
 
 def financial_management():
-    pass
+    print("Financial Management Menu:")
+    print("1. View Financial Reports")
+    print("2. Manage Expenses")
+    print("3. Handle Transactions")
+    print("4. Generate Invoices")
+    
+    choice = input("Enter your choice: ")
+    
+    if choice == '1':
+        view_financial_reports()
+    elif choice == '2':
+        manage_expenses()
+    elif choice == '3':
+        handle_transactions()
+    elif choice == '4':
+        generate_invoices()
+    else:
+        print("Invalid choice. Please try again.")
+
+def view_financial_reports():
+    # Placeholder for viewing financial reports
+    print("Viewing Financial Reports...")
+    
+def manage_expenses():
+    # Placeholder for managing expenses
+    print("Managing Expenses...")
+    
+def handle_transactions():
+    # Placeholder for handling transactions
+    print("Handling Transactions...")
+    
+def generate_invoices():
+    # Placeholder for generating invoices
+    print("Generating Invoices...")
 
 def businessman_logout():
-    pass
+    print("Logout successful.")
 
 # Main function to display menu and handle user choices
 def main():
