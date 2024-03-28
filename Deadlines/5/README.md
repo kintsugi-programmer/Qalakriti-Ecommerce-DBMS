@@ -1,5 +1,10 @@
 # Qalakriti - Handcrafted E-commerce Platform Using MySQL,Html,CSS,JS,Flask
 
+
+#Flask app is set to run in debug mode (debug=True).turn off at finalizing
+if __name__ == '__main__':
+    app.run(debug=True)
+
 ## Table of Contents
 - [Qalakriti - Handcrafted E-commerce Platform Using MySQL,Html,CSS,JS,Flask](#qalakriti---handcrafted-e-commerce-platform-using-mysqlhtmlcssjsflask)
   - [Table of Contents](#table-of-contents)
