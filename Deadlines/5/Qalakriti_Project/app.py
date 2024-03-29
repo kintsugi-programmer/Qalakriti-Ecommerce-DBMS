@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, Blueprint,render_template, redirect, url_for, request, session
 import pymysql
 
 app = Flask(__name__)
@@ -12,6 +12,10 @@ db_config = {
     'password': 'password',
     'database': 'Qalakriti'
 }
+# admin_blueprint = Blueprint('admin', __name__, url_prefix='/admin')
+# app.register_blueprint(admin_blueprint)
+# user_blueprint = Blueprint('user', __name__, url_prefix='/user')
+# app.register_blueprint(user_blueprint)
 
 def fetch_users():
     connection = pymysql.connect(**db_config)
@@ -130,6 +134,12 @@ def logout():
 
 
 # Define other routes...
+@app.route('/user/add_to_cart')
+def add_to_cart():
+    #hi
+    return
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
