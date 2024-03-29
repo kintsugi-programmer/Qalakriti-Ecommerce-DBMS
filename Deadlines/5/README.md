@@ -5,8 +5,18 @@
 if __name__ == '__main__':
     app.run(debug=True)
 
+
+
+
+# Sample CREATE USER 'kintsugi'@'localhost' IDENTIFIED BY 'nirankar';
+# after use FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON Qalakriti.* TO 'kintsugi'@'localhost';
+
+
 ## Table of Contents
 - [Qalakriti - Handcrafted E-commerce Platform Using MySQL,Html,CSS,JS,Flask](#qalakriti---handcrafted-e-commerce-platform-using-mysqlhtmlcssjsflask)
+- [Sample CREATE USER 'kintsugi'@'localhost' IDENTIFIED BY 'nirankar';](#sample-create-user-kintsugilocalhost-identified-by-nirankar)
+- [after use FLUSH PRIVILEGES;](#after-use-flush-privileges)
   - [Table of Contents](#table-of-contents)
 - [Qalakriti](#qalakriti)
   - [Webpages](#webpages)
