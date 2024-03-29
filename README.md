@@ -90,6 +90,7 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 │   │       ├── index.html
 │   │       └── product.html
 │   ├── Qalakriti.zip
+│   ├── sqlinux.sh
 │   ├── Rough.txt
 │   └── stuff.txt
 └── README.md
