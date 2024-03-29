@@ -1,22 +1,54 @@
 # Qalakriti - Handcrafted E-commerce Platform Using MySQL,Html,CSS,JS,Flask
 
+```
+kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS/Deadlines/5/Qalakriti_Project$ tree
+.
+├── app.py
+├── database.sql
+├── database.sql.txt
+├── requirements.txt
+├── rough.py
+├── sqlinux.sh
+├── static
+│   ├── css
+│   │   └── styles.css
+│   ├── img
+│   │   └── product1.jpg
+│   └── js
+│       └── script.js
+└── templates
+    ├── admin
+    │   ├── admin_dashboard.html
+    │   ├── admin_login.html
+    │   ├── order_management.html
+    │   └── product_management.html
+    ├── includes
+    │   ├── about.html
+    │   ├── footer.html
+    │   └── header.html
+    └── user
+        ├── cart.html
+        ├── checkout.html
+        ├── confirmation.html
+        ├── home.html
+        ├── login.html
+        ├── orders.html
+        ├── product.html
+        └── register.html
 
-#Flask app is set to run in debug mode (debug=True).turn off at finalizing
+8 directories, 24 files
+kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS/Deadlines/5/Qalakriti_Project$
+```
+Flask app is set to run in debug mode (debug=True).turn off at finalizing
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-# Sample CREATE USER 'kintsugi'@'localhost' IDENTIFIED BY 'nirankar';
-# after use FLUSH PRIVILEGES;
+Sample CREATE USER 'kintsugi'@'localhost' IDENTIFIED BY 'nirankar';
+after use FLUSH PRIVILEGES;
 GRANT ALL PRIVILEGES ON Qalakriti.* TO 'kintsugi'@'localhost';
 
 
 ## Table of Contents
 - [Qalakriti - Handcrafted E-commerce Platform Using MySQL,Html,CSS,JS,Flask](#qalakriti---handcrafted-e-commerce-platform-using-mysqlhtmlcssjsflask)
-- [Sample CREATE USER 'kintsugi'@'localhost' IDENTIFIED BY 'nirankar';](#sample-create-user-kintsugilocalhost-identified-by-nirankar)
-- [after use FLUSH PRIVILEGES;](#after-use-flush-privileges)
   - [Table of Contents](#table-of-contents)
 - [Qalakriti](#qalakriti)
   - [Webpages](#webpages)

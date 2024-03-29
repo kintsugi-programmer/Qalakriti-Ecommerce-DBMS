@@ -22,6 +22,7 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 │   │   └── 2022332_ 2022348_ 2022496 (1).pdf
 │   ├── 3
 │   │   ├── 2022332_ 2022348_ 2022496.txt
+│   │   ├── db.sql
 │   │   ├── Terminal Session SS
 │   │   │   ├── Screenshot from 2024-02-12 23-29-42.png
 │   │   │   ├── Screenshot from 2024-02-12 23-30-45.png
@@ -41,7 +42,10 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 │   │   ├── Qalakriti_Project
 │   │   │   ├── app.py
 │   │   │   ├── database.sql
+│   │   │   ├── database.sql.txt
 │   │   │   ├── requirements.txt
+│   │   │   ├── rough.py
+│   │   │   ├── sqlinux.sh
 │   │   │   ├── static
 │   │   │   │   ├── css
 │   │   │   │   │   └── styles.css
@@ -90,11 +94,13 @@ kintsugi-prog@kintsugiprog-tuf-machine:~/BaliGit/Qalakriti-Ecommerce-DBMS$ tree
 │   │       ├── index.html
 │   │       └── product.html
 │   ├── Qalakriti.zip
-│   ├── sqlinux.sh
 │   ├── Rough.txt
-│   └── stuff.txt
+│   ├── server.py
+│   ├── stuff.txt
+│   └── tutdummy1
 └── README.md
 
+25 directories, 67 files
 ```
 
 ## Table of Contents
