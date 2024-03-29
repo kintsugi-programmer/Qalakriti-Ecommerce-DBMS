@@ -8,23 +8,11 @@
             <div class="footer-section links">
                 <h2>Quick Links</h2>
                 <ul>
-                    <li><a href="{{ url_for('user.home') }}">Home</a></li>
-                    <li><a href="{{ url_for('user.about') }}">About</a></li>
-                    <li><a href="{{ url_for('user.contact') }}">Contact</a></li>
                     <!-- Add more links as needed -->
                 </ul>
             </div>
             <div class="footer-section contact-form">
                 <h2>Contact Us</h2>
-                <form action="{{ url_for('user.contact_submit') }}" method="POST">
-                    <input type="text" name="name" class="text-input contact-input" placeholder="Your Name">
-                    <input type="email" name="email" class="text-input contact-input" placeholder="Your Email">
-                    <textarea name="message" class="text-input contact-input" placeholder="Your Message"></textarea>
-                    <button type="submit" class="btn btn-big contact-btn">
-                        <i class="fas fa-envelope"></i>
-                        Send
-                    </button>
-                </form>
             </div>
         </div>
     </div>

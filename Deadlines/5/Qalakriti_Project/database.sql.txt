@@ -68,10 +68,12 @@ CREATE TABLE `Craftsman` (
   `craftMobNumber` bigint,
   `craftEmail` varchar(255) COLLATE utf8mb4_unicode_ci,
   `craftBusType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `craftPassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, -- Added password field
   
   PRIMARY KEY (`craftID`)
   
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 DROP TABLE IF EXISTS `Order`;
 
 CREATE TABLE `Order` (
@@ -151,15 +153,15 @@ INSERT INTO `Address` (`usrID`, `addrStreet`, `addrCity`, `addrState`, `addrZipC
 
 
 -- Craftsman Table
-INSERT INTO `Craftsman` (`craftName`, `craftMobNumber`, `craftEmail`, `craftBusType`) VALUES
-('Dheeraj', 1234567890, 'crafty@example.com', 'Flower Decor'),
-('Fabindia', 1111111111, 'fabindia@example.com', 'Textile'),
-('KhadiGran', 2222222222, 'khadigramindia@example.com', 'Textile'),
-('Jaypore', 3333333333, 'jaypore@example.com', 'Candles'),
-('JodhpurSpecial', 4444444444, 'jodhpurspl@example.com', 'Pottery'),
-('Anokhi', 5555555555, 'anokhi@example.com', 'Textile'),
-('Kala Drishti', 6666666666, 'kdrishti@example.com', 'Woodwork'),
-('Neerja', 7777777777, 'neerjaorg@example.com', 'Leather');
+INSERT INTO `Craftsman` (`craftName`, `craftMobNumber`, `craftEmail`, `craftBusType`, `craftPassword`) VALUES
+('Dheeraj', 1234567890, 'crafty@example.com', 'Flower Decor', 'password1'),
+('Fabindia', 1111111111, 'fabindia@example.com', 'Textile', 'password2'),
+('KhadiGran', 2222222222, 'khadigramindia@example.com', 'Textile', 'password3'),
+('Jaypore', 3333333333, 'jaypore@example.com', 'Candles', 'password4'),
+('JodhpurSpecial', 4444444444, 'jodhpurspl@example.com', 'Pottery', 'password5'),
+('Anokhi', 5555555555, 'anokhi@example.com', 'Textile', 'password6'),
+('Kala Drishti', 6666666666, 'kdrishti@example.com', 'Woodwork', 'password7'),
+('Neerja', 7777777777, 'neerjaorg@example.com', 'Leather', 'password8');
 
 
 -- Category Table

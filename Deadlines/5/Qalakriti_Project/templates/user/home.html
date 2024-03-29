@@ -9,15 +9,20 @@
 </head>
 <body>
     <!-- Include the common header -->
-    {% include 'includes/header.html' %}
+    <!-- {% include 'includes/header.html' %} -->
 
     <div class="container">
         <h1>Welcome to Qalakriti!</h1>
         <p>Bringing handcrafted excellence to your doorstep.</p>
+        <!-- Buttons for login -->
+        <div>
+            <a href="{{ url_for('admin_login') }}" class="login-button">Login as Admin</a>
+            <a href="{{ url_for('login') }}" class="login-button">Login as User</a>
+        </div>
         <!-- Add any additional content or sections for the home page -->
     </div>
 
     <!-- Include the common footer -->
-    {% include 'includes/footer.html' %}
+    <!-- {% include 'includes/footer.html' %} -->
 </body>
 </html>
