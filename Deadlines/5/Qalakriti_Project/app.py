@@ -139,7 +139,5 @@ def add_to_cart():
     #hi
     return
 
-
-
 if __name__ == '__main__':
     app.run(debug=True)
