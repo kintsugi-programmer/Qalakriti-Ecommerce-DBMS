@@ -6,10 +6,15 @@
     <title>Home</title>
     <!-- Include any necessary CSS files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Include the header CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
 </head>
 <body>
     <!-- Include the common header -->
-    <!-- {% include 'includes/header.html' %} -->
+    {% include 'includes/header.html' %}
+
+    <!-- Add space below the header for the container div -->
+    <div style="padding-top: 80px;"></div>
 
     <div class="container">
         <h1>Welcome to Qalakriti!</h1>
@@ -24,5 +29,6 @@
 
     <!-- Include the common footer -->
     {% include 'includes/footer.html' %}
+
 </body>
 </html>

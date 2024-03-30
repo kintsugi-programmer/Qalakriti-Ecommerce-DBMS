@@ -1,18 +1,16 @@
 <header class="header">
-    <div class="container">
+    <div class="containerr">
         <div class="logo">
-            <a href="{{ url_for('user_home') }}" class="logo">Qalakriti</a>
+            <a href="#" class="logo">Qalakriti</a>
         </div>
         <nav class="nav">
-            <a href="{{ url_for('user_home') }}">Home</a>
-            <a href="{{ url_for('user_products') }}">Products</a>
-            <a href="{{ url_for('user_about') }}">About</a>
-            <a href="{{ url_for('user_contact') }}">Contact</a>
-            <a href="{{ url_for('user_login') }}" class="login-button">Login</a>
-            <a href="{{ url_for('user_cart') }}" class="cart-button">Cart</a>
-
-
-
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#" class="login-button">Login</a>
+            <a href="#" class="cart-button">Cart</a>
         </nav>
     </div>
 </header>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
