@@ -60,14 +60,18 @@ def admin_dashboard():
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
+        count=0
         email = request.form['email']
         password = request.form['password']
         staff = fetch_staff()
         if email in staff and staff[email]['password'] == password:
             session['email'] = email
             return redirect(url_for('admin_dashboard'))
-        else:
+        elif count<=3:
+            count+=1
             return render_template('admin/admin_login.html', error='Invalid email or password')
+        else:
+            return render_template('admin/admin_login.html', error='Too many attempts.')
     return render_template('admin/admin_login.html')
 
 
@@ -139,5 +143,8 @@ def add_to_cart():
     #hi
     return
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
