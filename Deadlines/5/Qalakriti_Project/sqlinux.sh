@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# https://github.com/kintsugi-programmer/LinuxScripts?tab=readme-ov-file#script-4-sqlinux---a-bash-script-for-mysql-setup-on-linux
 # To Run:
 # chmod +x sqlinux.sh
 # ./sqlinux.sh
@@ -75,6 +76,28 @@ server_stop() {
     echo "MySQL Server Stopped"
 }
 
+mysql_session() {
+    echo "Entering MySQL Session. Type 'exit' to return to the menu."
+    sudo mysql -u root -p
+    echo "Returned to the MySQL Setup Menu."
+}
+
+#In Development
+mysql_schema() {
+    read -p "Enter database name: " database
+    echo "Schema of database '$database':"
+    sudo mysqlshow -u root -p $database
+}
+
+#In Development
+mysql_data() {
+    read -p "Enter database name: " database
+    echo "Data of database '$database':"
+    sudo mysql -u root -p -e "USE $database; SHOW TABLES;"
+    read -p "Enter table name to view data: " table_name
+    sudo mysql -u root -p -e "USE $database; SELECT * FROM $table_name;"
+}
+
 while true; do
     echo "MySQL Setup Menu"
     echo "1. Install MySQL"
@@ -85,7 +108,10 @@ while true; do
     echo "6. Execute SQL Script"
     echo "7. Start MySQL Server"
     echo "8. Stop MySQL Server"
-    echo "9. Exit"
+    echo "9. mysql> Session AS root"
+    echo "10. See all Scheme of Database"
+    echo "11. See all Data of Database"
+    echo "12. Exit"
     read -p "Enter your choice: " choice
     case $choice in
         1) install_mysql;;
@@ -96,7 +122,10 @@ while true; do
         6) sq_script;;
         7) server_start;;
         8) server_stop;;
-        9) echo "Exiting."; exit;;
+        9) mysql_session;;
+        10) mysql_schema;;
+        11) mysql_data;;
+        12) echo "Exiting."; exit;;
         *) echo "Invalid choice. Please enter a valid option.";;
     esac
 done
