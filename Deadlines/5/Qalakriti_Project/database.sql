@@ -212,9 +212,6 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 (3, 3, 4, 'Amazing Fragrance but not that long-lasting', '2024-02-04'),
 (4, 5, 5, 'Absolutely stunning necklace! Exceeded my expectations.', '2024-02-06');
 
-
-
-
 DELIMITER //
 
 CREATE TRIGGER block_user_after_three_attempts
@@ -228,11 +225,6 @@ BEGIN
 END;
 //
 
-DELIMITER ;
-
-
-DELIMITER //
-
 CREATE TRIGGER block_craftsman_after_three_attempts
 BEFORE UPDATE ON Craftsman
 FOR EACH ROW
@@ -244,5 +236,4 @@ BEGIN
 END;
 //
 
-DELIMITER ;
-
+DELIMITER ;
