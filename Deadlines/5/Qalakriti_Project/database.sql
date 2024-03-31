@@ -20,8 +20,11 @@ CREATE TABLE `User` (
   `usrType` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `usrRegDate` date NOT NULL,
   `usrMobNumber` bigint NOT NULL,
+  `usrStatus` ENUM('blocked', 'normal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'normal',
+  `usrFA` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`usrID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 DROP TABLE IF EXISTS `Address`;
 
@@ -69,6 +72,8 @@ CREATE TABLE `Craftsman` (
   `craftEmail` varchar(255) COLLATE utf8mb4_unicode_ci,
   `craftBusType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `craftPassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL, -- Added password field
+  `craftStatus` ENUM('blocked', 'normal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'normal',
+  `craftFA` int NOT NULL DEFAULT 0, -- Added field for false attempts
   
   PRIMARY KEY (`craftID`)
   
@@ -124,10 +129,10 @@ ALTER TABLE `Product`
   ADD FOREIGN KEY (`craftID`) REFERENCES `Craftsman`(`craftID`);
  
 -- Data
+-- Insert data into tables
 
 -- User Table
 INSERT INTO `User` (`usrName`, `usrEmail`, `usrPassword`, `usrType`, `usrRegDate`, `usrMobNumber`) VALUES
-('Siddhant Bali', 'siddhant22496@iiitd.ac.in', 'balinux', 'admin', '2020-01-01', 8076218888),
 ('Nishchay Yadav', 'nischay22332@iiitd.ac.in', 'nischay', 'customer', '2024-01-01', 1234123412),
 ('Pankhuri Singh', 'pankhuri22348@iiitd.ac.in', 'singh', 'customer', '2024-01-01', 1010101010),
 ('Mudit Bansal', 'mudit22300@iiitd.ac.in', 'bansal', 'customer', '2024-01-01',9999999999),
@@ -148,12 +153,12 @@ INSERT INTO `Address` (`usrID`, `addrStreet`, `addrCity`, `addrState`, `addrZipC
 (6, 'GH1', 'Govindpuri', 'Delhi', '110092'),
 (7, 'BH2', 'Govindpuri', 'Delhi', '110092'),
 (8, 'BH2', 'Govindpuri', 'Delhi', '110092'),
-(9, 'GH1', 'Govindpuri', 'Delhi', '110092'),
-(10, 'GH1', 'Govindpuri', 'Delhi', '110092');
+(9, 'GH1', 'Govindpuri', 'Delhi', '110092');
 
 
 -- Craftsman Table
 INSERT INTO `Craftsman` (`craftName`, `craftMobNumber`, `craftEmail`, `craftBusType`, `craftPassword`) VALUES
+('Siddhant Bali', 8076218888, 'siddhant22496@iiitd.ac.in', 'admin', 'balinux'),
 ('Dheeraj', 1234567890, 'crafty@example.com', 'Flower Decor', 'password1'),
 ('Fabindia', 1111111111, 'fabindia@example.com', 'Textile', 'password2'),
 ('KhadiGran', 2222222222, 'khadigramindia@example.com', 'Textile', 'password3'),
@@ -206,3 +211,38 @@ INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) V
 (2, 2, 4, 'Lovely vase,with great philosophy perfect for my living room.', '2024-02-04'),
 (3, 3, 4, 'Amazing Fragrance but not that long-lasting', '2024-02-04'),
 (4, 5, 5, 'Absolutely stunning necklace! Exceeded my expectations.', '2024-02-06');
+
+
+
+
+DELIMITER //
+
+CREATE TRIGGER block_user_after_three_attempts
+BEFORE UPDATE ON User
+FOR EACH ROW
+BEGIN
+    IF NEW.usrFA = 3 THEN
+        SET NEW.usrStatus = 'blocked';
+        SET NEW.usrFA = 0;
+    END IF;
+END;
+//
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER block_craftsman_after_three_attempts
+BEFORE UPDATE ON Craftsman
+FOR EACH ROW
+BEGIN
+    IF NEW.craftFA = 3 THEN
+        SET NEW.craftStatus = 'blocked';
+        SET NEW.craftFA = 0;
+    END IF;
+END;
+//
+
+DELIMITER ;
+

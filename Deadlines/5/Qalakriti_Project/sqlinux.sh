@@ -18,6 +18,7 @@ echo '
                 | $$                                      
                 | $$                                      
                 |__/
+
 SQLinux is a bash script designed to facilitate MySQL setup tasks on Linux systems.
 Made with ♥ by github.com/kintsugi-programmer/
 ' 

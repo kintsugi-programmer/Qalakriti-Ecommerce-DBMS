@@ -23,6 +23,9 @@
 
             <button type="submit">Login</button>
         </form>
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
         <p>Don't have an account? <a href="/register">Register</a></p>
     </div>
 

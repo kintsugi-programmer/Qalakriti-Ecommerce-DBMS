@@ -21,20 +21,21 @@ def fetch_users():
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor()
     users = {}
-    cursor.execute("SELECT usrEmail, usrPassword FROM `User`")  # Update column names
-    for email, password in cursor:
-        users[email] = {'password': password}
+    cursor.execute("SELECT usrEmail, usrPassword ,usrFA FROM User")  # Update column names
+    for email, password ,usrFA in cursor:
+        users[email] = {'password': password, 'usrFA': usrFA}
     cursor.close()
     connection.close()
     return users
+
 
 def fetch_staff():
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor()
     staff = {}
-    cursor.execute("SELECT craftEmail, craftPassword FROM Craftsman")
-    for email, password in cursor:
-        staff[email] = {'password': password}
+    cursor.execute("SELECT craftEmail, craftPassword ,craftFA FROM Craftsman")
+    for email, password ,craftFA in cursor:
+        staff[email] = {'password': password, 'craftFA': craftFA}
     cursor.close()
     connection.close()
     return staff
@@ -60,18 +61,21 @@ def admin_dashboard():
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
-        count=0
+        connection = pymysql.connect(**db_config)
+        cursor = connection.cursor()
         email = request.form['email']
         password = request.form['password']
         staff = fetch_staff()
-        if email in staff and staff[email]['password'] == password:
+        if email not in staff:
+            return render_template('admin/admin_login.html', error='Not a registered Craftartist. Please register first.')
+        elif email in staff and staff[email]['craftFA'] >= 3:
+            return render_template('admin/admin_login.html', error='Your account is blocked,as you exceed wrong attmepts. Please contact the administrator.')
+        elif email in staff and staff[email]['password'] == password:
             session['email'] = email
             return redirect(url_for('admin_dashboard'))
-        elif count<=3:
-            count+=1
-            return render_template('admin/admin_login.html', error='Invalid email or password')
         else:
-            return render_template('admin/admin_login.html', error='Too many attempts.')
+            return render_template('admin/admin_login.html', error='Invalid email or password')
+        
     return render_template('admin/admin_login.html')
 
 
@@ -104,16 +108,23 @@ def confirmation():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        connection = pymysql.connect(**db_config)
+        cursor = connection.cursor()
         email = request.form['email']
         password = request.form['password']
         users = fetch_users()
-
-        if email in users and users[email]['password'] == password:
+        if email not in users:
+            return render_template('user/login.html', error='Not a registered user. Please register first.')
+        elif email in users and users[email]['usrFA'] >= 3:
+            return render_template('user/login.html', error='Your account is blocked,as you exceed wrong attmepts. Please contact the administrator.')
+        elif email in users and users[email]['password'] == password:
             session['email'] = email
             return redirect(url_for('index'))
         else:
+            cursor.execute("UPDATE User SET usrFA=usrFA+1 WHERE usrEmail=%s", (email,))
             return render_template('user/login.html', error='Invalid email or password')
     return render_template('user/login.html')
+
 
 @app.route('/orders')
 def orders():
