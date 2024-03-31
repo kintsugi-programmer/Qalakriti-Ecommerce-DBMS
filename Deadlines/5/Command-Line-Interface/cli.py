@@ -1,10 +1,11 @@
 import mysql.connector
+from mysql.connector import Error  
 from decimal import Decimal
 
 mydb= mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Pam99times@",
+    password=" ", # not in submission due to privacy reasons
     database="Qalakriti"
 )
 cursor = mydb.cursor()
@@ -13,8 +14,6 @@ cursor = mydb.cursor()
 def startpage_user():
 
     print("\n\033[1m\033[32mWelcome to Qalakriti\033[0m")
-    # print("\n\033[1m\033[34mWelcome to Qalakriti\033[0m")
-    # print("\n\033[1m\033[35mWelcome to Qalakriti\033[0m")
     print("1. Login")
     print("2. Register")
     print("3. Exit")
@@ -26,6 +25,7 @@ def startpage_user():
         register()
     else:
         print("Exiting")
+        begin()
 
 def register():
     print("\n\033[1m\033[32mRegister Page\033[0m")
@@ -37,7 +37,6 @@ def register():
     cursor.execute("INSERT INTO User (usrName, usrEmail, usrPassword, usrType, usrRegDate, usrMobNumber) VALUES (%s, %s, %s, %s, CURDATE(), %s)", (username, email, password, user_type, mobile))
     mydb.commit()
 
-    # i want to add the address too
     street = input("Enter your street: ")
     city = input("Enter your city: ")
     state = input("Enter your state: ")
@@ -67,7 +66,6 @@ def login():
         print("Login failed. User doesn't exist or email/password is incorrect. Please try again.")
         startpage_user()
 
-
 def homepage(user_id):
     print("\n\033[1m\033[32mHome Page\033[0m")
     print("Welcome to Qalakriti")
@@ -86,7 +84,7 @@ def homepage(user_id):
     else:
         startpage_user()
 
-# a fucntion that will only show the product selected and will allow y0ou to manipulate it like addd to orders , add review see stock or not etf 
+# a fucntion that will only show the product selected and will allow you to manipulate it like addd to orders , add review see stock or not etf 
 def deepview(user_id, product_id):
     cursor.execute("SELECT * FROM Product WHERE prodID = %s", (product_id,))
     product = cursor.fetchone()
@@ -120,6 +118,7 @@ def deepview(user_id, product_id):
         mydb.commit()
         print("Review added successfully!")
     
+    # functionality to remove a review 
     remove_review = input("Do you want to remove a review? (y/n): ")
     if remove_review == 'y':
         cursor.execute("SELECT * FROM Review WHERE usrID = %s AND prodID = %s", (user_id, product_id))
@@ -138,39 +137,41 @@ def deepview(user_id, product_id):
         
     quantity = int(input("Enter the quantity to buy (if none enter -1) : "))
     if quantity != -1:
-        # cursor.execute("INSERT INTO OrderItem (ordID, prodID, itemQty) VALUES (%s, %s, %s)", (user_id, product_id, quantity))
-        # mydb.commit()
-        # print("Product added to order successfully!")
         order_cart(user_id,product_id,quantity)
 
     homepage(user_id)
 
 def order_cart(user_id,prod_id,quantity):
     # what this fucntion does is , that it checks if a current order is processing and not confirmed and paid for yet, if it exists the order item gets ordered in that order else a new order is created and then the order item is added to that order
-    cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
-    order = cursor.fetchone()
-    if order:
-        order_id = order[0]
-        cursor.execute("SELECT prodPrice FROM Product WHERE prodID = %s", (prod_id,))
-        price = cursor.fetchone()[0]
-        subtotal = price * quantity
-        cursor.execute("INSERT INTO OrderItem (ordID, prodID, itemQty, itemSubtotal) VALUES (%s, %s, %s, %s)", (order_id, prod_id, quantity, subtotal))
-        mydb.commit()
-        print("Product added to order successfully!")
+    try :
+        cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
+        order = cursor.fetchone()
+        if order:
+            order_id = order[0]
+            cursor.execute("SELECT prodPrice FROM Product WHERE prodID = %s", (prod_id,))
+            price = cursor.fetchone()[0]
+            subtotal = price * quantity
+            cursor.execute("INSERT INTO OrderItem (ordID, prodID, itemQty, itemSubtotal) VALUES (%s, %s, %s, %s)", (order_id, prod_id, quantity, subtotal))
+            mydb.commit()
+            print("Product added to order successfully!")
 
-    else:
-        cursor.execute("INSERT INTO `Order` (usrID, ordDate, ordTotalAmt, ordStatus, ordPlaced) VALUES (%s, CURDATE(), 0, 'pending', 'no')", (user_id,))
-        mydb.commit()
-        cursor.execute("SELECT LAST_INSERT_ID()")
-        order_id = cursor.fetchone()[0]
-        cursor.execute("SELECT prodPrice FROM Product WHERE prodID = %s", (prod_id,))
-        price = cursor.fetchone()[0]
-        subtotal = price * quantity
-        cursor.execute("INSERT INTO OrderItem (ordID, prodID, itemQty, itemSubtotal) VALUES (%s, %s, %s, %s)", (order_id, prod_id, quantity, subtotal))
-        mydb.commit()
-        print("Product added to order successfully!")
+        else:
+            cursor.execute("INSERT INTO `Order` (usrID, ordDate, ordTotalAmt, ordStatus, ordPlaced) VALUES (%s, CURDATE(), 0, 'pending', 'no')", (user_id,))
+            mydb.commit()
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            order_id = cursor.fetchone()[0]
+            cursor.execute("SELECT prodPrice FROM Product WHERE prodID = %s", (prod_id,))
+            price = cursor.fetchone()[0]
+            subtotal = price * quantity
+            cursor.execute("INSERT INTO OrderItem (ordID, prodID, itemQty, itemSubtotal) VALUES (%s, %s, %s, %s)", (order_id, prod_id, quantity, subtotal))
+            mydb.commit()
+            print("Product added to order successfully!")
+
+    except Error as e:
+        print("Error while adding product to order:", e)
     
 
+# a function for displaying the products that will take the craftsmen id and category id as parameters . one of them will be zero to showcase that i do not need to give products under that. then display all products and give an option to add them to an order
 def display_products(craft_id, cat_id, user_id):
     print("\n\033[1m\033[32mProducts\033[0m\n")
     if craft_id == 0  :
@@ -249,83 +250,160 @@ def craftsmen_page(user_id):
 
     homepage(user_id)
 
+def view_cart(user_id):
+    print("1.View Current Order Cart")
+    print("2. Place Order")
+    print("3. Go Back")
+    choice = int(input("Enter: "))
+    if choice == 1: #VIEWING ORDER
+        cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
+        order = cursor.fetchone()
+        if order:
+            cursor.execute("SELECT OrderItem.prodID, prodName, itemQty, itemSubtotal FROM OrderItem NATURAL JOIN Product WHERE ordID = %s", (order[0],))
+            order_items = cursor.fetchall()
+            print("Order Cart:")
+            total=0
+            for order_item in order_items:
+                total+=order_item[3]
+                print("Product ID:", order_item[0])
+                print("Product Name:", order_item[1])
+                print("Quantity:", order_item[2])
+                print("Price:", order_item[3])
+                print()
 
-def profile_page(user_id):
-    # Fetch user details
-    cursor.execute("SELECT * FROM User WHERE usrID = %s", (user_id,))
-    user = cursor.fetchone()
-    print("\n\033[1m\033[32mProfile Page\033[0m\n")
-    print("User ID:", user[0])
-    print("Username:", user[1])
-    print("Email:", user[2])
-    print("Password:", user[3])
-    print("User Type:", user[4])
-    print("Registration Date:", user[5])
-    print("Mobile Number:", user[6])
-    print()
+            print("Total Amount:",total)
+        else:
+            print("No items in the order cart.")
 
-    # add features to modify this
-
-    while True:
-        print("\n\033[1m\033[34mUser Menu\033[0m\n")
-        print("1. View Current Order Cart")
-        print("2. See Previous Orders")
-        print("3. See All Your Reviews")
-        print("4. Balance Deatils")
-        print("5. Go Back to Homepage")
-        choice = int(input("Enter your choice: "))
-        
-        if choice == 1:
-            print("1.View Current Order Cart")
-            print("2. Place Order")
-            print("3. Go Back")
-            choice = int(input("Enter: "))
-            if choice == 1: #VIEWING ORDER
-                cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
-                order = cursor.fetchone()
-                if order:
-                    cursor.execute("SELECT OrderItem.prodID, prodName, itemQty, itemSubtotal FROM OrderItem NATURAL JOIN Product WHERE ordID = %s", (order[0],))
-                    order_items = cursor.fetchall()
-                    print("Order Cart:")
-                    total=0
-                    for order_item in order_items:
-                        total+=order_item[3]
-                        print("Product ID:", order_item[0])
-                        print("Product Name:", order_item[1])
-                        print("Quantity:", order_item[2])
-                        print("Price:", order_item[3])
-                        print()
-
-                    print("Total Amount:",total)
-                else:
-                    print("No items in the order cart.")
-
-            elif choice == 2: # PLACING AND PAYMENT FOR ORDER
-                cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
-                order = cursor.fetchone()
-                if order:
-                    cursor.execute("SELECT SUM(itemSubtotal) FROM OrderItem WHERE ordID = %s", (order[0],))
-                    total_amt = cursor.fetchone()[0]
-                    cursor.execute("UPDATE `Order` SET ordTotalAmt = %s, ordPlaced = 'yes' WHERE ordID = %s", (total_amt, order[0]))
-                    mydb.commit()
-                    print("Order placed successfully!")
-                    
+    elif choice == 2: # PLACING AND PAYMENT FOR ORDER THIS IS HERE BALANCE TRIGGER WILL WORK
+        cursor.execute("SELECT * FROM `Order` WHERE usrID = %s AND ordPlaced = 'no'", (user_id,))
+        order = cursor.fetchone()
+        if order:
+                try: # trigger 1 working
                     # Deduct total amount from user's balance
                     cursor.execute("SELECT usrBalance FROM User WHERE usrID = %s", (user_id,))
                     usr_balance = cursor.fetchone()[0]
+
+                    cursor.execute("SELECT SUM(itemSubtotal) FROM OrderItem WHERE ordID = %s", (order[0],))
+                    total_amt = cursor.fetchone()[0]
                     new_balance = usr_balance - total_amt
+
                     cursor.execute("UPDATE User SET usrBalance = %s WHERE usrID = %s", (new_balance, user_id))
                     mydb.commit()
                     print("Total amount deducted from your balance.")
-                else:
-                    print("No items in the order cart.")
+                
+                    # Update the stock for each item in the order
+                    cursor.execute("SELECT prodID, itemQty FROM OrderItem WHERE ordID = %s", (order[0],))
+                    order_items = cursor.fetchall()
 
-            elif choice == 3:
-                profile_page(user_id)
-            else:
-                print("Invalid choice. Please try again.")
+                    for item in order_items:
+                        prod_id = item[0]
+                        item_qty = item[1]
+                        cursor.execute("UPDATE Product SET prodStock = (prodStock - %s) WHERE prodID = %s", (item_qty, prod_id))
+                    mydb.commit()
 
+                    #place order
+                    cursor.execute("UPDATE `Order` SET ordTotalAmt = %s, ordPlaced = 'yes' WHERE ordID = %s", (total_amt, order[0]))
+                    mydb.commit()
+                    print("Order placed successfully!")
+
+                except Error as e:
+                    print("An error occurred:", e)
+
+
+        else:
+            print("No items in the order cart.")
+
+    elif choice == 3:
+        profile_page(user_id)
+    else:
+        print("Invalid choice. Please try again.")
+    
+    profile_page(user_id)
+
+
+def mod_profile(user_id):
+    print("1. Change Username")
+    print("2. Change Email")
+    print("3. Change Password")
+    print("4. Change Mobile Number")
+    print("5. Change Address")
+    print("6. Go Back")
+    c3 = int(input("Enter your choice: "))
+    if c3 == 1:
+        new_username = input("Enter new username: ")
+        cursor.execute("UPDATE User SET usrName = %s WHERE usrID = %s", (new_username, user_id))
+        mydb.commit()
+        print("Username changed successfully!")
+    elif c3 == 2:
+        new_email = input("Enter new email: ")
+        cursor.execute("UPDATE User SET usrEmail = %s WHERE usrID = %s", (new_email, user_id))
+        mydb.commit()
+        print("Email changed successfully!")
+    elif c3 == 3:
+        new_password = input("Enter new password: ")
+        cursor.execute("UPDATE User SET usrPassword = %s WHERE usrID = %s", (new_password, user_id))
+        mydb.commit()
+        print("Password changed successfully!")
+    elif c3 == 4:
+        new_mobile = int(input("Enter new mobile number: "))
+        cursor.execute("UPDATE User SET usrMobNumber = %s WHERE usrID = %s", (new_mobile, user_id))
+        mydb.commit()
+        print("Mobile number changed successfully!")
+    elif c3 == 5:
+        new_street = input("Enter new street: ")
+        new_city = input("Enter new city: ")
+        new_state = input("Enter new state: ")
+        new_zipcode = input("Enter new zipcode: ")
+        cursor.execute("UPDATE Address SET addrStreet = %s, addrCity = %s, addrState = %s, addrZipCode = %s WHERE usrID = %s", (new_street, new_city, new_state, new_zipcode, user_id))
+        mydb.commit()
+        print("Address changed successfully!")
+    elif c3 == 6:
+        profile_page(user_id)
+
+
+def profile_page(user_id):
+    while True:
+        print("\n\033[1m\033[34mUser Menu\033[0m\n")
+        print("1. View and Modify Profile")
+        print("2. View Current Order Cart")
+        print("3. See Previous Orders")
+        print("4. See All Your Reviews")
+        print("5. Balance Details")
+        print("6. Go Back to Homepage")
+        choice = int(input("Enter your choice: "))
+
+        if choice==1:
+            # Fetch user details
+            # features to modify this data
+            cursor.execute("SELECT * FROM User WHERE usrID = %s", (user_id,))
+            user = cursor.fetchone()
+            print("\n\033[1m\033[32mProfile Page\033[0m\n")
+            print("User ID:", user[0])
+            print("Username:", user[1])
+            print("Email:", user[2])
+            print("Password:", user[3])
+            print("User Type:", user[4])
+            print("Registration Date:", user[5])
+            print("Mobile Number:", user[6])
+            # add adress associated with the user also
+            cursor.execute("SELECT * FROM Address WHERE usrID = %s", (user_id,))
+            address = cursor.fetchone()
+            print("Address:")
+            print("Street:", address[1])
+            print("City:", address[2])
+            print("State:", address[3])
+            print("Zipcode:", address[4])
+            print()
+
+            c2=input("Do you want to modify your profile? (y/n)")
+            if c2=='y':
+                mod_profile(user_id)
+                
         elif choice == 2:
+            view_cart(user_id)
+
+        elif choice == 3:
             # Fetch orders for the user
             cursor.execute("SELECT * FROM `Order` WHERE usrID = %s", (user_id,))
             orders = cursor.fetchall()
@@ -338,7 +416,7 @@ def profile_page(user_id):
                 print("Order Placed:", order[4])
                 print()
           
-        elif choice == 3:
+        elif choice == 4:
             # Fetch reviews given by the user
             cursor.execute("SELECT Review.prodID, prodName, revRating, revComment, revDate FROM Review NATURAL JOIN Product WHERE usrID = %s", (user_id,))
             reviews = cursor.fetchall()
@@ -351,7 +429,7 @@ def profile_page(user_id):
                 print("Comment:", review[3])
                 print()
         
-        elif choice == 4: # balance details
+        elif choice == 5: # balance details
             print("\n\033[1m\033[32mBalance\033[0m")
             print("1. View Balance")
             print("2. Add Balance")
@@ -374,16 +452,11 @@ def profile_page(user_id):
                 print("New Balance:", new_balance)
 
 
-        elif choice == 5:
+        elif choice == 6:
             homepage(user_id)
         else:
             print("Invalid choice. Please try again.")
 
-    
-    # define a trigger that checks if the balance goes to negative and stops the purchase
-
-    # define a trigger that checks if the order is placed and then updates the stock of the product
-    
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def startpage_seller():
@@ -399,6 +472,7 @@ def startpage_seller():
         register_seller()
     else:
         print("Exiting")
+        begin()
 
 def register_seller(): 
     # register seller by inserting inro the craftsman table
@@ -412,8 +486,7 @@ def register_seller():
 
     print("Craftsman registered successfully!")
         
-def login_seller():
-
+def login_seller(): 
     print("\n\033[1m\033[32mLogin Page\033[0m")
     username = input("Enter your username: ")
     email = input("Enter your email: ")
@@ -463,13 +536,12 @@ def mod_product(craft_id):
     choice = int(input("Enter: "))
 
     if choice == 1:
-        # give direct instructions to add the product, ask for all necessary details and add it
         product_name = input("Enter product name: ")
         product_desc = input("Enter product description: ")
         product_price = Decimal(input("Enter product price: "))
         product_stock = int(input("Enter product stock: "))
 
-        # showcase all categories before asking for the id
+        # showcase all categories before asking for the id for UI reasons. think of a dropdown
         cursor.execute("SELECT * FROM Category")
         categories = cursor.fetchall()
         print("Categories:")
@@ -531,7 +603,7 @@ def deepview_seller(craft_id,prod_id):
     homepage_seller(craft_id)
 
 def view_orders(craft_id):
-    #This functions gives all the orderitems that are from the craftsmen. natural join the query with order to find out the details like which user and order id. i only want the orders that have been succesfully placed , i.e where ordPlaced is yes
+    #This functions gives all the orderitems that are from the craftsmen only for the orders that have been succesfully placed , i.e where ordPlaced is yes
     cursor.execute("SELECT OrderItem.prodID, prodName, itemQty, itemSubtotal, ordID, usrID FROM OrderItem NATURAL JOIN Product NATURAL JOIN `Order` WHERE craftID = %s AND ordPlaced = 'yes'", (craft_id,))
     order_items = cursor.fetchall()
     print("\n\033[1m\033[32mOrders\033[0m\n")
@@ -586,8 +658,8 @@ def startpage_admin():
         login_admin()
     else:
         print("Exiting")
+        begin()
         
-
 def login_admin():
     # there is only one system admin. they have a fixed password
     print("\n\033[1m\033[32mLogin Page\033[0m")
@@ -699,16 +771,18 @@ def view_products_admin():
     homepage_admin()
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def begin():
+    while(True):
+        print("1.Enter as User"+"\n2.Enter as Seller"+"\n3.Enter as Admin"+"\n4.Exit")
+        c1=int(input("Enter: "))  # starting the cli app
+        if c1==1:
+            startpage_user()
+        elif c1==2:
+            startpage_seller()
+        elif c1==3:
+            startpage_admin()
+        else:
+            print("Exiting")
+            exit()
 
-while(True):
-    print("1.Enter as User"+"\n2.Enter as Seller"+"\n3.Enter as Admin"+"\n4.Exit")
-    c1=int(input("Enter: "))  # starting the cli app
-    if c1==1:
-        startpage_user()
-    elif c1==2:
-        startpage_seller()
-    elif c1==3:
-        startpage_admin()
-    else:
-        print("Exiting")
-        exit()
+begin() # absolute start
