@@ -56,7 +56,7 @@ def fetch_staff():
 @app.route('/')
 def index():
     # Render the home page directly
-    return render_template('home.html')
+    return render_template('coverpage.html')
 
 @app.route('/craftsman/login', methods=['GET', 'POST'])
 def craftsman_login():
