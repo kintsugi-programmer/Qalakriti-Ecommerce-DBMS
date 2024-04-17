@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint,render_template, redirect, url_for, request, session
 import pymysql
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -13,12 +14,28 @@ db_config = {
     'database': 'Qalakriti'
 }
 
+# Configure SQLAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/Qalakriti'
+db = SQLAlchemy(app)
+# Define Product model
+class Product(db.Model):
+    __tablename__ = 'Product'
+    prodID = db.Column(db.Integer, primary_key=True)
+    prodName = db.Column(db.String(255), nullable=False)
+    prodDesc = db.Column(db.Text)
+    prodPrice = db.Column(db.Float, nullable=False)
+    prodStock = db.Column(db.Integer, nullable=False)
+    catID = db.Column(db.Integer)
+    craftID = db.Column(db.Integer)
+    prodCreateDate = db.Column(db.Date, nullable=False)
+
+
 def fetch_users():
     connection = pymysql.connect(**db_config)
     cursor = connection.cursor()
     users = {}
     cursor.execute("SELECT usrEmail, usrPassword FROM User")  # Update column names
-    for email, password ,usrFA in cursor:
+    for email, password in cursor:
         users[email] = {'password': password}
     cursor.close()
     connection.close()
@@ -125,8 +142,14 @@ def cn_dashboard():
 
 @app.route('/user/ur_dashboard')
 def ur_dashboard():
+    
+    products = Product.query.all()
+    for product in products:
+        # Construct the image URL using the product ID
+        product.image_url = url_for('static', filename=f'prod_images/{product.prodID}.jpg')
+    
     # Your view function logic here
-    return render_template('user/ur_dashboard.html')
+    return render_template('user/ur_dashboard.html', products=products)
 
 
 if __name__ == '__main__':
