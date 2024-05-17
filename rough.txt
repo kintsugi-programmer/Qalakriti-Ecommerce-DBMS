@@ -1,0 +1,369 @@
+app.py :
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+import mysql.connector
+app = Flask(__name__)
+
+cart=[]
+
+categories = [
+    {"name": "Kintsugi Vase", "url": "kintsugi_vase", "image": "image/Kintsugi_Vase.jpg"},
+    {"name": "Lavender Candles", "url": "lavender_candles", "image": "image/Lavender_Scented_Candles.jpg"},
+    {"name": "Diamond Necklace", "url": "diamond_necklace", "image": "image/Diamond_Necklace.jpg"},
+    {"name": "Craftland Chair", "url": "craftland_chair", "image": "image/Craftland_Chair.jpg"},
+    {"name": "Vintage Compass", "url": "vintage_compass", "image": "image/Vintage_Compass.jpg"},
+    {"name": "Aranmula Kannadi Mirror", "url": "aranmula_kannadi_mirror", "image": "image/Aranmula_Kannadi_Mirror.jpg"},
+    {"name": "Madhubani Painting Decor", "url": "madhubani_painting_decor", "image": "image/Madhubani_Painting_Decor.jpg"},
+    {"name": "Rajasthani Jewellery Box", "url": "rajasthani_jewellery_box", "image": "image/Rajasthani_Jewellery_Box.png"}
+]
+
+imgRoute={
+    'Kintsugi Vase':'image/Kintsugi_Vase.jpg',
+    'Lavender scented Candles':'image/Lavender_Scented_Candles.jpg',
+    'Diamond Necklace':'image/Diamond_Necklace.jpg',
+    'Craftland Chair':'image/Craftland_Chair.jpg',
+    'Vintage Compass':'image/Vintage_Compass.jpg',
+    'Aranmula Kannadi Mirror':'image/Aranmula_Kannadi_Mirror.jpg',
+    'Madhubani Painting Decor':'image/Madhubani_Painting_Decor.jpg',
+    'Rajasthani Jewellery box':'image/Rajasthani_Jewellery_Box.png'
+}
+
+db_config = {
+    'host': 'localhost',
+    'user': 'username',
+    'password': 'password',
+    'database': 'Qalakriti'
+}
+
+def connect_to_database():
+    try:
+        conn = mysql.connector.connect(**db_config)
+        print("Database connected successfully")
+        return conn
+    except mysql.connector.Error as err:
+        print("Error connecting to database:", err)
+        return None
+
+def check_user_exists(usrName):
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    sql = "SELECT * FROM login WHERE usrName = %s"
+    cursor.execute(sql, (usrName,))
+    usrName = cursor.fetchone()
+    cursor.close()  
+    conn.close()
+    return usrName
+
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+@app.route('/register', methods=['GET'])
+def registration_form():
+    return render_template("register.html")
+
+@app.route('/register', methods=['POST'])
+def register():
+    usrName = request.form['usrName']
+    usrEmail = request.form['usrEmail']
+    usrPassword = request.form['usrPassword']
+    usrMobNumber = request.form['usrMobNumber']
+    usrRegDate = request.form['usrRegDate']
+
+    if check_user_exists(usrName):
+        return render_template("register.html",error='User Name already exists. Please choose another User Name.')
+    
+    conn = connect_to_database()
+    cursor = conn.cursor()
+    print("working")
+
+    sql = "INSERT INTO User(usrName, usrEmail, usrPassword, usrMobNumber, usrRegDate) VALUES(%s, %s, %s, %s, %s)"
+    val = (usrName, usrEmail, usrPassword, usrMobNumber, usrRegDate)
+    cursor.execute(sql, val)
+    conn.commit()
+
+    sql = "INSERT INTO login (usrName, usrPassword) VALUES (%s, %s)"
+    val = (usrName, usrPassword)
+    cursor.execute(sql, val)
+    conn.commit()
+
+
+    cursor.close()
+    conn.close()
+
+    return render_template("register.html",error='Registration Successful. Please login to continue.')
+
+@app.route('/login',  methods=['GET'])
+def login_form():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST','PUT'])
+def login():
+    usrName = request.form['usrName']
+    password = request.form['password']
+    print("works")
+    user = check_user_exists(usrName)
+    if(user==None):
+        return render_template('login.html', error='Not a registered user. Please register first.')
+    print(user)
+    #user[1] is password
+    if(password!=user[1]):
+        conn=connect_to_database()
+        cur=conn.cursor()
+        cur.execute("UPDATE login SET login_attempt=login_attempt+1 WHERE usrName=%s",(usrName,))
+        conn.commit()
+        print(user)
+        if(user[3] == 'blocked'):
+            return redirect(url_for('blocked',usrName=usrName))
+        else:
+            return render_template('login.html', error='Not a registered user. Please register first.')
+    if user and user[1] == password and user[3] == 'allowed':
+        conn=connect_to_database()
+        cur=conn.cursor()
+        cur.execute("UPDATE login SET login_attempt=0 WHERE usrName=%s",(usrName,))
+        conn.commit()
+        return redirect(url_for('prod'))
+    else:
+        return render_template('login.html', error='Not a registered user. Please register first.')
+
+
+@app.route('/blocked/<usrName>',methods=['GET','PUT'])
+def blocked(usrName):
+    if(request.method == 'PUT'):
+        print("put is working")
+        conn=connect_to_database()
+        cur=conn.cursor()
+        cur.execute("UPDATE login SET status=%s WHERE usrName=%s",('allowed',usrName,))
+        n_string="select * from login where usrName=%s"
+        cur.execute(n_string,(usrName,))
+        print(cur.fetchone())
+        conn.commit()
+    return render_template('blocked.html', usrName=usrName)
+
+def enforce_password_policy(password):
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    return True, "Password meets the policy requirements"
+
+@app.route('/update_password', methods=['POST'])
+def update_password():
+    data = request.json
+    password = data.get('password')
+
+    is_valid, message = enforce_password_policy(password)
+
+    if is_valid:
+        # Update password in the database
+        # Add your database update logic here
+        return ({'success': True, 'message': 'Password updated successfully'})
+    else:
+        return ({'success': False, 'error':message})
+
+
+@app.route('/prod',methods=['GET'])
+def prod():  
+    return render_template('prod.html', categories=categories)
+
+
+getPrice="select price from Product where prodType=%s"
+
+@app.route('cart', methods=['POST'])
+def add_to_cart():
+    if request.method == 'POST':
+        product_name = request.form['product_name']
+        quantity = int(request.form['quantity'])
+        if quantity > 0:
+            conn = connect_to_database()
+            cur = conn.cursor()
+            cur.execute(getPrice, (product_name,))
+            price = cur.fetchone()
+            item = {
+                'name': product_name,
+                'price': float(price[0]),
+                'quantity': quantity
+            }
+            cart.append(item)
+            print(item)
+    return redirect(url_for(product_name.lower()))
+
+@app.route('prod/kintsugi_vase', methods=['GET', 'POST'])
+def kintsugi_vase():
+    return render_template('kintsugi_vase.html')
+
+@app.route('prod/lavender_candles', methods=['GET', 'POST'])
+def lavender_candles():
+    return render_template('lavender_candles.html')
+
+@app.route('prod/diamond_necklace', methods=['GET', 'POST'])
+def diamond_necklace():
+    return render_template('diamond_necklace.html')
+
+@app.route('prod/craftland_chair', methods=['GET', 'POST'])
+def craftland_chair():
+    return render_template('craftland_chair.html')
+
+@app.route('prod/vintage_compass', methods=['GET', 'POST'])
+def vintage_compass():
+    return render_template('vintage_compass.html')
+
+@app.route('prod/aranmula_kannadi_mirror', methods=['GET', 'POST'])
+def aranmula_kannadi_mirror():
+    return render_template('aranmula_kannadi_mirror.html')
+
+@app.route('prod/madhubani_painting_decor', methods=['GET', 'POST'])
+def madhubani_painting_decor():
+    return render_template('madhubani_painting_decor.html')
+
+@app.route('prod/rajasthani_jewellery_box', methods=['GET', 'POST'])
+def rajasthani_jewellery_box():
+    return render_template('rajasthani_jewellery_box.html')
+
+@app.route('/phone',methods=['GET','POST'])
+def phones():
+    if(request.method == 'POST'):
+        quantity = int(request.form['quantity'])
+        if quantity > 0:
+            conn=connect_to_database()
+            cur=conn.cursor()
+            cur.execute(getPrice,('phone',))
+            price = cur.fetchone()
+            item={
+                'name':'phone',
+                'price':float(price[0]),
+                'quantity': quantity
+            }
+            print(item)
+            cart.append(item)
+    return render_template('phone.html')
+
+@app.route('/headphone',methods=['GET','POST'])
+def headphones():
+    if(request.method == 'POST'):
+        quantity = int(request.form['quantity'])
+        if quantity > 0:
+            conn=connect_to_database()
+            cur=conn.cursor()
+            cur.execute(getPrice,('headphone',))
+            price = cur.fetchone()
+            item={
+                'name':'headphone',
+                'price':float(price[0]),
+                'quantity': quantity
+            }
+            print(item)
+            cart.append(item)             
+    return render_template('headphone.html')
+
+
+
+
+@app.route('/cart',methods=['GET', 'PUT'])
+def view_cart(cart=cart):
+    if(request.method == 'PUT'):
+        print("put is working")
+        cart_body=request.get_json()
+        query="UPDATE product SET stock=stock-%s WHERE prodType=%s "
+        conn = connect_to_database()
+        cursor=conn.cursor()
+        for item in cart_body:
+            print("in the loop")
+            cursor.execute(query,(item['quantity'],item['name']))
+            print("query executed")
+        conn.commit()
+        cart.clear()
+        return redirect(url_for('prod'))
+    return render_template('cart.html',cart=cart,imgRoute=imgRoute)
+
+if __name__ == '__main__':
+    app.run(debug=True,port=3000)
+
+db :
+DROP DATABASE IF EXISTS Qalakriti;
+CREATE DATABASE Qalakriti;
+USE Qalakriti;
+
+CREATE TABLE `User` (
+  `usrID` int NOT NULL AUTO_INCREMENT,
+  `usrName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrEmail` varchar(255) COLLATE utf8mb4_unicode_ci UNIQUE NOT NULL,
+  `usrPassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrRegDate` date NOT NULL,
+  `usrMobNumber` bigint NOT NULL,
+  PRIMARY KEY (`usrID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `User` (`usrName`, `usrEmail`, `usrPassword`, `usrRegDate`, `usrMobNumber`) VALUES
+('Siddhant Bali', 'siddhant22496@iiitd.ac.in', 'balinux', '2020-01-01', 8076218888),
+('Nishchay Yadav', 'nischay22332@iiitd.ac.in', 'nischay', '2024-01-01', 1234123412),
+('Pankhuri Singh', 'pankhuri22348@iiitd.ac.in', 'singh', '2024-01-01', 1010101010),
+('Mudit Bansal', 'mudit22300@iiitd.ac.in', 'bansal', '2024-01-01', 9999999999),
+('Somay Jalan', 'somay22301@iiitd.ac.in', 'jalan', '2024-01-01', 8888888888),
+('Chahat Ahuja', 'chahat22302@iiitd.ac.in', 'ahuja', '2024-01-01', 7777777777),
+('Kushagra Gupta', 'kushagra22303@iiitd.ac.in', 'gupta', '2024-01-01', 6666666666),
+('Rayyan Hussain', 'rayyan22304@iiitd.ac.in', 'hussain', '2024-01-01', 5555555555),
+('Vibhuti Malhotra', 'vibhuti22305@iiitd.ac.in', 'malhotra', '2024-01-01', 4444444444),
+('Shreya Kalra', 'shreya22306@iiitd.ac.in', 'kalra', '2024-01-01', 3333333333);
+
+CREATE TABLE IF NOT EXISTS login (
+    usrName VARCHAR(255) PRIMARY KEY,
+    usrPassword VARCHAR(255) NOT NULL,
+    login_attempt INT NOT NULL DEFAULT 0,
+    status VARCHAR(255) NOT NULL CHECK (status IN ('allowed', 'blocked')),
+    FOREIGN KEY (usrName) REFERENCES User(usrName));
+INSERT INTO login (usrName, usrPassword, login_attempt, status) VALUES 
+('Siddhant Bali', 'balinux', 0, 'allowed'),
+('Nishchay Yadav', 'nischay', 0, 'allowed'),
+('Pankhuri Singh', 'singh', 0, 'allowed'),
+('Mudit Bansal', 'bansal', 0, 'allowed'),
+('Somay Jalan', 'jalan', 0, 'allowed'),
+('Chahat Ahuja', 'ahuja', 0, 'allowed'),
+('Kushagra Gupta', 'gupta', 0, 'allowed'),
+('Rayyan Hussain', 'hussain', 0, 'allowed'),
+('Vibhuti Malhotra', 'malhotra', 0, 'allowed'),
+('Shreya Kalra', 'kalra', 0, 'allowed');
+
+
+CREATE TABLE IF NOT EXISTS Product (
+    prodType VARCHAR(100) PRIMARY KEY,
+    craftID CHAR(8) NOT NULL,
+    stock DOUBLE NOT NULL,
+    price INT NOT NULL DEFAULT 0);
+INSERT INTO Product (prodType, craftID, stock, price) VALUES
+    ('kintsugi_vase', 'm5N6oP7Q', 700, 599.99),
+    ('lavender_candles', 'R8sT9uVW', 707, 799.99),
+    ('diamond_necklace', 'XyZ1A2B3', 760, 9999.99),
+    ('craftland_chair', 'c4DE5fG6', 700, 2499.99),
+    ('vintage_compass', 'H7iJ8kL9', 703, 1999.99),
+    ('aranmula_kannadi_mirror', 'm0nOPqR1', 700, 3999.99),
+    ('madhubani_painting_decor', 'S2tU3vWx', 400, 1499.99),
+    ('rajasthani_jewellery_box', 'P2Q3r4S5', 700, 2999.99);
+
+file system : kintsugi@kintsugi-warrior:~/Documents/Final/Fin$ tree
+.
+├── app.py
+├── db.sql
+├── static
+│   └── image
+│       ├── Aranmula_Kannadi_Mirror.jpg
+│       ├── Craftland_Chair.jpg
+│       ├── Diamond_Necklace.jpg
+│       ├── Kintsugi_Vase.jpg
+│       ├── Lavender_Scented_Candles.jpg
+│       ├── Madhubani_Painting_Decor.jpg
+│       ├── Rajasthani_Jewellery_Box.png
+│       └── Vintage_Compass.jpg
+└── templates
+    ├── blocked.html
+    ├── cart.html
+    ├── home.html
+    ├── login.html
+    ├── prod
+    │   ├── _0_.html
+    │   ├── aranmula_kannadi_mirror.html
+    │   ├── craftland_chair.html
+    │   ├── diamond_necklace.html
+    │   ├── kintsugi_vase.html
+    │   ├── lavender_candles.html
+    │   ├── madhubani_painting_decor.html
+    │   ├── rajasthani_jewellery_box.html
+    │   └── vintage_compass.html
+    ├── prod.html
+    └── register.html

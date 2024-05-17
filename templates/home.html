@@ -6,20 +6,14 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="container">
-        <!-- Include the common header -->
-        <h1>Welcome to Qalakriti!</h1>
-        <p>Bringing handcrafted excellence to your doorstep.</p>
-        <!-- Buttons for login -->
-        <div>
-            <a href="/craftsman/login">Login as Craftsman</a>
-            <a href="/user/login">Login as User</a>
-            <a href="/craftsman/register">Register as Craftsman</a>
-            <a href="/user/register">Register as User</a>
-        </div>
-        <!-- Add any additional content or sections for the home page -->
-    </div>
-        <!-- Include the common footer -->
-
+    <h1>Welcome to Qalakriti</h1>
+    <p>Explore our wide range of unique products!</p>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('prod') }}">Shop Now</a></li>
+            <li><a href="{{ url_for('login_form') }}">Login</a></li>
+            <li><a href="{{ url_for('registration_form') }}">Register</a></li>
+        </ul>
+    </nav>
 </body>
 </html>

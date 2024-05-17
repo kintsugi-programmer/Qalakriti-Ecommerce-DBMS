@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <div>
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+        <p>Description: Add your description here.</p>
+        <p>Price: $XXX.XX</p>
+        <form method="POST" action="{{ url_for('add_to_cart') }}">
+            <input type="hidden" name="product_url" value="{{ product.url }}"> <!-- Add this line -->
+            <input type="hidden" name="product_name" value="{{ product.name }}">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="quantity-input" id="quantity" name="quantity" min="1" value="1">
+            <button type="button" onclick="decrementQuantity()">-</button>
+            <button type="button" onclick="incrementQuantity()">+</button>
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+</body>
+</html>

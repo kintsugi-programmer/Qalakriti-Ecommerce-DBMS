@@ -1,0 +1,11 @@
+    <!-- Include the common footer -->
+    {% include 'includes/footer.html' %}
+
+        <!-- Include the common header -->
+    {% include 'includes/header.html' %}
+
+
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Include the header CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">

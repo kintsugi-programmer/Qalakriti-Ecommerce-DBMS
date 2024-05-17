@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        /* Add your custom styles here */
+        /* This is just a basic example */
+        form {
+            margin: 0 auto;
+            width: 300px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form action="/register" method="POST">
+        <label for="usrName">Username:</label>
+        <input type="text" id="usrName" name="usrName" required>
+        <label for="usrEmail">Email:</label>
+        <input type="email" id="usrEmail" name="usrEmail" required>
+        <label for="usrPassword">Password:</label>
+        <input type="password" id="usrPassword" name="usrPassword" required>
+        <label for="usrMobNumber">Mobile Number:</label>
+        <input type="text" id="usrMobNumber" name="usrMobNumber" required>
+        <label for="usrRegDate">Registration Date:</label>
+        <input type="date" id="usrRegDate" name="usrRegDate" required>
+        <input type="submit" value="Register">
+    </form>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
