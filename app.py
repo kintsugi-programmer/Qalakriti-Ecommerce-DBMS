@@ -66,7 +66,7 @@ def check_user_exists(usrName):
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('coverpage.html')
 
 @app.route('/register', methods=['GET'])
 def registration_form():

@@ -1,83 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+    <script src="{{ url_for('static', filename='assets/js/color-modes.js')}}"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>QalaKriti - Home</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+    <link href="{{ url_for('static', filename='assets/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
+    
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
 
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+      body {
+        text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+        background-image: url("{{ url_for('static', filename='img_html/coverpage.png') }}");
+        background-size: cover;
+        background-position: center;
+      }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
+      }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: solid rgba(0, 0, 0, 0.15);
+        border-width: 1px 0;
+        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+      }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
 
-        button:hover {
-            background-color: #555;
-        }
+      .bi {
+        vertical-align: -0.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      /* Custom styles to reduce the space between the navbar and the body */
+      header.mb-auto {
+        margin-bottom: 0 !important;
+      }
+
+      main .container {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
     </style>
-</head>
-<body>
-    <h1>Checkout</h1>
-    <form method="POST">
-        <label for="full_name">Full Name</label>
-        <input type="text" id="full_name" name="full_name" required>
 
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" required>
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='coverpage.css') }}" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0"><img style="height: 50px" src="{{ url_for('static', filename='/img_html/qalalogo.png')}}"></h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Home</a>
+          </nav>
+        </div>
+      </header>
+    </div>
 
-        <label for="city">City</label>
-        <input type="text" id="city" name="city" required>
+    <!-- BODY -->
+    <main>
+      <div class="container col-xl-12 col-xxl-12 px-4 py-5 mt-1">
+        <div class="row align-items-center g-lg-5 py-5">
+          <div class="col-md-10 mx-auto col-lg-5">
+            <h2><center>Checkout</center></h2> <br>
+            <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" action="/login" method="POST">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name" required />
+                <label for="full_name">Full Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required />
+                <label for="address">Address</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="city" name="city" placeholder="City" required />
+                <label for="city">City</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="state" name="state" placeholder="State" required />
+                <label for="state">State</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code" required />
+                <label for="zip_code">Zip Code</label>
+              </div>
+              <div class="form-floating mb-3">
+                <select class="form-select" id="payment_method" name="payment_method" required>
+                  <option value="Credit Card">Credit Card</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                </select>
+                <label for="payment_method">Payment Method</label>
+              </div>
+              <button class="w-100 btn btn-lg btn-secondary" type="submit">Register</button>
+              <hr class="my-4" />
+              {% if error %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
 
-        <label for="state">State</label>
-        <input type="text" id="state" name="state" required>
-
-        <label for="zip_code">Zip Code</label>
-        <input type="text" id="zip_code" name="zip_code" required>
-
-        <label for="payment_method">Payment Method</label>
-        <select id="payment_method" name="payment_method" required>
-            <option value="Credit Card">Credit Card</option>
-            <option value="PayPal">PayPal</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-        </select>
-
-        <button type="submit">Place Order</button>
-    </form>
-</body>
+    <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+  </body>
 </html>
