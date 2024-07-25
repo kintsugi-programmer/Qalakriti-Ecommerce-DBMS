@@ -83,6 +83,27 @@ QalaKriti seamlessly integrates these elements to create a sophisticated e-comme
 - **Deployment**: Bash ,Apache2 Web server (configuration specifics may vary)
 
 ## Installation and Setup
+
+```
+.
+├── app.py                  # Main application script
+├── Archive                 # Archived files and project backups
+│   ├── 1, 2, 3, 4, 5       # Various archived project files
+│   ├── Backup_Project      # Backup files
+│   ├── Data                # SQL and data files
+│   └── imgs                # Images
+├── Cli.py                  # Command-line interface script
+├── db.sql                  # Database schema
+├── README.md               # Project documentation
+├── requirements.txt        # Python dependencies
+├── sqlinux.sh              # SQL-related shell script
+├── static                  # Static files (CSS, JS, images)
+│   ├── assets              # Asset files (e.g., logos)
+│   ├── img                 # Product images
+│   └── script.js           # JavaScript file
+├── templates               # HTML templates for the web application
+
+```
 1. **Create a Virtual Environment**:
    ```bash
    python3 -m venv myenv
