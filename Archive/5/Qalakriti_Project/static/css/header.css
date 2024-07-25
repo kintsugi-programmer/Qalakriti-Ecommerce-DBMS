@@ -1,0 +1,35 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: #000; /* Change the background color if needed */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px;
+    color: #fff; /* Change the font color if needed */
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav a {
+    font-size: 18px;
+    color: #fff; /* Change the font color if needed */
+    text-decoration: none;
+    margin-left: 20px; /* Adjust margin as needed */
+}
+.container {
+    margin-top: 100px; /* Adjust this value to match the height of your header */
+    padding: 50px; /* Adjust padding as needed */
+    background-color: #ffffff; /* Add a background color to the container for better visibility */
+}

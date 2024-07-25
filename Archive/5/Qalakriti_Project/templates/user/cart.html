@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Include the common header -->
+    {% include 'includes/header.html' %}
+
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <!-- Display cart items -->
+        {% if cart_items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product_name }}</td>
+                            <td>${{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ item.subtotal }}</td>
+                            <td><a href="{{ url_for('user.remove_from_cart', product_id=item.product_id) }}">Remove</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>Total: ${{ total }}</p>
+            <a href="{{ url_for('user.checkout') }}">Proceed to Checkout</a>
+        {% else %}
+            <p>Your shopping cart is empty.</p>
+        {% endif %}
+    </div>
+
+    <!-- Include the common footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>

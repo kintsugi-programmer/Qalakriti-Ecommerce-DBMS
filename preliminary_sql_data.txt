@@ -1,0 +1,392 @@
+
+-- Schema
+DROP DATABASE IF EXISTS Qalakriti;
+CREATE DATABASE Qalakriti;
+USE Qalakriti;
+
+DROP TABLE IF EXISTS `User`;
+
+CREATE TABLE `User` (
+  `usrID` int NOT NULL AUTO_INCREMENT,
+  `usrName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrEmail` varchar(255) COLLATE utf8mb4_unicode_ci UNIQUE NOT NULL,
+  `usrPassword` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrType` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usrRegDate` date NOT NULL,
+  `usrMobNumber` bigint NOT NULL,
+  `usrBalance` DECIMAL(8, 2) NOT NULL DEFAULT 500.00,
+  PRIMARY KEY (`usrID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `Address`;
+
+CREATE TABLE `Address` (
+    `addrID` INT NOT NULL AUTO_INCREMENT,
+    `usrID` INT NOT NULL,
+    `addrStreet` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `addrCity` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `addrState` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `addrZipCode` VARCHAR(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+    PRIMARY KEY (`addrID`),
+    FOREIGN KEY (usrID) REFERENCES `User`(usrID)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `Product`;
+
+CREATE TABLE `Product` (
+  `prodID` int NOT NULL AUTO_INCREMENT,
+  `prodName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prodDesc` text,
+  `prodPrice` decimal(10, 2) NOT NULL, 
+  `prodStock` int NOT NULL,
+  `catID` int,
+  `craftID` int,
+   `prodCreateDate` date NOT NULL,
+  
+  PRIMARY KEY (`prodID`)
+
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Category`;
+
+CREATE TABLE `Category` (
+  `catID` int NOT NULL AUTO_INCREMENT,
+  `catName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  
+  PRIMARY KEY (`catID`)
+
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Craftsman`;
+
+CREATE TABLE `Craftsman` (
+  `craftID` int NOT NULL AUTO_INCREMENT,
+  `craftName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `craftMobNumber` bigint,
+  `craftEmail` varchar(255) COLLATE utf8mb4_unicode_ci,
+  `craftBusType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `craftPass` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  
+  PRIMARY KEY (`craftID`)
+  
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `Order`;
+
+CREATE TABLE `Order` (
+    `ordID` INT NOT NULL AUTO_INCREMENT,
+    `usrID` INT NOT NULL,
+    `ordDate` DATE NOT NULL,
+    `ordTotalAmt` DECIMAL(10, 2) NOT NULL,
+    `ordPlaced` ENUM('yes', 'no') NOT NULL DEFAULT 'no',
+    `ordStatus` VARCHAR(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+    PRIMARY KEY (`ordID`),
+    FOREIGN KEY (usrID) REFERENCES `User`(usrID)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `OrderItem`;
+
+CREATE TABLE `OrderItem` (
+    `itemID` INT NOT NULL AUTO_INCREMENT,
+    `ordID` INT NOT NULL, 
+    `prodID` INT NOT NULL,
+    `itemQty` INT NOT NULL,
+    `itemSubtotal` DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (`itemID`),
+    FOREIGN KEY (ordID) REFERENCES `Order`(ordID),
+    FOREIGN KEY (prodID) REFERENCES `Product`(prodID)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `Review`;
+
+CREATE TABLE `Review` (
+    `revID` INT NOT NULL AUTO_INCREMENT,
+    `usrID` INT NOT NULL,
+    `prodID` INT NOT NULL,
+    `revRating` INT NOT NULL,
+    `revComment` VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `revDate` DATE NOT NULL,
+    PRIMARY KEY (`revID`),
+    FOREIGN KEY (usrID) REFERENCES `User`(usrID),
+    FOREIGN KEY (prodID) REFERENCES `Product`(prodID)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Rest of CREATE TABLE statements 
+
+-- Add foreign keys after creating all tables
+ALTER TABLE `Address` 
+  ADD FOREIGN KEY (`usrID`) REFERENCES `User`(`usrID`);
+
+ALTER TABLE `Product`
+  ADD FOREIGN KEY (`catID`) REFERENCES `Category`(`catID`),
+  ADD FOREIGN KEY (`craftID`) REFERENCES `Craftsman`(`craftID`);
+ 
+-- Data
+
+-- User Table
+INSERT INTO `User` (`usrName`, `usrEmail`, `usrPassword`, `usrType`, `usrRegDate`, `usrMobNumber`) VALUES
+('Siddhant Bali', 'siddhant22496@iiitd.ac.in', 'balinux', 'customer', '2020-01-01', 8076218888),
+('Nishchay Yadav', 'nischay22332@iiitd.ac.in', 'nischay', 'customer', '2024-01-01', 1234123412),
+('Pankhuri Singh', 'pankhuri22348@iiitd.ac.in', 'singh', 'customer', '2024-01-01', 1010101010),
+('Mudit Bansal', 'mudit22300@iiitd.ac.in', 'bansal', 'customer', '2024-01-01',9999999999),
+('Somay Jalan', 'somay22301@iiitd.ac.in', 'jalan', 'customer', '2024-01-01', 8888888888),
+('Chahat Ahuja', 'chahat22302@iiitd.ac.in', 'ahuja', 'customer', '2024-01-01',7777777777),
+('Kushagra Gupta', 'kushagra22302@iiitd.ac.in', 'gupta', 'customer', '2024-01-01', 6666666666),
+('John Doe', 'john.doe@example.com', 'password', 'customer', '2024-03-06', 1234567890),
+('Jane Smith', 'jane.smith@example.com', 'password123', 'customer', '2024-03-06', 9876543210),
+('Alice Johnson', 'alice.johnson@example.com', 'password456', 'customer', '2024-03-06', 5555555555),
+('Bob Brown', 'bob.brown@example.com', 'password789', 'customer', '2024-03-06', 1111111111),
+('Olivia Anderson', 'olivia.anderson@example.com', 'password789', 'customer', '2024-03-06', 3333333333),
+('James Garcia', 'james.garcia@example.com', 'passwordabc', 'customer', '2024-03-06', 2222222222),
+('Charlotte Hernandez', 'charlotte.hernandez@example.com', 'passwordxyz', 'customer', '2024-03-06', 4444444444);
+
+
+-- Address Table
+INSERT INTO `Address` (`usrID`, `addrStreet`, `addrCity`, `addrState`, `addrZipCode`) VALUES
+(1, 'BH1', 'Govindpuri', 'Delhi', '110092'),
+(2, 'BH2', 'Govindpuri', 'Delhi', '110092'),
+(3, 'GH1', 'Govindpuri', 'Delhi', '110092'),
+(4, 'BH1', 'Govindpuri', 'Delhi', '110092'),
+(5, 'BH2', 'Govindpuri', 'Delhi', '110092'),
+(6, 'GH1', 'Govindpuri', 'Delhi', '110092'),
+(7, 'BH2', 'Govindpuri', 'Delhi', '110092'),
+(8, '123 Main St', 'Springfield', 'IL', '62701'),
+(9, '456 Elm St', 'Springfield', 'IL', '62702'),
+(10, '789 Oak St', 'Springfield', 'IL', '62703'),
+(11, '101 Maple St', 'Springfield', 'IL', '62704'),
+(12, '111 Pine St', 'Springfield', 'IL', '62705'),
+(13, '222 Cedar St', 'Springfield', 'IL', '62706'),
+(14, '333 Walnut St', 'Springfield', 'IL', '62707');
+
+
+-- Craftsman Table
+INSERT INTO `Craftsman` (`craftName`, `craftMobNumber`, `craftEmail`, `craftBusType`,`craftPass`) VALUES
+('Dheeraj', 1234567890, 'crafty@example.com', 'Flower Decor','dhe'),
+('Fabindia', 1111111111, 'fabindia@example.com', 'Textile','fab'),
+('Jaypore', 3333333333, 'jaypore@example.com', 'Candles','jay'),
+('KhadiGram', 2222222222, 'khadigramindia@example.com', 'Textile','kha'),
+('JodhpurSpecial', 4444444444, 'jodhpurspl@example.com', 'Pottery','jod');
+
+
+-- Category Table
+INSERT INTO `Category` (`catName`) VALUES
+('Woodwork'),
+('Flower Decor'),
+('Textile'),
+('Resin Art'),
+('Candles'),
+('Pottery'),
+('Metalwork'),
+('Glass Art'),
+('Jewelery'),
+('Leatherwork'),
+('Paper Craft'),
+('Sculpture'),
+('Calligraphy'),
+('Digital Art'),
+('Photography'),
+('Printmaking'),
+('Engraving'),
+('Ceramics');
+
+-- Product Table
+INSERT INTO `Product` (`prodName`, `prodDesc`, `prodPrice`, `prodStock`, `catID`, `craftID`, `prodCreateDate`) VALUES
+('Wood Chair', 'Antique Oak Wood Chair From Chennai.', 100, 100, 1, 1, '2022-01-01'),
+('Kintsugi Clay Vase', 'Handcrafted vase made of clay from Rajasthan.', 49.99, 50, 2, 2, '2023-01-02'),
+('Lavender scented Candles', 'Set of 2 lavender scented candles from Kashmir', 250, 20, 5, 3, '2022-01-03'),
+('Khadi tote bag', 'Tote bag woven with love by KhadiGramIndia', 149, 50, 4, 4, '2022-01-04'),
+('Metal Table', 'Handcrafted metal table', 199.99, 20, 1, 1, '2024-03-06'),
+('Glass Vase', 'Elegant glass vase', 79.99, 30, 2, 2, '2024-03-06'),
+('Silver Necklace', 'Beautiful silver necklace', 149.99, 25, 3, 3, '2024-03-06'),
+('Sculpture', 'Abstract sculpture', 299.99, 10, 6, 5, '2024-03-06'),
+('Ceramic Mug', 'Handcrafted ceramic mug', 14.99, 100, 15, 3, '2024-03-06');
+
+
+-- Order Table
+-- INSERT INTO `Order` (`usrID`, `ordDate`, `ordTotalAmt`, `ordStatus`) VALUES
+-- (1, '2024-02-01', 200.00, 'completed'),
+-- (2, '2024-02-02', 49.99, 'completed'),
+-- (3, '2024-03-03', 264.99, 'completed'),
+-- (4, '2024-02-04', 149.00, 'pending');
+
+-- OrderItem Table
+-- INSERT INTO `OrderItem` (`ordID`, `prodID`, `itemQty`, `itemSubtotal`) VALUES
+-- (1, 1, 1, 100.00),
+-- (1, 2, 1, 100.00),
+-- (1, 3, 1, 100.00),
+
+-- (2, 4, 1, 100.00),
+-- (2, 5, 1, 100.00),
+
+-- (3, 1, 1, 100.00),
+-- (3, 2, 1, 100.00),
+-- (3, 4, 1, 100.00),
+-- (3, 3, 1, 100.00);
+
+
+
+-- Review Table
+INSERT INTO `Review` (`usrID`, `prodID`, `revRating`, `revComment`, `revDate`) VALUES
+(1, 1, 5, 'Great chair, very comfortable and feeling royal !', '2024-02-03'),
+(2, 2, 4, 'Lovely vase,with great philosophy perfect for my living room.', '2024-02-04'),
+(8, 9, 5, 'Excellent quality mug, very satisfied with the purchase.', '2024-03-06'),
+(7, 3, 2, 'I hate this smell . Do not buy', '2024-03-01'),
+(9, 8, 4, 'Beautiful sculpture, adds a touch of elegance to my living room.', '2024-03-06'),
+(10, 7, 5, 'The necklace exceeded my expectations, highly recommend it.', '2024-03-06'),
+(3, 3, 4, 'Amazing Fragrance but not that long-lasting', '2024-02-04');
+
+DROP TRIGGER IF EXISTS check_usr_balance;
+DELIMITER $$
+CREATE TRIGGER check_usr_balance
+BEFORE UPDATE ON User
+FOR EACH ROW
+BEGIN
+    DECLARE new_balance DECIMAL(10, 2);
+    SET new_balance = NEW.usrBalance - (SELECT SUM(itemSubtotal) FROM OrderItem WHERE ordID IN (SELECT ordID FROM `Order` WHERE usrID = NEW.usrID AND ordPlaced = 'no'));
+    IF new_balance < 0.00 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient balance to complete the purchase. Please add money to your account';
+    END IF;
+END;
+$$
+DELIMITER ;
+
+
+
+
+-- -- queries
+-- SELECT *
+-- FROM Review
+-- NATURAL JOIN User u
+-- WHERE u.usrname='Pankhuri Singh';
+
+-- -- 1 . people who gave 4 star rating WORKSS
+-- SELECT prodName, usrName, revDate, revRating, revComment
+-- FROM Review 
+-- NATURAL JOIN User
+-- NATURAL JOIN Product
+-- WHERE Review.revRating = 4;
+
+-- -- 2.  number of orders vs avg rating WORKSS
+-- SELECT  Product.prodID, prodName, COUNT(OrderItem.prodID) AS OrderCount,  IFNULL((SELECT AVG(Review.revRating) FROM Review 
+-- WHERE Product.prodID = Review.prodID), 0) AS AvgRating
+-- FROM Product 
+-- LEFT JOIN OrderItem ON  Product.prodID = OrderItem.prodID
+-- LEFT JOIN Review  ON  Product.prodID = Review.prodID
+-- GROUP BY Product.prodID, prodName;
+
+
+-- -- 3. total shopping WORKKSS
+-- SELECT User.usrID, usrName, SUM(ordTotalAmt) AS TotalSpending
+-- FROM User 
+-- LEFT JOIN `Order` ON User.usrID = `Order`.usrID
+-- GROUP BY User.usrID, usrName
+-- ORDER BY TotalSpending DESC;
+
+-- -- 4. craftsman earning WORKSS
+-- SELECT Craftsman.craftID, craftName, SUM(itemSubtotal) AS TotalEarnings
+-- FROM Craftsman 
+-- NATURAL JOIN Product 
+-- NATURAL JOIN OrderItem 
+-- GROUP BY Craftsman.craftID, craftName
+-- ORDER BY TotalEarnings DESC;
+
+-- -- 5. all order info for pankhuri singh WORKS
+-- SELECT usrName AS UserName, `Order`.ordID AS OrderID, `Order`.ordStatus AS OrderStatus,
+--        prodName AS ProductName, itemSubtotal AS Price,
+--        revRating AS Rating, revComment AS Comment, revDate
+-- FROM User
+-- JOIN `Order` ON  User.usrID = `Order`.usrID
+-- JOIN OrderItem  ON `Order`.ordID = OrderItem.ordID
+-- JOIN Product ON OrderItem.prodID = Product.prodID
+-- LEFT JOIN Review ON OrderItem.prodID = Review.prodID AND User.usrID = Review.usrID
+-- WHERE usrName = 'Pankhuri Singh';
+
+-- -- 6. orders each month works
+-- SELECT  MONTHNAME(ordDate) AS Month, COUNT(*) AS TotalOrders
+-- FROM `Order`
+-- GROUP BY MONTHNAME(ordDate);
+
+-- -- 7. update address of a user
+-- UPDATE Address
+-- SET addrStreet = 'BH1'
+-- WHERE usrID = (SELECT usrID FROM `User` WHERE usrName = 'Nishchay Yadav') AND addrStreet = 'BH2';
+
+-- -- 8 what all craftmen give and the respective categories workkss
+-- SELECT Craftsman.craftID, craftName, Product.prodID, prodName, Category.catid, catName
+-- FROM Craftsman
+-- NATURAL JOIN Product
+-- NATURAL JOIN Category
+-- ORDER BY craftName;
+
+
+
+
+-- -- 9 . craftsmen product agg ratings best to worse workss
+-- SELECT Craftsman.craftID, craftName, AVG(result.avgRating) AS CraftsmanRating
+-- FROM Craftsman 
+-- NATURAL JOIN (
+--     SELECT Product.craftID, AVG(revRating) AS avgRating
+--     FROM Product 
+--     LEFT JOIN Review ON Product.prodID = Review .prodID
+--     GROUP BY Product.craftID
+-- ) AS result
+-- GROUP BY Craftsman.craftID, craftName
+-- ORDER BY CraftsmanRating DESC;
+
+-- -- 10. ship all items  works
+-- UPDATE `Order` 
+-- NATURAL JOIN (SELECT ordID FROM `Order` WHERE ordStatus = 'pending') AS result
+-- SET `Order` .ordStatus = 'completed';
+
+
+-- SELECT DISTINCT u.usrID, u.usrName
+-- FROM `User` u
+-- NATURAL JOIN `Order` o
+-- NATURAL JOIN (
+--     SELECT ordID
+--     FROM `OrderItem` 
+--     NATURAL JOIN `Product`
+--     WHERE prodID IN (1,2,3)
+-- ) AS sub;
+
+-- SELECT DISTINCT u.usrID, u.usrName
+-- FROM `User` u
+-- NATURAL JOIN `Order` o
+-- NATURAL JOIN (
+--     SELECT ordID
+--     FROM `OrderItem` 
+--     NATURAL JOIN `Product`
+--     WHERE prodID NOT IN (1,2,3)
+-- ) AS sub;
+
+-- -- Query to select users who ordered the specified products
+-- SELECT DISTINCT u.usrID, u.usrName
+-- FROM `User` u
+-- NATURAL JOIN `Order` o
+-- NATURAL JOIN (
+--     SELECT ordID
+--     FROM `OrderItem` 
+--     NATURAL JOIN `Product`
+--     WHERE prodID IN (1, 2, 3)
+-- ) AS sub1
+-- LEFT JOIN (
+--     SELECT ordID
+--     FROM `OrderItem` 
+--     NATURAL JOIN `Product`
+--     WHERE prodID NOT IN (1, 2, 3)
+-- ) AS sub2 ON sub1.ordID = sub2.ordID
+-- WHERE sub2.ordID IS NULL;
+
+
+
+
+
+-- SELECT  Product.prodID, prodName, COUNT(OrderItem.prodID) AS OrderCount,  IFNULL((SELECT AVG(Review.revRating) FROM Review 
+-- WHERE Product.prodID = Review.prodID), 0) AS AvgRating
+-- FROM Product 
+-- NATURAL JOIN OrderItem
+-- NATURAL JOIN Review 
+-- GROUP BY Product.prodID, prodName
+-- ORDER BY AvgRating
+-- LIMIT 2;
+
+
+
+

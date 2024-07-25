@@ -1,0 +1,1 @@
+@app.route('/css/footer.css')

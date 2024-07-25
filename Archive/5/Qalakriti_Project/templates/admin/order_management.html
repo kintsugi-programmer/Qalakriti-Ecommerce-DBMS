@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <!-- Include any necessary CSS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Include the common header -->
+    {% include 'includes/header.html' %}
+
+    <div class="container">
+        <h1>Order Management</h1>
+        <!-- Display a table of orders -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Date</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.ordID }}</td>
+                    <td>{{ order.usrID }}</td>
+                    <td>{{ order.ordDate }}</td>
+                    <td>{{ order.ordTotalAmt }}</td>
+                    <td>{{ order.ordStatus }}</td>
+                    <td>
+                        <a href="{{ url_for('admin.view_order', order_id=order.ordID) }}">View</a>
+                        <!-- Add more actions as needed, like edit or delete -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include the common footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>
