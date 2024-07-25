@@ -1,7 +1,3 @@
-Here's a revised `README.md` that includes a section about the toolkit you've provided, along with the updated information on the two products:
-
----
-
 # QalaKriti E-Commerce Platform
 
 ## Table of Contents
